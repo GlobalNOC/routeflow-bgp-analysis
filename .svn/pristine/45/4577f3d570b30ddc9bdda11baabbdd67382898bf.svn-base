@@ -1,0 +1,321 @@
+Date,ASN,Prefix,DataSentInMb,Events,Organization,PrefixesOwnedByAS
+2016-11-01,12989,81.171.103.x,97044,501,descr:          Eweka Internet Services VOIP backbone,79
+2016-11-01,2716,200.18.43.x,97044,0,descr:      Rede TCHE,28
+2016-11-01,1251,200.136.80.x,97044,13,descr:      ANSP,98
+2016-11-01,2715,146.164.26.x,97044,1432,descr:      Rede Rio,46
+2016-11-01,38,72.36.96.x,90676,7,descr:         University of Illinois at Urbana-Champaign,4
+2016-11-01,19226,139.229.22.x,86178,0,descr:      Terremark-Proxy for FIU,1
+2016-11-01,1916,200.129.140.x,86178,221,descr:      RNP,92
+2016-11-01,32934,66.220.152.x,86178,106,"descr:      Facebook, Inc.",89
+2016-11-01,45804,223.29.197.x,52386,422,descr:      MEGHBELA BROADBAND,157
+2016-11-01,3152,131.225.207.x,45338,0,descr:      Fermi National Accelerator Lab,5
+
+2016-11-02,1251,200.136.80.x,154304,577,descr:      ANSP,98
+2016-11-02,2715,152.92.103.x,94868,1916,descr:      Rede Rio,46
+2016-11-02,292,198.129.254.x,43668,14,descr:      PNL-ARM,12
+2016-11-02,10881,200.236.31.x,43668,38,descr:      Terremark-Proxy for FIU,6
+2016-11-02,28571,143.107.145.x,31230,294,descr:      Terremark-Proxy for FIU,37
+2016-11-02,3152,131.225.206.x,31230,22,descr:      Fermi National Accelerator Lab,5
+2016-11-02,16509,52.84.168.x,28206,15048,descr:      KINX-Amazon,8605
+
+2016-11-03,12714,23.219.88.x,96464,5602,descr:          TI route block,152
+2016-11-03,2715,152.92.103.x,90676,3035,descr:      Rede Rio,46
+2016-11-03,1916,200.143.208.x,90676,2587,descr:      RNP,92
+2016-11-03,53046,177.101.20.x,90676,2294,descr:      UEPG-IPv4-NETWORK,4
+2016-11-03,4511,131.94.110.x,90676,179,descr:      University of Miami (UMIA-Z),22
+2016-11-03,2716,200.19.252.x,90676,731,descr:      Rede TCHE,28
+2016-11-03,3314,148.6.8.x,76566,20,descr:          KFKI-NET,1
+2016-11-03,1251,200.19.92.x,57988,2512,descr:      ANSP,98
+2016-11-03,13522,200.192.112.x,57988,17,descr:      Pontificia Universidade Catolica do Parana,3
+2016-11-03,28571,143.107.96.x,57988,1264,descr:      Terremark-Proxy for FIU,37
+
+2016-11-04,20940,23.14.84.x,152076,83442,descr:      PACNET (proxy-registered route object),4327
+2016-11-04,28571,143.107.73.x,92918,2069,descr:      Terremark-Proxy for FIU,43
+2016-11-04,7552,171.246.219.x,92918,283106,descr:      contact vieteladm@vietel.com.vn if necessary,35774
+2016-11-04,16509,54.230.205.x,92918,60230,descr:      KINX-Amazon,8619
+2016-11-04,8075,65.55.44.x,86640,8055,descr:      MICROSOFT,1987
+2016-11-04,1251,200.136.80.x,86640,3736,descr:      ANSP,101
+2016-11-04,2715,139.82.74.x,86640,4383,descr:      Rede Rio,46
+2016-11-04,26347,173.236.195.x,86640,1063,descr:      PNAP-WDC002,2495
+2016-11-04,45899,14.164.2.x,86640,262755,descr:      Proxy-registered route object,58800
+2016-11-04,1916,200.143.255.x,74786,3955,descr:      RNP,92
+
+2016-11-05,1251,200.136.80.x,576840,3811,descr:      ANSP,101
+2016-11-05,10881,200.236.31.x,166266,38,descr:      Terremark-Proxy for FIU,6
+2016-11-05,28571,143.107.179.x,153464,2069,descr:      Terremark-Proxy for FIU,43
+2016-11-05,22822,69.164.26.x,78586,1891,descr:      Limelight Networks,2114
+2016-11-05,19200,143.54.145.x,76730,0,descr:      Universidade Federal do Rio Grande do Sul,1
+2016-11-05,1916,200.129.249.x,57426,3957,descr:      RNP,92
+2016-11-05,16509,52.87.16.x,57426,64370,descr:      KINX-Amazon,8619
+2016-11-05,11096,146.226.50.x,57426,179,descr:      FLR: Northwest Regional Data Center,174
+2016-11-05,2715,200.20.97.x,57426,4464,descr:      Rede Rio,46
+2016-11-06,28571,143.107.232.x,5075567,2410,descr:      Terremark-Proxy for FIU,43
+2016-11-06,10881,200.236.31.x,790027,38,descr:      Terremark-Proxy for FIU,6
+2016-11-06,1251,200.136.80.x,510194,3999,descr:      ANSP,101
+2016-11-06,20080,190.103.184.x,280988,9,descr:      AMPATH,15
+2016-11-06,28222,150.163.141.x,93661,0,descr:      Terremark-Proxy for FIU,1
+2016-11-06,2715,200.20.225.x,80073,4464,descr:      Rede Rio,46
+2016-11-06,15133,93.184.215.x,64544,2943,descr:      EdgeCast Networks Inc.,457
+2016-11-06,53166,186.217.240.x,63573,15,descr:      Terremark-Proxy for FIU,1
+2016-11-06,1916,147.65.2.x,60661,4057,descr:      RNP,92
+2016-11-06,194,128.117.181.x,60661,0,descr:      Boulder County Government,10
+
+2016-11-07,1251,200.136.80.x,88654,4392,descr:      ANSP,101
+2016-11-07,11096,200.145.240.x,87786,1902,descr:      FLR: Northwest Regional Data Center,174
+2016-11-07,45899,14.187.15.x,87786,767513,descr:      Proxy-registered route object,58800
+2016-11-07,19200,143.54.1.x,87786,4,descr:      Universidade Federal do Rio Grande do Sul,1
+2016-11-07,9009,185.120.144.x,87786,11721,descr:          LCPnet,230
+2016-11-07,28571,200.144.183.x,84634,3473,descr:      Terremark-Proxy for FIU,43
+2016-11-07,1916,200.137.81.x,84634,4532,descr:      RNP,92
+2016-11-07,714,17.253.13.x,68508,23983,descr:      Apple,906
+2016-11-07,7774,137.229.87.x,66380,5,descr:         University of Alaska,52
+2016-11-07,2715,152.92.160.x,45710,4574,descr:      Rede Rio,46
+
+2016-11-08,4511,131.94.186.x,167760,249,descr:      University of Miami (UMIA-Z),48
+2016-11-08,714,17.253.13.x,129960,27388,descr:      Apple,906
+2016-11-08,32934,157.240.0.x,121156,779,"descr:      Facebook, Inc.",89
+2016-11-08,19994,192.237.244.x,88974,102,"descr:      Rackspace Managed Hosting, 9725 Data point drive, Suite 100, San Antonio, TX 78229",101
+2016-11-08,194,128.117.181.x,83880,244,descr:      Boulder County Government,10
+2016-11-08,15169,216.58.192.x,83880,1715,descr:      Google,6760
+2016-11-08,263076,186.233.157.x,55408,39,descr:      Universidade Estadual de Maringá,1
+2016-11-08,1251,200.18.49.x,55408,5518,descr:      ANSP,101
+2016-11-08,1916,150.164.3.x,55408,7250,descr:      RNP,92
+2016-11-08,20080,190.103.184.x,50600,17,descr:      AMPATH,15
+
+2016-11-09,297,198.119.165.x,930778,26,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-09,1251,200.136.80.x,433796,5641,descr:      ANSP,101
+2016-11-09,28571,143.107.64.x,87650,3560,descr:      Terremark-Proxy for FIU,43
+2016-11-09,58085,37.255.236.x,87650,3140,descr:           TCE Route Object,41
+2016-11-09,292,198.129.254.x,87408,14,descr:      PNL-ARM,12
+2016-11-09,9829,59.98.103.x,87408,1506721,descr:      PACNET (proxy-registered route object),2712
+2016-11-09,2716,200.17.172.x,87408,3269,descr:      Rede TCHE,28
+2016-11-09,3223,150.162.141.x,87408,10443,descr:      voxility.net,1217
+2016-11-09,16509,52.8.223.x,71872,68871,descr:      KINX-Amazon,8619
+2016-11-09,11096,200.136.196.x,71872,2115,descr:      FLR: Northwest Regional Data Center,174
+
+2016-11-10,2715,200.20.247.x,177374,4887,descr:      Rede Rio,46
+2016-11-10,28571,143.107.252.x,95770,3840,descr:      Terremark-Proxy for FIU,43
+2016-11-10,20080,190.103.184.x,91684,45,descr:      AMPATH,15
+2016-11-10,32934,157.240.0.x,91684,1375,"descr:      Facebook, Inc.",89
+2016-11-10,11096,143.106.170.x,84628,2424,descr:      FLR: Northwest Regional Data Center,174
+2016-11-10,1251,200.136.80.x,78230,6480,descr:      ANSP,101
+2016-11-10,21320,62.40.106.x,39950,22,descr:          GEANT IAS VRF,2
+2016-11-10,70,130.14.250.x,28052,46,descr:         NLM.NIH.GOV maintainer,29
+2016-11-10,7774,137.229.87.x,17002,63,descr:         University of Alaska,52
+2016-11-10,7941,207.241.228.x,13838,11,descr:      proxy registration,2
+
+2016-11-11,10881,200.236.31.x,44329,703,descr:      Terremark-Proxy for FIU,6
+2016-11-11,2648,140.172.138.x,37284,16,descr:      National Institute of Standards and Technology (NIST),25
+2016-11-11,15169,173.194.143.x,31920,4936,descr:      Google,6760
+2016-11-11,28571,200.136.210.x,29217,6061,descr:      Terremark-Proxy for FIU,43
+2016-11-11,1251,150.163.68.x,29217,10017,descr:      ANSP,101
+2016-11-11,714,17.132.30.x,29217,33304,descr:      Apple,906
+2016-11-11,1754,131.169.98.x,5258,18,descr:          ZEHPNET,4
+2016-11-11,11096,146.201.68.x,4029,3325,descr:      FLR: Northwest Regional Data Center,174
+2016-11-11,6939,216.66.43.x,4029,3195,descr:              Hurricane Electric,57
+2016-11-11,553,129.143.116.x,1478,392,descr:          UNI-HOHENHEIM,43
+
+2016-11-12,1251,200.136.201.x,44330,10711,descr:      ANSP,101
+2016-11-12,19679,45.58.70.x,44330,161,"descr:      Dropbox, Inc.,  185 Berry St. Suite 400,  San Francisco, CA 94107",110
+2016-11-12,5650,47.188.44.x,44330,2274,descr:      Electric Lightwave Inc (ARIN OrgID: ELIX),292
+2016-11-12,297,198.119.165.x,35050,96,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-12,54113,23.235.33.x,32654,614,descr:      Fastly ARIN,346
+2016-11-12,7377,169.228.38.x,32654,41,descr:         Marine Physical Lab/UCSD,20
+2016-11-12,1754,131.169.191.x,32654,28,descr:          ZEHPNET,4
+2016-11-12,2715,146.164.6.x,29281,5547,descr:      Rede Rio,46
+2016-11-12,28571,143.107.148.x,29281,6170,descr:      Terremark-Proxy for FIU,43
+2016-11-12,10881,200.236.31.x,26487,769,descr:      Terremark-Proxy for FIU,6
+
+2016-11-13,21320,62.40.106.x,2582172,26,descr:          GEANT IAS VRF,2
+2016-11-13,297,198.119.165.x,1723770,97,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-13,2648,140.172.138.x,817494,16,descr:      National Institute of Standards and Technology (NIST),25
+2016-11-13,1251,200.136.80.x,123969,11253,descr:      ANSP,101
+2016-11-13,5607,90.214.6.x,40417,2,descr:          Dummy description for 91.103.34.0/24AS5607,27
+2016-11-13,28571,143.107.207.x,34256,6929,descr:      Terremark-Proxy for FIU,43
+2016-11-13,2715,200.20.23.x,23675,6360,descr:      Rede Rio,46
+2016-11-13,2875,159.93.225.x,16554,1,descr:          HEP-CIS,1
+2016-11-13,15169,216.58.219.x,13097,5684,descr:      Google,6760
+2016-11-13,47541,87.240.174.x,13097,0,descr:          VKONTAKTE SPb Net,8
+
+2016-11-14,2906,198.38.124.x,39747,1583,descr:      NETFLIX-NEW,37
+2016-11-14,297,198.118.195.x,39747,214,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-14,1916,150.164.141.x,21547,13266,descr:      RNP,92
+2016-11-14,19200,143.54.12.x,21547,17,descr:      Universidade Federal do Rio Grande do Sul,1
+2016-11-14,11096,64.56.95.x,21547,3896,descr:      FLR: Northwest Regional Data Center,174
+2016-11-14,55033,192.171.127.x,21547,5,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS,2
+2016-11-14,2715,152.92.84.x,21547,6483,descr:      Rede Rio,46
+2016-11-14,2648,140.172.138.x,8608,20,descr:      National Institute of Standards and Technology (NIST),25
+2016-11-14,553,134.34.124.x,4601,576,descr:          UNI-HOHENHEIM,43
+2016-11-14,21320,62.40.123.x,2693,64,descr:          GEANT IAS VRF,2
+
+2016-11-15,1251,200.136.63.x,46526,12129,descr:      ANSP,101
+2016-11-15,11096,200.145.46.x,46344,4181,descr:      FLR: Northwest Regional Data Center,174
+2016-11-15,3549,64.210.137.x,44331,15316,descr:      Asia Global Crossing,1823
+2016-11-15,19226,139.229.22.x,42822,876,descr:      Terremark-Proxy for FIU,1
+2016-11-15,28571,143.107.35.x,42822,8007,descr:      Terremark-Proxy for FIU,43
+2016-11-15,32934,31.13.73.x,31345,2698,"descr:      Facebook, Inc.",89
+2016-11-15,4766,175.194.53.x,29172,41051,descr:              KORnet operation Center,3820
+2016-11-15,10994,68.204.168.x,29172,221,descr:      RR-Route,338
+2016-11-15,19169,200.93.227.x,25556,687,descr:      TELCONET,5172
+2016-11-15,1916,200.238.221.x,25556,14179,descr:      RNP,92
+
+2016-11-16,7922,73.139.239.x,39132,894,"descr:      Comcast Cable Communications, Inc.",496
+2016-11-16,5639,64.28.140.x,39132,8765,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS,20
+2016-11-16,714,17.253.13.x,33662,46223,descr:      Apple,906
+2016-11-16,10881,200.236.31.x,31733,781,descr:      Terremark-Proxy for FIU,6
+2016-11-16,53166,186.217.248.x,26197,44,descr:      Terremark-Proxy for FIU,1
+2016-11-16,3223,191.52.26.x,26197,14108,descr:      voxility.net,1216
+2016-11-16,36351,169.53.250.x,26197,23548,descr:      PNAP-LAX softlayerexempt,3643
+2016-11-16,11096,200.145.102.x,26197,4412,descr:      FLR: Northwest Regional Data Center,174
+2016-11-16,29017,193.235.203.x,14343,1707,descr:          GYRON-AGG Gyron Internet Ltd AS29017,40
+2016-11-16,5786,136.145.59.x,11007,7189,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS,184
+
+2016-11-17,297,198.119.165.x,286689,273,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-17,714,17.253.13.x,58666,60194,descr:      Apple,906
+2016-11-17,15169,216.58.219.x,50322,12620,descr:      Google,6760
+2016-11-17,4511,131.94.143.x,36049,430,descr:      University of Miami (UMIA-Z),48
+2016-11-17,5089,82.21.14.x,36049,2937,descr:          NTL-UK-IP-BLOCK-3,434
+2016-11-17,1251,200.19.92.x,23367,13115,descr:      ANSP,101
+2016-11-17,8100,96.47.227.x,23367,4797,descr:      Frontier GlobalCenter Subnet 206.115.86.0/24,435
+2016-11-17,263076,186.233.157.x,23366,84,descr:      Universidade Estadual de Maringá,1
+2016-11-17,59,144.92.181.x,22617,264,descr:         Proxy-registered route object,9
+2016-11-17,21320,62.40.106.x,21026,102,descr:          GEANT IAS VRF,2
+
+2016-11-18,559,148.187.64.x,6968406,3459,descr:          SWITCH-AGGR.10,142
+2016-11-18,203819,131.176.236.x,2325515,32,descr:          EO Network,4
+2016-11-18,297,198.119.165.x,1260055,573,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-18,160,192.170.230.x,828442,24,descr:      University of Chicago,4
+2016-11-18,19905,192.41.236.x,488370,7007,descr:      NeuStar 156.154.161.0/24,6409
+2016-11-18,7029,129.93.239.x,416832,16944,descr:      Proxy-registered route object,6643
+2016-11-18,70,2607:f220:041e:0250:x:x:x:x,391234,5378,descr:         NLM.NIH.GOV maintainer,29
+2016-11-18,3314,148.6.8.x,358052,28,descr:          KFKI-NET,1
+2016-11-18,680,194.94.44.x,327580,4175,descr:          FHAC-LAN,440
+2016-11-18,11096,128.227.221.x,317775,4685,descr:      FLR: Northwest Regional Data Center,174
+
+2016-11-19,559,148.187.64.x,427390,6784,descr:          SWITCH-AGGR.10,142
+2016-11-19,203819,131.176.236.x,300511,95,descr:          EO Network,4
+2016-11-19,297,198.119.165.x,256246,744,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-19,59,128.104.255.x,228094,432,descr:         Proxy-registered route object,9
+2016-11-19,1251,200.136.80.x,119657,14279,descr:      ANSP,101
+2016-11-19,160,192.170.230.x,101217,135,descr:      University of Chicago,4
+2016-11-19,70,2607:f220:041e:0250:x:x:x:x,80237,5979,descr:         NLM.NIH.GOV maintainer,29
+2016-11-19,10881,200.236.31.x,67821,877,descr:      Terremark-Proxy for FIU,6
+2016-11-19,766,150.244.244.x,63679,819,descr:          UPM,36
+2016-11-19,18515,129.107.255.x,56496,19,descr:              University of Texas at Arlington,1
+
+2016-11-20,203819,131.176.236.x,338827,156,descr:          EO Network,4
+2016-11-20,1852,169.228.131.x,188335,8,descr:         UC Wide Area Network Services,17
+2016-11-20,17153,146.88.1.x,124533,33,descr:      New Mexico Institute of Mining and Technology,7
+2016-11-20,559,148.187.64.x,118382,9613,descr:          SWITCH-AGGR.10,142
+2016-11-20,1706,128.196.248.x,102882,683,descr:      Carpathia is proxy registering this route for our customer,57
+2016-11-20,160,192.170.227.x,87591,271,descr:      University of Chicago,4
+2016-11-20,70,2607:f220:041e:0250:x:x:x:x,85970,6755,descr:         NLM.NIH.GOV maintainer,29
+2016-11-20,680,194.94.136.x,44898,11374,descr:          FHAC-LAN,440
+2016-11-20,2602,158.64.79.x,40533,35,descr:          CU-NET,6
+2016-11-20,47610,134.61.24.x,37650,184,descr:          FHG-NET-192-102-148,8
+
+2016-11-21,559,148.187.64.x,1128569,11604,descr:          SWITCH-AGGR.10,142
+2016-11-21,203819,131.176.236.x,753202,191,descr:          EO Network,4
+2016-11-21,1852,169.228.131.x,390489,36,descr:         UC Wide Area Network Services,17
+2016-11-21,70,130.14.250.x,272041,7046,descr:         NLM.NIH.GOV maintainer,29
+2016-11-21,160,192.170.230.x,247950,374,descr:      University of Chicago,4
+2016-11-21,1754,131.169.191.x,196113,64,descr:          ZEHPNET,4
+2016-11-21,137,90.147.112.x,131965,2852,descr:          Aggregated GARR routes,84
+2016-11-21,680,139.19.86.x,86470,14068,descr:          FHAC-LAN,440
+2016-11-21,32361,198.32.44.x,75920,0,descr:      Ultralight,3
+2016-11-21,32093,129.114.62.x,62786,8,descr:      UT Austin TACC,1
+
+2016-11-22,203819,131.176.236.x,85641,213,descr:          EO Network,4
+2016-11-22,137,131.175.38.x,59005,6874,descr:          Aggregated GARR routes,84
+2016-11-22,11096,128.227.221.x,47583,5030,descr:      FLR: Northwest Regional Data Center,174
+2016-11-22,20940,23.14.84.x,36888,177298,descr:      PACNET (proxy-registered route object),4329
+2016-11-22,59624,144.206.236.x,36888,113,descr:          Main network of Kurchatov Institute,17
+2016-11-22,13414,104.244.42.x,36888,152,descr:      Twitter Route,71
+2016-11-22,1852,169.228.131.x,34909,103,descr:         UC Wide Area Network Services,17
+2016-11-22,28571,143.107.222.x,19778,8383,descr:      Terremark-Proxy for FIU,43
+2016-11-22,160,192.170.227.x,18070,808,descr:      University of Chicago,4
+2016-11-22,70,130.14.250.x,16283,7408,descr:         NLM.NIH.GOV maintainer,29
+
+2016-11-23,12678,31.222.73.x,29671,640,descr:      Terremark-Proxy for Badoo,15
+2016-11-23,28623,201.54.129.x,29671,367,descr:      PUCRS,12
+2016-11-23,263076,186.233.152.x,29671,219,descr:      Universidade Estadual de Maringá,1
+2016-11-23,16509,52.72.237.x,29671,140475,descr:      KINX-Amazon,8619
+2016-11-23,4511,131.94.186.x,29158,1017,descr:      University of Miami (UMIA-Z),48
+2016-11-23,19200,143.54.119.x,29158,123,descr:      Universidade Federal do Rio Grande do Sul,1
+2016-11-23,19679,45.58.74.x,27624,2391,"descr:      Dropbox, Inc.,  185 Berry St. Suite 400,  San Francisco, CA 94107",110
+2016-11-23,59,144.92.180.x,27623,948,descr:         Proxy-registered route object,9
+2016-11-23,55033,192.171.127.x,27623,139,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS,2
+2016-11-23,1251,200.136.80.x,27623,19634,descr:      ANSP,101
+
+2016-11-24,1251,200.136.80.x,79384,21297,descr:      ANSP,101
+2016-11-24,10881,200.236.31.x,78156,913,descr:      Terremark-Proxy for FIU,6
+2016-11-24,1916,200.143.199.x,39692,15671,descr:      RNP,92
+2016-11-24,20080,190.103.184.x,38943,124,descr:      AMPATH,15
+2016-11-24,2715,200.11.5.x,19469,7083,descr:      Rede Rio,46
+2016-11-24,58069,192.108.47.x,4303,51,descr:          Karlsruhe Institute of Technology (KIT),3
+2016-11-24,21320,62.40.123.x,1923,112,descr:          GEANT IAS VRF,2
+2016-11-24,270,129.164.179.x,1069,96,descr:         Tri-State Education Initiative,54
+2016-11-24,1754,131.169.98.x,767,92,descr:          ZEHPNET,4
+
+2016-11-25,20080,200.144.220.x,48350,139,descr:      AMPATH,15
+2016-11-25,5786,136.145.164.x,48350,9774,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS,184
+2016-11-25,49981,109.236.84.x,41820,341,descr:      WorldStream C.V.,67
+2016-11-25,28571,143.107.98.x,28930,8512,descr:      Terremark-Proxy for FIU,43
+2016-11-25,8068,13.107.4.x,21327,121157,descr:      MICROSOFT,235
+2016-11-25,1251,200.136.26.x,21327,21592,descr:      ANSP,101
+2016-11-25,60781,37.48.81.x,21327,1429,"descr:      abdicar Communications, S.A.",188
+2016-11-25,15133,93.184.215.x,21326,4612,descr:      EdgeCast Networks Inc.,463
+2016-11-25,3491,63.217.115.x,17508,6567,descr:      PCCW - Hongkong,451
+2016-11-25,2715,139.82.58.x,17508,7307,descr:      Rede Rio,46
+
+2016-11-26,14080,181.50.86.x,34903,305,descr:      PNAP-MIA asurnet route,219
+2016-11-26,10881,200.236.31.x,34903,925,descr:      Terremark-Proxy for FIU,6
+2016-11-26,2648,140.172.138.x,24939,96,descr:      National Institute of Standards and Technology (NIST),25
+2016-11-26,21320,62.40.126.x,3321,131,descr:          GEANT IAS VRF,2
+2016-11-26,297,198.119.134.x,832,828,descr:         University of Miami Department of Electrical and Computer Engineering,64
+2016-11-26,1749,128.183.17.x,523,21,descr:              NASA Wallops Flight Facility,8
+
+2016-11-27,19905,88.246.252.x,31068,10169,descr:      NeuStar 156.154.161.0/24,6410
+2016-11-27,9009,185.144.83.x,31068,12420,descr:          LCPnet,230
+2016-11-27,291,198.124.252.x,28565,47,descr:              University of Wisconsin,11
+2016-11-27,3269,62.211.101.x,28515,697,"descr:      Prolexic Technologies, Inc.",320
+2016-11-27,52888,186.219.92.x,27998,55,descr:      UNIVERSIDADE FEDERAL DE SAO CARLOS,1
+2016-11-27,6360,128.171.88.x,22339,180,descr:      University of Hawaii,6
+2016-11-27,16509,54.165.249.x,14282,149584,descr:      KINX-Amazon,8619
+2016-11-27,20080,200.192.233.x,14282,154,descr:      AMPATH,15
+2016-11-27,26101,66.196.118.x,7482,97,descr:              Level3 subnet in Yahoo SCD,46
+2016-11-27,21320,62.40.126.x,3335,147,descr:          GEANT IAS VRF,2
+
+2016-11-28,1251,200.136.80.x,196277,21809,descr:      ANSP,101
+2016-11-28,786,193.62.143.x,47386,1040,descr:          NET-BUCKSCOLL,253
+2016-11-28,32934,31.13.73.x,47386,3170,"descr:      Facebook, Inc.",89
+2016-11-28,28571,143.107.211.x,46616,8595,descr:      Terremark-Proxy for FIU,43
+2016-11-28,10881,200.236.31.x,46616,925,descr:      Terremark-Proxy for FIU,6
+2016-11-28,15169,216.58.222.x,38869,16415,descr:      Google,6760
+2016-11-28,6128,67.84.13.x,38869,18,descr:      PNAP-NYC Automatic Data Processing (Investor Communication Division),182
+2016-11-28,1916,147.65.1.x,38869,15784,descr:      RNP,92
+2016-11-28,5089,81.109.220.x,38372,5491,descr:          NTL-UK-IP-BLOCK-3,434
+2016-11-28,2259,134.158.150.x,34160,0,descr:          FR-OSIRIS,33
+
+2016-11-29,1251,200.136.80.x,86879,22016,descr:      ANSP,101
+2016-11-29,10881,200.236.31.x,86879,925,descr:      Terremark-Proxy for FIU,6
+2016-11-29,28571,143.107.200.x,41163,8710,descr:      Terremark-Proxy for FIU,43
+2016-11-29,4511,131.94.186.x,27571,1080,descr:      University of Miami (UMIA-Z),48
+2016-11-29,16509,54.159.91.x,25412,166402,descr:      KINX-Amazon,8619
+2016-11-29,1916,150.164.239.x,16955,17514,descr:      RNP,92
+2016-11-29,262742,177.104.48.x,16955,26,descr:      Terremark-Proxy for LAUREN,4
+2016-11-29,2716,200.132.138.x,15007,3330,descr:      Rede TCHE,28
+2016-11-29,1754,131.169.98.x,8167,218,descr:          ZEHPNET,4
+2016-11-29,58069,192.108.47.x,4887,63,descr:          Karlsruhe Institute of Technology (KIT),3
+
+2016-11-30,10412,200.201.20.x,23760,81,descr:      Intranet Parana,1
+2016-11-30,2715,146.164.9.x,23760,9009,descr:      Rede Rio,46
+2016-11-30,28571,143.107.255.x,23760,9243,descr:      Terremark-Proxy for FIU,43
+2016-11-30,1251,200.136.80.x,12027,22828,descr:      ANSP,101
+2016-11-30,15169,66.249.64.x,5396,17499,descr:      Google,6760
+2016-11-30,2648,140.172.138.x,5186,105,descr:      National Institute of Standards and Technology (NIST),25
+2016-11-30,553,134.34.226.x,1522,1574,descr:          UNI-HOHENHEIM,43
+2016-11-30,1754,131.169.98.x,1458,293,descr:          ZEHPNET,4
+2016-11-30,270,129.164.179.x,937,151,descr:         Tri-State Education Initiative,54
+2016-11-30,297,198.119.134.x,832,873,descr:         University of Miami Department of Electrical and Computer Engineering,64
+
