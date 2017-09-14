@@ -1,0 +1,155 @@
+
+2017-08-28,2936,128.55.205.x,45377777560184,2129,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-08-28,1251,200.136.80.x,38624234438656,344438,descr:      ANSP,98
+2017-08-28,291,198.125.208.x,10847924913928,11199,descr:              University of Wisconsin,11
+2017-08-28,7660,203.181.249.x,7305365025816,5285,descr:         Proxy-registered route object,10
+2017-08-28,17,128.211.143.x,6309325045760,3127,descr:      Purdue University North Central,11
+2017-08-28,4511,131.94.186.x,4296688992256,1809,descr:      University of Miami (UMIA-Z),48
+2017-08-28,789,193.48.99.x,3971143324760,497,descr:          Conservatoire National Superieur de Musique de Lyon,27
+2017-08-28,683,140.221.43.x,3718493018400,3073,descr:      Argonne National Laboratory,46
+2017-08-28,32361,198.32.44.x,3281183309824,18,descr:      Ultralight,3
+2017-08-28,137,131.154.130.x,3183798553216,146268,descr:          Aggregated GARR routes,85
+
+2017-08-29,1251,200.136.80.x,45814956032000,351900,descr:      ANSP,98
+2017-08-29,2936,128.55.205.x,45343972104232,2228,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-08-29,17,128.211.143.x,8563105595392,3871,descr:      Purdue University North Central,11
+2017-08-29,7660,203.181.249.x,8412303197840,5756,descr:         Proxy-registered route object,10
+2017-08-29,291,198.125.208.x,6774935163168,12342,descr:              University of Wisconsin,11
+2017-08-29,789,193.48.99.x,4834299556032,639,descr:          Conservatoire National Superieur de Musique de Lyon,27
+2017-08-29,32361,198.32.44.x,3444273709056,36,descr:      Ultralight,3
+2017-08-29,137,131.154.130.x,3226630875888,162346,descr:          Aggregated GARR routes,85
+2017-08-29,1706,140.252.26.x,3110024017240,2508,descr:      Carpathia is proxy registering this route for our customer,57
+2017-08-29,4511,131.94.186.x,3093870542848,2442,descr:      University of Miami (UMIA-Z),48
+
+2017-08-30,2936,128.55.205.x,256170320490400,2327,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-08-30,1251,200.136.80.x,38997119533056,359362,descr:      ANSP,98
+2017-08-30,786,130.246.176.x,20519578370048,138967,descr:          NET-BUCKSCOLL,254
+2017-08-30,7660,203.181.249.x,11624228374696,6227,descr:         Proxy-registered route object,10
+2017-08-30,291,198.125.208.x,9576819948368,13485,descr:              University of Wisconsin,11
+2017-08-30,58069,192.108.68.x,5184502169600,2979,descr:          Karlsruhe Institute of Technology (KIT),3
+2017-08-30,4511,131.94.186.x,4862331125760,3389,descr:      University of Miami (UMIA-Z),48
+2017-08-30,292,198.129.254.x,4004965162448,2196,descr:      PNL-ARM,12
+2017-08-30,1749,169.154.197.x,2220883640320,1396,descr:              NASA Wallops Flight Facility,8
+2017-08-30,2152,137.164.28.x,2142192391616,16709,descr:      Grossmont-Cuyamaca Community College District,158
+
+2017-09-01,1251,200.136.80.x,34912123289600,359362,descr:      ANSP,98
+2017-09-01,2936,128.55.205.x,25162957086360,2327,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-09-01,291,198.125.208.x,11652084055680,13485,descr:              University of Wisconsin,11
+2017-09-01,3152,131.225.205.x,7467685380096,662,descr:      Fermi National Accelerator Lab,5
+2017-09-01,58069,192.108.68.x,6000625975296,2979,descr:          Karlsruhe Institute of Technology (KIT),3
+2017-09-01,789,193.48.99.x,5541023852088,639,descr:          Conservatoire National Superieur de Musique de Lyon,27
+2017-09-01,7660,203.181.249.x,3835931560800,6227,descr:         Proxy-registered route object,10
+2017-09-01,292,198.129.254.x,2898972606464,2196,descr:      PNL-ARM,12
+2017-09-01,137,193.206.93.x,2581682454528,162346,descr:          Aggregated GARR routes,85
+2017-09-01,40387,72.36.126.x,2554555990016,20,descr:      University of Illinois at Urbana-Champaign,1
+
+2017-09-02,2936,128.55.205.x,43287021739512,2327,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-09-02,1251,200.136.80.x,24303685337088,359362,descr:      ANSP,98
+2017-09-02,291,198.125.208.x,23326540252320,13485,descr:              University of Wisconsin,11
+2017-09-02,7660,203.181.249.x,3124805182072,6227,descr:         Proxy-registered route object,10
+2017-09-02,58069,192.108.68.x,2251763220480,2979,descr:          Karlsruhe Institute of Technology (KIT),3
+2017-09-02,292,198.129.254.x,2061027045040,2196,descr:      PNL-ARM,12
+2017-09-02,6360,132.160.6.x,2055124089680,32914,descr:      University of Hawaii,6
+2017-09-02,789,193.48.99.x,1613208420352,639,descr:          Conservatoire National Superieur de Musique de Lyon,27
+2017-09-02,19905,155.69.142.x,1356768092160,23758,descr:      NeuStar 156.154.161.0/24,6599
+2017-09-02,786,130.246.176.x,1334956624592,138967,descr:          NET-BUCKSCOLL,254
+
+2017-09-05,2936,128.55.205.x,38319374264632,2345,descr:      National Energy Research Scientific Computing Center (NERSC),3
+2017-09-05,291,198.125.208.x,28281287621960,13701,descr:              University of Wisconsin,11
+2017-09-05,1251,200.136.80.x,19016019017728,423891,descr:      ANSP,98
+2017-09-05,7660,203.181.249.x,8210983529952,6245,descr:         Proxy-registered route object,10
+2017-09-05,559,148.187.64.x,4140627984384,9798,descr:          SWITCH-AGGR.10,144
+2017-09-05,292,198.129.254.x,3451533099368,2232,descr:      PNL-ARM,12
+2017-09-05,58069,192.108.68.x,3028695908352,3225,descr:          Karlsruhe Institute of Technology (KIT),3
+2017-09-05,4511,131.94.186.x,2419773734912,3533,descr:      University of Miami (UMIA-Z),48
+2017-09-05,2152,137.164.28.x,1927072849920,17345,descr:      Grossmont-Cuyamaca Community College District,159
+2017-09-05,11096,139.229.14.x,1774025965568,3832,descr:      FLR: Northwest Regional Data Center,174
+
+2017-09-06,2936,128.55.205.x,35644014803184,2417,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-06,1251,200.136.80.x,21056906002432,426277,descr:      ANSP  ASN : 1251,98
+2017-09-06,291,198.125.208.x,16113980907264,14361,descr:              University of Wisconsin  ASN : 291,11
+2017-09-06,292,198.129.77.x,7837822219072,2362,descr:      PNL-ARM  ASN : 292,12
+2017-09-06,7660,203.181.249.x,6975729274520,6383,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-06,16509,52.8.59.x,5340390585504,27952,descr:      KINX-Amazon  ASN : 16509,8367
+2017-09-06,58069,192.108.68.x,4388813340672,3465,descr:          Karlsruhe Institute of Technology (KIT)  ASN : 58069,3
+2017-09-06,70,130.14.250.x,4216910204944,17489,descr:         NLM.NIH.GOV maintainer  ASN : 70,29
+2017-09-06,559,148.187.64.x,3306869030912,15454,descr:          SWITCH-AGGR.10  ASN : 559,144
+2017-09-06,3152,131.225.205.x,2798291255296,850,descr:      Fermi National Accelerator Lab  ASN : 3152,5
+
+2017-09-07,2936,128.55.205.x,33568878020248,2437,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-07,1251,200.136.80.x,23472033366016,428835,descr:      ANSP  ASN : 1251,98
+2017-09-07,291,198.125.208.x,19585259984528,14530,descr:              University of Wisconsin  ASN : 291,11
+2017-09-07,7660,203.181.249.x,10020677409432,6437,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-07,559,148.187.64.x,9598720278528,18688,descr:          SWITCH-AGGR.10  ASN : 559,144
+2017-09-07,4511,131.94.177.x,5985834827776,3768,descr:      University of Miami (UMIA-Z)  ASN : 4511,48
+2017-09-07,8075,52.239.152.x,5915058307072,820,descr:      MICROSOFT  ASN : 8075,1425
+2017-09-07,58069,192.108.68.x,4423989198848,3477,descr:          Karlsruhe Institute of Technology (KIT)  ASN : 58069,3
+2017-09-07,1224,141.142.176.x,4350448921656,240,descr:      University of Illinois  ASN : 1224,5
+2017-09-07,292,198.129.254.x,3681177288704,2390,descr:      PNL-ARM  ASN : 292,12
+
+2017-09-08,1251,200.136.80.x,89104068706304,430883,descr:      ANSP  ASN : 1251,98
+2017-09-08,58069,192.108.68.x,47242624892928,3486,descr:          Karlsruhe Institute of Technology (KIT)  ASN : 58069,3
+2017-09-08,2936,128.55.205.x,29915048619808,2450,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-08,7660,203.181.249.x,8479749708576,6464,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-08,291,198.125.208.x,6608284902648,14673,descr:              University of Wisconsin  ASN : 291,11
+2017-09-08,513,128.142.209.x,6485691225512,3477,"descr:          CERN, European Organization for Nuclear Research  ASN : 513",22
+2017-09-08,3152,131.225.206.x,4261887803392,879,descr:      Fermi National Accelerator Lab  ASN : 3152,5
+2017-09-08,11096,139.229.132.x,4028441427968,4952,descr:      FLR: Northwest Regional Data Center  ASN : 11096,174
+2017-09-08,225,198.51.208.x,4028441427968,2399,descr:      QTEL via EMIX  ASN : 225,44
+2017-09-08,292,198.129.254.x,3434105823232,2402,descr:      PNL-ARM  ASN : 292,12
+
+2017-09-09,1251,200.136.80.x,64232413921280,432941,descr:      ANSP  ASN : 1251,98
+2017-09-09,2936,128.55.205.x,18907450776656,2463,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-09,789,193.48.99.x,17611284545536,679,descr:          Conservatoire National Superieur de Musique de Lyon  ASN : 789,27
+2017-09-09,3428,192.101.102.x,12263798535696,201,descr:      PNLNET  ASN : 3428,10
+2017-09-09,786,130.246.176.x,11222154870784,146102,descr:          NET-BUCKSCOLL  ASN : 786,254
+2017-09-09,3152,131.225.207.x,8092138536960,908,descr:      Fermi National Accelerator Lab  ASN : 3152,5
+2017-09-09,7660,203.181.249.x,7696079240096,6491,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-09,45474,147.8.178.x,5365727707136,79916,descr:      PACNET (proxy-registered route object)  ASN : 45474,2909
+2017-09-09,291,198.124.238.x,3864488112904,14771,descr:              University of Wisconsin  ASN : 291,11
+2017-09-09,81,152.15.236.x,3589749604352,270,descr:      RR-RC-Lexington County Schools-Greensboro  ASN : 81,50
+
+2017-09-10,1251,200.136.80.x,47225712476160,434999,descr:      ANSP  ASN : 1251,98
+2017-09-10,2936,128.55.205.x,22426712130520,2476,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-10,789,193.48.99.x,21517188593640,719,descr:          Conservatoire National Superieur de Musique de Lyon  ASN : 789,27
+2017-09-10,7660,203.181.249.x,13448455940552,6518,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-10,786,130.246.176.x,8971584405504,146584,descr:          NET-BUCKSCOLL  ASN : 786,254
+2017-09-10,58069,192.108.68.x,6777152733184,3492,descr:          Karlsruhe Institute of Technology (KIT)  ASN : 58069,3
+2017-09-10,7497,202.122.33.x,5079828910080,1034,descr:      PACNET (proxy-registered route object)  ASN : 7497,309
+2017-09-10,513,128.142.209.x,4150760148992,3515,"descr:          CERN, European Organization for Nuclear Research  ASN : 513",22
+2017-09-10,292,198.129.254.x,3912306903464,2432,descr:      PNL-ARM  ASN : 292,12
+2017-09-10,40387,72.36.126.x,3815884062720,98,descr:      University of Illinois at Urbana-Champaign  ASN : 40387,1
+
+2017-09-11,1251,200.136.80.x,70427639676928,437047,descr:      ANSP  ASN : 1251,98
+2017-09-11,2936,128.55.205.x,31999566785952,2489,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-11,789,193.48.99.x,25741023838208,759,descr:          Conservatoire National Superieur de Musique de Lyon  ASN : 789,27
+2017-09-11,58069,192.108.68.x,21187213590528,3498,descr:          Karlsruhe Institute of Technology (KIT)  ASN : 58069,3
+2017-09-11,513,128.142.209.x,8997719432888,3553,"descr:          CERN, European Organization for Nuclear Research  ASN : 513",22
+2017-09-11,11096,128.227.253.x,8036754849792,5555,descr:      FLR: Northwest Regional Data Center  ASN : 11096,174
+2017-09-11,4511,131.94.55.x,8036754849792,3810,descr:      University of Miami (UMIA-Z)  ASN : 4511,48
+2017-09-11,7660,203.181.249.x,7753101817736,6545,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-11,32361,198.32.44.x,5369273647104,36,descr:      Ultralight  ASN : 32361,3
+2017-09-11,292,198.129.77.x,5118749656288,2456,descr:      PNL-ARM  ASN : 292,12
+
+2017-09-12,2936,128.55.205.x,49804444791168,2502,descr:      National Energy Research Scientific Computing Center (NERSC)  ASN : 2936,3
+2017-09-12,1251,200.136.80.x,46453658222592,439105,descr:      ANSP  ASN : 1251,98
+2017-09-12,513,128.142.209.x,30437416206200,3591,"descr:          CERN, European Organization for Nuclear Research  ASN : 513",22
+2017-09-12,7660,203.181.249.x,6468549393272,6572,descr:         Proxy-registered route object  ASN : 7660,10
+2017-09-12,50,160.91.195.x,5507258999696,228,descr:         ORNL-NETB1  ASN : 50,25
+2017-09-12,3380,192.188.106.x,3601348774608,25,descr:         PPPL  ASN : 3380,19
+2017-09-12,292,198.129.77.x,2338631265152,2474,descr:      PNL-ARM  ASN : 292,12
+2017-09-12,4657,203.30.39.x,1724313360344,226268,descr:         CyberWay Pte Ltd  ASN : 4657,1334
+2017-09-12,291,198.124.238.x,1604451741096,14975,descr:              University of Wisconsin  ASN : 291,11
+2017-09-12,1749,169.154.197.x,1253309530112,1495,descr:              NASA Wallops Flight Facility  ASN : 1749,8
+
+2017-09-04,2936,128.55.205.x,38732136782928,2517,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-04,291,198.125.208.x,28278411338816,15155,descr:              University of Wisconsin | ASN : 291,11
+2017-09-04,1251,200.136.80.x,19782310100992,461538,descr:      ANSP | ASN : 1251,98
+2017-09-04,7660,203.181.249.x,9189724007904,6581,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-04,292,198.129.254.x,4175927918952,2504,descr:      PNL-ARM | ASN : 292,12
+2017-09-04,559,148.187.64.x,3288993759232,25236,descr:          SWITCH-AGGR.10 | ASN : 559,144
+2017-09-04,58069,192.108.68.x,2881325105152,3678,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-04,2152,137.164.28.x,1927072849920,20017,descr:      Grossmont-Cuyamaca Community College District | ASN : 2152,159
+2017-09-04,513,128.142.209.x,1909837555344,4357,"descr:          CERN, European Organization for Nuclear Research | ASN : 513",22
+2017-09-04,4511,131.94.186.x,1708520374272,3882,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+
