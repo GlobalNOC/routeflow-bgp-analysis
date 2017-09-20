@@ -153,3 +153,91 @@
 2017-09-04,513,128.142.209.x,1909837555344,4357,"descr:          CERN, European Organization for Nuclear Research | ASN : 513",22
 2017-09-04,4511,131.94.186.x,1708520374272,3882,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
 
+2017-09-03,2936,128.55.205.x,40308744529560,2530,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-03,291,198.125.208.x,20370036318136,15298,descr:              University of Wisconsin | ASN : 291,11
+2017-09-03,1251,200.136.80.x,18906570096640,463596,descr:      ANSP | ASN : 1251,98
+2017-09-03,7660,203.181.249.x,7503401053216,6608,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-03,559,148.187.64.x,4595962150912,27428,descr:          SWITCH-AGGR.10 | ASN : 559,144
+2017-09-03,292,198.129.254.x,3795170547720,2522,descr:      PNL-ARM | ASN : 292,12
+2017-09-03,58069,192.108.68.x,2951240482816,3684,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-03,5786,136.145.164.x,2311327645696,41538,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS | ASN : 5786,184
+2017-09-03,40387,72.36.126.x,2083668099072,127,descr:      University of Illinois at Urbana-Champaign | ASN : 40387,1
+2017-09-03,1749,169.154.197.x,1895538594720,1540,descr:              NASA Wallops Flight Facility | ASN : 1749,8
+
+2017-09-13,1251,200.136.80.x,45137713692672,465644,descr:      ANSP | ASN : 1251,98
+2017-09-13,2936,128.55.205.x,13454690830544,2543,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-13,58069,192.108.68.x,12783748644864,3690,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-13,291,198.124.238.x,11288027885464,15440,descr:              University of Wisconsin | ASN : 291,11
+2017-09-13,4511,131.94.55.x,8567952310272,3944,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-13,7660,203.181.249.x,7116830744456,6626,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-13,11096,128.227.253.x,5895980122112,6280,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-13,292,198.129.254.x,4785874173952,2540,descr:      PNL-ARM | ASN : 292,12
+2017-09-13,7029,129.93.239.x,4546083946496,177584,descr:      Proxy-registered route object | ASN : 7029,6646
+2017-09-13,2611,193.58.172.x,4392313356288,6473,descr:          BELNET | ASN : 2611,29
+
+2017-09-14,1251,200.136.80.x,57758884757504,467702,descr:      ANSP | ASN : 1251,98
+2017-09-14,2936,128.55.205.x,29104823236848,2556,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-14,58069,192.108.68.x,12422309871616,3696,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-14,291,198.124.238.x,11779774154376,15582,descr:              University of Wisconsin | ASN : 291,11
+2017-09-14,7660,203.181.249.x,7970638416040,6644,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-14,7029,129.93.239.x,7355672952832,193224,descr:      Proxy-registered route object | ASN : 7029,6646
+2017-09-14,4511,131.94.55.x,6668384272384,3986,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-14,8517,193.140.99.x,6307674521600,567,descr:          ULAK-NET | ASN : 8517,112
+2017-09-14,5786,136.145.164.x,5857559904256,62790,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS | ASN : 5786,184
+2017-09-14,3152,131.225.207.x,5770128785408,950,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+
+2017-09-15,2936,128.55.205.x,70299014293528,2569,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-15,1251,200.136.80.x,48153689128960,469760,descr:      ANSP | ASN : 1251,98
+2017-09-15,291,198.124.238.x,8731614108384,15680,descr:              University of Wisconsin | ASN : 291,11
+2017-09-15,7660,203.181.249.x,7948151304648,6671,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-15,58069,192.108.68.x,7492240277504,3702,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-15,3152,131.225.207.x,6071808032768,992,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-15,2875,159.93.230.x,3468564103168,950,descr:          HEP-CIS | ASN : 2875,1
+2017-09-15,292,198.129.254.x,3462530990080,2552,descr:      PNL-ARM | ASN : 292,12
+2017-09-15,7472,137.132.228.x,2439908126280,866,descr:      PACNET (proxy-registered route object) | ASN : 7472,5
+2017-09-15,5786,136.145.164.x,2302191337472,76948,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS | ASN : 5786,184
+
+2017-09-16,291,198.124.238.x,31596017229080,15778,descr:              University of Wisconsin | ASN : 291,11
+2017-09-16,1251,200.136.80.x,31238062604288,471808,descr:      ANSP | ASN : 1251,98
+2017-09-16,2936,128.55.205.x,28839837296632,2582,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-16,3452,138.26.220.x,24947373975888,660,descr:         Proxy-registered route object | ASN : 3452,15
+2017-09-16,137,131.154.130.x,11257086293616,169592,descr:          Aggregated GARR routes | ASN : 137,85
+2017-09-16,4511,131.94.55.x,8826984464384,4032,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-16,2875,159.93.230.x,6355656376320,966,descr:          HEP-CIS | ASN : 2875,1
+2017-09-16,7660,203.181.249.x,6019803008984,6698,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-16,11096,128.227.253.x,5455041527808,6880,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-16,209,138.67.212.x,3699801976152,8210,"descr:      Proxy-registered route object for Qwest Communications Company, LLC via Lumos Networks. | ASN : 209",262
+
+2017-09-17,291,198.124.238.x,65794271088112,15876,descr:              University of Wisconsin | ASN : 291,11
+2017-09-17,3452,138.26.220.x,63577212306224,690,descr:         Proxy-registered route object | ASN : 3452,15
+2017-09-17,2936,128.55.205.x,45683097566952,2591,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-17,1251,200.136.80.x,43150318895104,473866,descr:      ANSP | ASN : 1251,98
+2017-09-17,2875,159.93.230.x,9684077379584,982,descr:          HEP-CIS | ASN : 2875,1
+2017-09-17,7660,203.181.249.x,6841437914368,6725,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-17,4511,131.94.55.x,4449616003072,4089,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-17,3152,131.225.205.x,4182680666112,1021,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-17,5786,136.145.164.x,3980385058816,91106,descr:      COLUMBUS NETWORKS TRANSIT CUSTOMERS | ASN : 5786,184
+2017-09-17,3,18.12.1.x,3334699483136,22835,descr:         Massachusetts Institute of Technology | ASN : 3,236
+
+2017-09-17,1251,200.136.80.x,85085211394048,663,descr:      ANSP | ASN : 1251,98
+2017-09-17,291,198.124.238.x,54379799758280,144,descr:              University of Wisconsin | ASN : 291,11
+2017-09-17,3452,138.26.220.x,52841134168840,26,descr:         Proxy-registered route object | ASN : 3452,15
+2017-09-17,2936,128.55.205.x,24669556766768,24,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-17,7029,129.93.239.x,24580345298944,15887,descr:      Proxy-registered route object | ASN : 7029,6646
+2017-09-17,3,18.12.1.x,18008365137920,3697,descr:         Massachusetts Institute of Technology | ASN : 3,236
+2017-09-17,786,130.246.176.x,8549476401152,1328,descr:          NET-BUCKSCOLL | ASN : 786,254
+2017-09-17,3152,131.225.205.x,6681723600896,48,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-17,7660,203.181.249.x,6369694494520,93,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-17,1852,169.228.130.x,6112011943936,6,descr:         UC Wide Area Network Services | ASN : 1852,17
+
+2017-09-18,291,198.124.238.x,75689997323632,144,descr:              University of Wisconsin | ASN : 291,11
+2017-09-18,1251,200.136.80.x,74737559535616,663,descr:      ANSP | ASN : 1251,98
+2017-09-18,3452,138.26.220.x,71334503603712,26,descr:         Proxy-registered route object | ASN : 3452,15
+2017-09-18,2936,128.55.205.x,29530273721744,36,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-18,58069,192.108.68.x,15242267066368,150,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-18,3,18.12.1.x,14387433439232,3697,descr:         Massachusetts Institute of Technology | ASN : 3,236
+2017-09-18,7029,129.93.239.x,11068480749568,15887,descr:      Proxy-registered route object | ASN : 7029,6646
+2017-09-18,7660,203.181.249.x,7664926643440,93,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-18,786,130.246.176.x,4017418060376,1328,descr:          NET-BUCKSCOLL | ASN : 786,254
+2017-09-18,1852,169.228.130.x,4001853145088,4,descr:         UC Wide Area Network Services | ASN : 1852,17
+

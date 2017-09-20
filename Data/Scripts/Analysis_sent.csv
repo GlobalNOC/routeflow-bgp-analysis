@@ -744,3 +744,91 @@
 2017-09-04,1749,169.154.197.x,1330630324224,1510,descr:              NASA Wallops Flight Facility | ASN : 1749,8
 2017-09-04,4511,131.94.174.x,1245722574848,3882,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
 
+2017-09-03,291,198.125.208.x,18866983710616,15298,descr:              University of Wisconsin | ASN : 291,11
+2017-09-03,1251,200.136.80.x,13573410979840,463596,descr:      ANSP | ASN : 1251,98
+2017-09-03,3671,134.79.103.x,12277472031936,1682,descr:         SU-SLAC | ASN : 3671,3
+2017-09-03,59,128.104.8.x,5244204615584,2616,descr:         Proxy-registered route object | ASN : 59,9
+2017-09-03,7660,203.181.249.x,4650491874792,6608,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-03,2936,128.55.205.x,3112307668544,2530,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-03,1749,169.154.197.x,1814744088576,1540,descr:              NASA Wallops Flight Facility | ASN : 1749,8
+2017-09-03,160,192.170.227.x,1765599150080,959,descr:      University of Chicago | ASN : 160,4
+2017-09-03,40387,72.36.126.x,1580904218624,127,descr:      University of Illinois at Urbana-Champaign | ASN : 40387,1
+2017-09-03,4511,131.94.174.x,1528130437120,3898,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+
+2017-09-13,1251,200.136.80.x,36782947958784,465644,descr:      ANSP | ASN : 1251,98
+2017-09-13,291,198.124.238.x,9541198729112,15440,descr:              University of Wisconsin | ASN : 291,11
+2017-09-13,194,128.117.181.x,5292763578368,285,descr:      Boulder County Government | ASN : 194,10
+2017-09-13,11096,128.227.253.x,5111394074624,6280,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-13,7660,203.181.249.x,5081227209376,6626,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-13,4511,131.94.174.x,3801115721728,3944,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-13,3671,134.79.103.x,3623828937096,1696,descr:         SU-SLAC | ASN : 3671,3
+2017-09-13,70,130.14.250.x,3294146909776,18101,descr:         NLM.NIH.GOV maintainer | ASN : 70,29
+2017-09-13,513,128.142.209.x,2654305320960,4376,"descr:          CERN, European Organization for Nuclear Research | ASN : 513",22
+2017-09-13,2936,128.55.205.x,2649807733680,2543,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+
+2017-09-14,1251,200.136.80.x,52246831169536,467702,descr:      ANSP | ASN : 1251,98
+2017-09-14,291,198.124.238.x,10160312698504,15582,descr:              University of Wisconsin | ASN : 291,11
+2017-09-14,2936,128.55.205.x,8565849782328,2556,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-14,3152,131.225.202.x,7116826218432,950,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-14,7660,203.181.249.x,5696893284120,6644,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-14,11096,128.227.253.x,4660813496320,6511,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-14,7029,129.93.239.x,3918283145216,193224,descr:      Proxy-registered route object | ASN : 7029,6646
+2017-09-14,2715,152.84.101.x,3142987612160,3164,descr:      Rede Rio | ASN : 2715,41
+2017-09-14,70,130.14.250.x,1880765996912,18205,descr:         NLM.NIH.GOV maintainer | ASN : 70,29
+2017-09-14,1749,169.154.197.x,1791638749184,1555,descr:              NASA Wallops Flight Facility | ASN : 1749,8
+
+2017-09-15,1251,200.136.80.x,38429601628160,469760,descr:      ANSP | ASN : 1251,98
+2017-09-15,2936,128.55.205.x,22744149073864,2569,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-15,3671,134.79.103.x,22128339721880,1710,descr:         SU-SLAC | ASN : 3671,3
+2017-09-15,291,198.124.238.x,7639812725472,15680,descr:              University of Wisconsin | ASN : 291,11
+2017-09-15,7660,203.181.249.x,4935258767360,6671,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-15,2875,159.93.230.x,3432816246784,950,descr:          HEP-CIS | ASN : 2875,1
+2017-09-15,3152,131.225.202.x,3361364481056,992,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-15,19905,141.211.29.x,2439908126280,33422,descr:      NeuStar 156.154.161.0/24 | ASN : 19905,6730
+2017-09-15,2715,152.84.101.x,2065852923904,3422,descr:      Rede Rio | ASN : 2715,41
+2017-09-15,70,130.14.250.x,2054101774960,18309,descr:         NLM.NIH.GOV maintainer | ASN : 70,29
+
+2017-09-16,291,198.124.238.x,30762815872280,15778,descr:              University of Wisconsin | ASN : 291,11
+2017-09-16,3671,134.79.103.x,12387898406184,1724,descr:         SU-SLAC | ASN : 3671,3
+2017-09-16,137,131.154.130.x,11115746845984,169592,descr:          Aggregated GARR routes | ASN : 137,85
+2017-09-16,2936,128.55.205.x,10451988719728,2582,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-16,1251,200.136.80.x,8510863966208,471808,descr:      ANSP | ASN : 1251,98
+2017-09-16,2875,159.93.230.x,6316922109952,966,descr:          HEP-CIS | ASN : 2875,1
+2017-09-16,11096,128.227.253.x,4821398781952,6880,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-16,7660,203.181.249.x,3490044289208,6698,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-16,2611,193.58.172.x,2681674858496,6933,descr:          BELNET | ASN : 2611,29
+2017-09-16,4511,131.94.55.x,2589943595008,4032,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+
+2017-09-17,291,198.124.238.x,64656435088880,15876,descr:              University of Wisconsin | ASN : 291,11
+2017-09-17,3671,134.79.103.x,44623865023752,1738,descr:         SU-SLAC | ASN : 3671,3
+2017-09-17,1251,200.136.80.x,12364340133888,473866,descr:      ANSP | ASN : 1251,98
+2017-09-17,2875,159.93.230.x,9657413140480,982,descr:          HEP-CIS | ASN : 2875,1
+2017-09-17,3152,131.225.205.x,3991015194624,1021,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-17,7660,203.181.249.x,3550227814728,6725,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-17,4511,131.94.55.x,2252727320576,4089,descr:      University of Miami (UMIA-Z) | ASN : 4511,48
+2017-09-17,137,131.154.130.x,2170286047232,173215,descr:          Aggregated GARR routes | ASN : 137,85
+2017-09-17,70,130.14.250.x,1842125311784,18413,descr:         NLM.NIH.GOV maintainer | ASN : 70,29
+2017-09-17,17054,128.2.220.x,1600899981312,2156,descr:      Verio Ohio | ASN : 17054,454
+
+2017-09-17,291,198.124.238.x,53692687009224,144,descr:              University of Wisconsin | ASN : 291,11
+2017-09-17,1251,200.136.80.x,52835780395008,663,descr:      ANSP | ASN : 1251,98
+2017-09-17,3671,134.79.103.x,23304768949448,36,descr:         SU-SLAC | ASN : 3671,3
+2017-09-17,786,130.246.176.x,7942512050176,1328,descr:          NET-BUCKSCOLL | ASN : 786,254
+2017-09-17,3152,131.225.205.x,6488919506944,48,descr:      Fermi National Accelerator Lab | ASN : 3152,5
+2017-09-17,7660,203.181.249.x,3516726389104,93,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-17,1852,169.228.130.x,2940219097088,6,descr:         UC Wide Area Network Services | ASN : 1852,17
+2017-09-17,1754,131.169.192.x,2310912475136,20,descr:          ZEHPNET | ASN : 1754,4
+2017-09-17,11096,128.227.253.x,1658737983488,83,descr:      FLR: Northwest Regional Data Center | ASN : 11096,174
+2017-09-17,70,130.14.250.x,1414457298728,184,descr:         NLM.NIH.GOV maintainer | ASN : 70,29
+
+2017-09-18,291,198.124.238.x,74701504449904,144,descr:              University of Wisconsin | ASN : 291,11
+2017-09-18,1251,200.136.80.x,31300363550720,663,descr:      ANSP | ASN : 1251,98
+2017-09-18,58069,192.108.68.x,15177443901440,150,descr:          Karlsruhe Institute of Technology (KIT) | ASN : 58069,3
+2017-09-18,3671,134.79.103.x,13215796111712,36,descr:         SU-SLAC | ASN : 3671,3
+2017-09-18,2936,128.55.205.x,12928337255472,36,descr:      National Energy Research Scientific Computing Center (NERSC) | ASN : 2936,3
+2017-09-18,7660,203.181.249.x,4614035715696,93,descr:         Proxy-registered route object | ASN : 7660,10
+2017-09-18,11042,130.104.133.x,4108098666496,1,descr:      Frontier GlobalCenter Customer Subnet 192.109.95.0/24 | ASN : 11042,168
+2017-09-18,1852,169.228.130.x,3883660738560,4,descr:         UC Wide Area Network Services | ASN : 1852,17
+2017-09-18,786,130.246.176.x,3695707029504,1328,descr:          NET-BUCKSCOLL | ASN : 786,254
+2017-09-18,47610,134.61.24.x,2522328924160,69,descr:          FHG-NET-192-102-148 | ASN : 47610,8
+
