@@ -4,7 +4,7 @@ CURRENT_DIR= $pwd
 SCRIPTS_DIR="$(pwd)/Scripts"
 START=$1
 END=$2
-cd /home/ckloote/routeflow_bgp_analysis/Data/Scripts
+cd $SCRIPTS_DIR
 python getRequests.py $START $END
 python topAsn.py
 python getUrls.py $START $END
