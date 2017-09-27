@@ -21,5 +21,5 @@ while IFS='\n' read path;do
 done < urlFile
 rm -rf update*
 python write_to_csv.py $START
-python write_to_json.py $START
-rm FinalStability
+#python write_to_json.py $START
+#rm FinalStability

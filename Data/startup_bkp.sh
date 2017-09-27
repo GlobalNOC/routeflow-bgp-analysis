@@ -19,7 +19,7 @@ while IFS='\n' read path;do
     python parseUpdate.py $filename
 
 done < urlFile
-rm -rf update*
-python write_to_csv.py $START
-python write_to_json.py $START
-rm FinalStability
+#rm -rf update*
+#python write_to_csv.py $START
+#python write_to_json.py $START
+#rm FinalStability

@@ -17,77 +17,32 @@ for val in tempListOfDict:
 			flapsDict[key] = value
 
 
-print "Sent Data"
+print "flapdict ---- "
+print flapsDict
 # Write data sent to file - 
      
-csvFile = open("Analysis_sent.csv","a")
+csvFile = open("Analysis.csv","a")
 file_to_write_sent = csv.writer(csvFile, delimiter=',')
 #heading = ["ASN Num", "Prefix", "DataTransferred", "Flaps", "TotalPrefixInAS"]
 #file_to_write_sent.writerow(heading)
 
-topTalkerFile = open("asnInfoFile_sent","r")
+topTalkerFile = open("ipFile","r")
 for line2 in topTalkerFile:
 	listToWrite = []
 	listToWrite.append(Date)
-	for w in line2.split(" "):
+	for w in line2.split(","):
 		listToWrite.append(w.strip())
-	listToWrite.append(flapsDict[listToWrite[1]])
-	cmd = "whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep route:"
-	asn_totalPrefixes = len(commands.getoutput(cmd).split("\n"))
-	descr = commands.getoutput("whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep descr:").split("\n")[0]+" | ASN : "+str(listToWrite[1])
-	listToWrite.append(descr)
-	listToWrite.append(asn_totalPrefixes)
+	ip = listToWrite[1]
+	ip = ip[:ip.find("x")]+"0/24"
+	listToWrite.append(flapsDict[ip])
+	cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
+	descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+	asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
+	asn_number = asn[asn.find("AS")+2:]
+	print asn_number
+	listToWrite.append(descr+"  |ASN - "+asn_number)
 	print listToWrite
 	file_to_write_sent.writerow(listToWrite)
 file_to_write_sent.writerow([])
 
-
-print "------" *10
-print "Received Data - "
-# Write data received to file - 
-
-csvFile = open("Analysis_recv.csv","a")
-file_to_write_recv = csv.writer(csvFile, delimiter=',')
-
-topTalkerFile = open("asnInfoFile_recv","r")
-for line2 in topTalkerFile:
-        listToWrite = []
-        listToWrite.append(Date)
-        for w in line2.split(" "):
-                listToWrite.append(w.strip())
-        listToWrite.append(flapsDict[listToWrite[1]])
-        cmd = "whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep route:"
-        asn_totalPrefixes = len(commands.getoutput(cmd).split("\n"))
-        descr = commands.getoutput("whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep descr:").split("\n")[0]+" | ASN : "+str(listToWrite[1])
-        listToWrite.append(descr)
-        listToWrite.append(asn_totalPrefixes)
-        print listToWrite
-        file_to_write_recv.writerow(listToWrite)
-file_to_write_recv.writerow([])
-
-
-
-print "------"*10
-print "Total data --- "
-#Write total data to file - 
-
-
-csvFile = open("Analysis_total.csv","a")
-file_to_write_total = csv.writer(csvFile, delimiter=',')
-
-topTalkerFile = open("asnInfoFile_total","r")
-for line2 in topTalkerFile:
-        listToWrite = []
-        listToWrite.append(Date)
-        for w in line2.split(" "):
-                listToWrite.append(w.strip())
-        listToWrite.append(flapsDict[listToWrite[1]])
-        cmd = "whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep route:"
-        asn_totalPrefixes = len(commands.getoutput(cmd).split("\n"))
-        descr = commands.getoutput("whois -h whois.radb.net -- '-i origin AS"+listToWrite[1]+ "' | grep descr:").split("\n")[0]+" | ASN : "+str(listToWrite[1])
-        listToWrite.append(descr)
-        listToWrite.append(asn_totalPrefixes)
-        print listToWrite
-        file_to_write_total.writerow(listToWrite)
-file_to_write_total.writerow([])
 
