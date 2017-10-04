@@ -15,13 +15,11 @@ for val in tempListOfDict:
                         flapsDict[key] = flapsDict[key] + value
                 else:
                         flapsDict[key] = value
-
 # Write data sent to file -
 print "Sent Data - "
 
-
-open("Analysis.json",'a').close() # to clear contents of the file  
-file_to_write_sent = open("Analysis.json","a")
+open("Analysis.json",'w').close() # to clear contents of the file  
+file_to_write_sent = open("Analysis.json","w")
 
 list_file = []
 topTalkerFile = open("ipFile","r")
@@ -36,12 +34,15 @@ for line2 in topTalkerFile:
         ip = ip[:ip.find("x")]+"0/24"
         listToWrite["Events"] = flapsDict[ip]
         cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
-        descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-        asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
-        asn_number = asn[asn.find("AS")+2:]
-        listToWrite["Organization"] = descr+"  |ASN - "+asn_number
-        print listToWrite
-        list_file.append(listToWrite)
+	try:
+        	descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+        	asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
+        	asn_number = asn[asn.find("AS")+2:]
+        	listToWrite["Organization"] = descr+"  |ASN - "+asn_number
+	except:
+		listToWrite["Organization"] = "NOT FOUND IN RADb"
+       	print listToWrite
+       	list_file.append(listToWrite)
 file_to_write_sent.seek(0)
 file_to_write_sent.write(json.dumps(list_file))
 file_to_write_sent.close()

@@ -3,6 +3,7 @@ from datetime import *
 from mrtparse import *
 import commands
 import ast
+import time
 myASnumber = 0
 indt = 0
 ipFile = open("ipFile","r")
@@ -46,11 +47,13 @@ def main():
 		print "IP is --  ",ip
 		ipStability[ip]=0
 		ipset.add(ip)
-
+	print "ipset - ",ipset
+	st = time.time()
 	for m in d:
 		m = m.mrt
 		if ( m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
 			print_bgp4mp(m)
+	print "total time to read - ",time.time()-st
 	print "ipStability --- "
 	print ipStability
 	target2.write(str(ipStability)+",")

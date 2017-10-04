@@ -1,7 +1,7 @@
 #!/bin/sh
 wget=/usr/bin/wget
 CURRENT_DIR= $pwd
-SCRIPTS_DIR="$(pwd)/Scripts"
+SCRIPTS_DIR="/home/mthatte/routeflow-bgp-analysis/Data/Scripts"
 START=$1
 END=$2
 cd $SCRIPTS_DIR
@@ -19,7 +19,7 @@ while IFS='\n' read path;do
     python parseUpdate.py $filename
 
 done < urlFile
-#rm -rf update*
-#python write_to_csv.py $START
-#python write_to_json.py $START
-#rm FinalStability
+rm -rf update*
+python write_to_csv.py $START
+python write_to_json.py $START
+mv FinalStability FinalStability_$START

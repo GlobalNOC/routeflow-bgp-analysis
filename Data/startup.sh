@@ -1,10 +1,15 @@
 #!/bin/sh
 wget=/usr/bin/wget
-CURRENT_DIR= $pwd
-SCRIPTS_DIR="$(pwd)/Scripts"
+CURRENT_DIR= $PWD
+SCRIPTS_DIR="/home/mthatte/routeflow-bgp-analysis/Data/Scripts"
 START="$(date --date="2 days ago" +%F-%H-%M-%S)"
 END="$(date --date="1 day ago" +%F-%H-%M-%S)"
+echo "PWD is ---"
+echo $CURRENT_DIR
+echo "Script ie --------"
+echo $SCRIPTS_DIR
 cd $SCRIPTS_DIR
+
 python getRequests.py $START $END
 python topAsn.py
 python getUrls.py $START $END
@@ -21,5 +26,5 @@ while IFS='\n' read path;do
 done < urlFile
 rm -rf update*
 python write_to_csv.py $START
-#python write_to_json.py $START
-#rm FinalStability
+python write_to_json.py $START
+mv FinalStability FinalStability_$START
