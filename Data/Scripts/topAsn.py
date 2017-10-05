@@ -5,6 +5,7 @@ import json
 ipFile = open("ipFile","w")
 
 def topTalk(filename):
+	print "In topTalk function"
 	with open(filename) as data_file:
 		data = json.load(data_file)
 
@@ -42,8 +43,8 @@ def topTalk(filename):
 	#Calculate for each source amount of data it has sent
 	for src, values in output.iteritems():
 		srcDict[src] = sum(v for k,v in values.iteritems())
-	print "src dict ----------"
-	print srcDict
+	#print "src dict ----------"
+	#print srcDict
 	#Get top 10 IPs with max data sent - 
 	top_ten_IP = sorted(srcDict.iteritems(), key=lambda (key, value): (-value, key))[:10]
 	print "Top 10 -- "
@@ -54,5 +55,6 @@ def topTalk(filename):
 	
 
 if __name__ == "__main__":
+	print "In topASn file"
 	topTalk("nflow")
 

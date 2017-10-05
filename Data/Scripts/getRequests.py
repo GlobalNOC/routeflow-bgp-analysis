@@ -17,6 +17,7 @@ def getFlowEntries(start,end):
   query = json.dumps({"size":10000,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}}})
   response = requests.get("http://140.182.49.116:9200/_search?pretty=1",data=query,stream=True)
   content = response.raw.read( decode_content=True)
+  print "geting flow entries"
   f.write(content)
   f.close()
 
@@ -35,11 +36,13 @@ def getUnixTime(dt):
   return int(unixStr)
 
 if __name__ == '__main__':
+  print "In get Request python file --- "
   if len(sys.argv) < 3 :
     print " usage --> 'python getRequest startDate(year-month-day-hour-min-sec) endDate"
     exit(1)
   
   # get unix data type from the given time
   start = getUnixTime(sys.argv[1])
+  print "Python start time - ",start
   end = getUnixTime(sys.argv[2])
   getFlowEntries(start,end)

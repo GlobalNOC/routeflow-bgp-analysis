@@ -1,14 +1,17 @@
 #!/bin/sh
 wget=/usr/bin/wget
 CURRENT_DIR= $PWD
-SCRIPTS_DIR="/home/mthatte/routeflow-bgp-analysis/Data/Scripts"
+echo "pwd is - "
+echo $PWD
+SCRIPTS_DIR=$PWD"/Scripts"
 START="$(date --date="2 days ago" +%F-%H-%M-%S)"
 END="$(date --date="1 day ago" +%F-%H-%M-%S)"
-echo "PWD is ---"
-echo $CURRENT_DIR
-echo "Script ie --------"
+echo "Script dir is  --------"
 echo $SCRIPTS_DIR
 cd $SCRIPTS_DIR
+echo "start time and end time is -"
+echo $START
+echo $END
 
 python getRequests.py $START $END
 python topAsn.py
