@@ -4,10 +4,8 @@ from mrtparse import *
 import commands
 import ast
 import time
-myASnumber = 0
+
 indt = 0
-ipFile = open("ipFile","r")
-target2 = open("FinalStability","a")
 ipset = set()
 
 
@@ -36,29 +34,25 @@ def print_bgp_msg(msg, subtype, m):
 			ipStability[ip] = ipStability[ip]+1
             
 
-def main():
+def parse(d,topTalker_sources):
 	global ipset
 	global ipStability
 	global ipFile
-	d = Reader(sys.argv[1])
-	for line in ipFile:
-		lineDetail = line.split(",")
-		ip = lineDetail[0].rstrip(" ").replace("x","0/24")
+	#d = Reader(sys.argv[1])
+	for line in topTalker_sources:
+		#lineDetail = line.split(",")
+		ip = line[0].replace("x","0/24")
 		print "IP is --  ",ip
 		ipStability[ip]=0
 		ipset.add(ip)
 	print "ipset - ",ipset
 	st = time.time()
+	print "Type of d is - ",type(d)
 	for m in d:
 		m = m.mrt
 		if ( m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
 			print_bgp4mp(m)
 	print "total time to read - ",time.time()-st
-	print "ipStability --- "
+	print "ipStability --- "	
 	print ipStability
-	target2.write(str(ipStability)+",")
-	target2.close()
-
-if __name__ == '__main__':
-	print "main entered"
-	main()
+	return ipStability
