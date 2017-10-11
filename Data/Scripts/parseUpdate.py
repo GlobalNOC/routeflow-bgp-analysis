@@ -21,6 +21,7 @@ def print_bgp4mp(m):
 	indt += 1
 	if ( m.subtype == BGP4MP_ST['BGP4MP_MESSAGE'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_LOCAL'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4_LOCAL']):
 		print_bgp_msg(m.bgp.msg, m.subtype, m)
+		#print "ipset from bgp4mp = ",ipset
 
 def print_bgp_msg(msg, subtype, m):
 	global indt
@@ -32,13 +33,15 @@ def print_bgp_msg(msg, subtype, m):
 		ip = str(withdrawn.prefix)+"/"+str(withdrawn.plen)
 		if ip in ipset:
 			ipStability[ip] = ipStability[ip]+1
+	#print "ipset from print bgp_msg - ",ipset
             
 
 def parse(d,topTalker_sources):
 	global ipset
 	global ipStability
 	global ipFile
-	#d = Reader(sys.argv[1])
+	print "Type of d before Reader is - ",type(d)
+	d = Reader(d)
 	for line in topTalker_sources:
 		#lineDetail = line.split(",")
 		ip = line[0].replace("x","0/24")
@@ -46,10 +49,12 @@ def parse(d,topTalker_sources):
 		ipStability[ip]=0
 		ipset.add(ip)
 	print "ipset - ",ipset
+	print "I am here"
 	st = time.time()
 	print "Type of d is - ",type(d)
 	for m in d:
 		m = m.mrt
+		#print "Hey there"
 		if ( m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
 			print_bgp4mp(m)
 	print "total time to read - ",time.time()-st
