@@ -58,8 +58,11 @@ if __name__ == '__main__':
 		file_name = wget.download(eachFile)
 		decompressed_file = open(file_name[:-4],"a+")
 		print "file name is ---  ",file_name
+		'''
 		decompressed_file.write(bz2.BZ2File(pwd+"/"+file_name,"rb").read())
 		Finalstability.append(parse(decompressed_file,topTalker_sources))
+		'''
+		Finalstability.append(parse(bz2.BZ2File(pwd+"/"+file_name,"rb"),topTalker_sources))
 	print "Finalstability in main is - "
 	print Finalstability
 	
