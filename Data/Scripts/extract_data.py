@@ -49,7 +49,7 @@ if __name__ == '__main__':
 	topTalker_sources = getTalkers(nflow)
 	print "ip files - ",topTalker_sources
 	url_list= extrcatUrl([START_TIME,END_TIME])
-	#print url_list
+	print url_list
 	print len(url_list)
 	pwd = os.getcwd()
 	print "pwd is - ",pwd
@@ -131,9 +131,7 @@ if __name__ == '__main__':
 	file_to_write.write(json.dumps(list_file))
 	file_to_write.close()
 
-	'''	
 	#Removing update files - 
 	for fname in os.listdir(pwd):
 	    if fname.startswith("updates"):
         	os.remove(os.path.join(pwd, fname))
-	'''

@@ -39,7 +39,7 @@ def getRange(start_hour, start_min, end_hour, end_min):
 		if(len(m)!=2):
 			m="0"+m
 		timerange.append([h,m])
-
+	print "Time rnage --",timerange
   #Timerange has start and end [hhmm] previous 15th minute. Ex 12h7m -> 1200, 23:48 -> 2345''
 	start_hour=timerange[0][0]
 	start_min=timerange[0][1] 
@@ -60,6 +60,7 @@ def getRange(start_hour, start_min, end_hour, end_min):
 		finalList.append(start_hour+start_min)
 		#FinalList will have the range of 15 minute intervals that we use to build url
 		#for 00:13 to 2:40 --> ["0000', '0015', '0030', '0045', '0100', '0115', '0130', '0145', '0200', '0215', '0230']
+	print "finalList - ",finalList
 	return finalList
 
 def extrcatUrl(time):
