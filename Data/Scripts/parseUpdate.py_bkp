@@ -1,0 +1,54 @@
+from optparse import OptionParser
+from datetime import *
+from mrtparse import *
+import commands
+import ast
+import time
+
+class Parser:
+	def __init__(self):
+		self.indt = 0
+		self.ipset = set()
+		self.ipStability = {}
+
+	def prline(self,line):
+		print('    ' * self.indt + line)
+
+	def print_bgp4mp(self,m):
+		self.indt += 1
+		if ( m.subtype == BGP4MP_ST['BGP4MP_MESSAGE'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_LOCAL'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4_LOCAL']):
+			self.print_bgp_msg(m.bgp.msg, m.subtype, m)
+			#print "ipset from bgp4mp = ",ipset
+
+	def print_bgp_msg(self,msg,subtype, m):
+		print msg.withdrawn
+		for withdrawn in msg.withdrawn:
+			ip = str(withdrawn.prefix)+"/"+str(withdrawn.plen)
+			if ip in self.ipset:
+				self.ipStability[ip] = self.ipStability[ip]+1
+		#print "ipset from print bgp_msg - ",ipset
+            
+
+	def parse(self,d,topTalker_sources,threadCounter):
+		print "Type of d before Reader is - ",type(d)
+		d = Reader(d)
+		for line in topTalker_sources:
+			#lineDetail = line.split(",")
+			ip = line[0].replace("x","0/24")
+			print "IP is --  ",ip
+			self.ipStability[ip]=0
+			self.ipset.add(ip)
+		print "ipset - ",self.ipset,"Thread - ",threadCounter
+		print "I am here"
+		st = time.time()
+		print "Type of d is - ",type(d),"Thread - ",threadCounter
+		for m in d:
+			#print "Reading m for thread - ",threadCounter
+			m = m.mrt
+			#print "Hey there"
+			if ( m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
+				self.print_bgp4mp(m)
+		print "total time to read - ",time.time()-st
+		print "ipStability --- "	
+		print self.ipStability
+		return self.ipStability

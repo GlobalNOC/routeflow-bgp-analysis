@@ -13,6 +13,8 @@ from elasticsearch import Elasticsearch
 from topTalker import getTalkers
 from getUrls import extrcatUrl
 from parseUpdate import parse
+from write_to_files import write_to_csv,write_to_json
+
 
 global topTalker_sources
 global nflow
@@ -40,98 +42,61 @@ def getFlowEntries(start,end):
 
 
 if __name__ == '__main__':
-        START_TIME = sys.argv[1]
-        END_TIME = sys.argv[2]
-        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME))
-        print "nflow data is "
-	#print nflow
-	print "score ",nflow["total"]
-	topTalker_sources = getTalkers(nflow)
-	print "ip files - ",topTalker_sources
-	url_list= extrcatUrl([START_TIME,END_TIME])
-	print url_list
-	print len(url_list)
-	pwd = os.getcwd()
-	print "pwd is - ",pwd
-	Finalstability = []
-	for eachFile in url_list:
-		file_name = wget.download(eachFile)
-		decompressed_file = open(file_name[:-4],"a+")
-		print "file name is ---  ",file_name
-		'''
-		decompressed_file.write(bz2.BZ2File(pwd+"/"+file_name,"rb").read())
-		Finalstability.append(parse(decompressed_file,topTalker_sources))
-		'''
-		Finalstability.append(parse(bz2.BZ2File(pwd+"/"+file_name,"rb"),topTalker_sources))
-	print "Finalstability in main is - "
-	print Finalstability
+	try:
+	        START_TIME = sys.argv[1]
+        	END_TIME = sys.argv[2]
+	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME))
+        	print "nflow data is "
+		#print nflow
+		print "score ",nflow["total"]
+		topTalker_sources = getTalkers(nflow)
+		print "ip files - ",topTalker_sources
+		url_list= extrcatUrl([START_TIME,END_TIME])
+		print url_list
+		print len(url_list)
+		pwd = os.getcwd()
+		print "pwd is - ",pwd
+		Finalstability = []
+		for eachFile in url_list:
+			file_name = wget.download(eachFile)
+			decompressed_file = open(file_name[:-4],"a+")
+			print "file name is ---  ",file_name
+			Finalstability.append(parse(bz2.BZ2File(pwd+"/"+file_name,"rb"),topTalker_sources))
 	
-	#Writing the data to json and csv files - 
+		print "Finalstability in main is - "
+		print Finalstability
 	
-	flapsDict = {}
+		#Writing the data to json and csv files - 	
+		flapsDict = {}
 	
-	for val in Finalstability:
-        	for key,value in val.iteritems():
-                	if key in flapsDict.keys():
-                        	flapsDict[key] = flapsDict[key] + value
-                	else:
-                        	flapsDict[key] = value
-	print "flapdict ---- "
-	print flapsDict
-	csvFile = open("Analysis.csv","a")
-	file_to_write = csv.writer(csvFile, delimiter=',')
-	Date = START_TIME[0:10]
-	print "Date --- ",Date
-	for line2 in topTalker_sources:
-		listToWrite = []
-        	listToWrite.append(Date)
-                listToWrite.append(line2[0])
-		listToWrite.append(line2[1])
-	        ip = listToWrite[1]
-        	ip = ip[:ip.find("x")]+"0/24"
-	        listToWrite.append(flapsDict[ip])
-        	cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
-		print "ip is -- ",ip
-        	try: #When no records were found for particular IP, ignore them
-                	descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                	asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
-                	asn_number = asn[asn.find("AS")+2:]
-                	print asn_number
-                	listToWrite.append(descr+"  |ASN - "+asn_number)
-        	except:
-                	listToWrite.append("NOT FOUND IN RADb")
-        	print listToWrite
-        	file_to_write.writerow(listToWrite)
-	file_to_write.writerow([])
-	csvFile.close()
-
-
-	open("Analysis.json",'w').close() # to clear contents of the file  
-	file_to_write = open("Analysis.json","w")
-	list_file = []
-	for line2 in topTalker_sources:
-        	listToWrite = {"Date":"","Prefix":"","DataSentInbits":"","Events":"","Organization":""}
-        	listToWrite["Date"] = Date
-        	listToWrite["Prefix"] = line2[0]
-        	listToWrite["DataSentInbits"] = int(line2[1])
-        	ip = line2[0]
-        	ip = ip[:ip.find("x")]+"0/24"
-        	listToWrite["Events"] = flapsDict[ip]
-        	cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
-        	try:
-                	descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                	asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
-                	asn_number = asn[asn.find("AS")+2:]
-                	listToWrite["Organization"] = descr+"  |ASN - "+asn_number
-        	except:
-                	listToWrite["Organization"] = "NOT FOUND IN RADb"
-        	print listToWrite
-        	list_file.append(listToWrite)
-	file_to_write.seek(0)
-	file_to_write.write(json.dumps(list_file))
-	file_to_write.close()
+		for val in Finalstability:
+	        	for key,value in val.iteritems():
+                		if key in flapsDict.keys():
+        	                	flapsDict[key] = flapsDict[key] + value
+	                	else:
+               	         		flapsDict[key] = value
+		print "flapdict ---- "
+		print flapsDict
+		write_to_csv(flapsDict, topTalker_sources, START_TIME)
+		write_to_json(flapsDict, topTalker_sources, START_TIME)
 
 	#Removing update files - 
-	for fname in os.listdir(pwd):
-	    if fname.startswith("updates"):
-        	os.remove(os.path.join(pwd, fname))
+		for fname in os.listdir(pwd):
+		    if fname.startswith("updates"):
+        		os.remove(os.path.join(pwd, fname))
+
+		open("status.json",'w').close() # to clear contents of the file
+                status_file = open("status.json","w")
+                status_file.seek(0)
+                status_obj = {"timestamp":time.time(),"error_text":"","error":0}
+                status_file.write(json.dumps(status_obj))
+                status_file.close()
+	except Exception as e:
+		open("status.json",'w').close() # to clear contents of the file
+        	status_file = open("status.json","w")
+        	status_file.seek(0)
+        	status_obj = {"timestamp":time.time(),"error_text":str(e),"error":1}
+        	status_file.write(json.dumps(status_obj))
+        	status_file.close()
+				
+	
