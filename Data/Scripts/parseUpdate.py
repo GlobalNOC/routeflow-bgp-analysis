@@ -9,18 +9,18 @@ import sys
 def prline(line):
 	print('    ' * self.indt + line)
 
-def print_bgp4mp(m):
-	global indt
-	indt = 0
-	indt += 1
+def print_bgp4mp(m,ipStability,ipset):
+	#global indt
+	#indt = 0
+	#indt += 1
         if ( m.subtype == BGP4MP_ST['BGP4MP_MESSAGE'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_LOCAL'] or m.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4_LOCAL']):
-		print_bgp_msg(m.bgp.msg, m.subtype, m)
+		print_bgp_msg(m.bgp.msg, m.subtype, m,ipStability,ipset)
 
-def print_bgp_msg(msg,subtype, m):
-	global indt
-	global ipset
-	global ipStability
-	indt = 0
+def print_bgp_msg(msg,subtype, m,ipStability,ipset):
+	#global indt
+	#global ipset
+	#global ipStability
+	#indt = 0
 	for withdrawn in msg.withdrawn:
 		ip = str(withdrawn.prefix)+"/"+str(withdrawn.plen)
 		if ip in ipset:
@@ -28,11 +28,10 @@ def print_bgp_msg(msg,subtype, m):
             
 
 def parse(d,topTalker_sources):
-	global ipset
+	#global ipset
 	ipset = set()
-	global ipStability
+	#global ipStability
 	ipStability = {}
-	global ipFile
 	print "Type of d before Reader is - ",type(d)
 	d = Reader(d)
 	for line in topTalker_sources:
@@ -47,7 +46,7 @@ def parse(d,topTalker_sources):
         	#print "Reading m for thread - ",threadCounter
                 m = m.mrt
                 if (m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
-                	print_bgp4mp(m)
+                	print_bgp4mp(m,ipStability,ipset)
     	print "total time to read - ",time.time()-st
         print "ipStability --- "        
         print ipStability

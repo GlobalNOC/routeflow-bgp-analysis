@@ -8,8 +8,6 @@ def getTalkers(nflow):
         i=0
 	print len(nflow["hits"])
         for entry in nflow["hits"]:
-		#print entry
-		#print i
                 if entry["_index"] == ".kibana":
                         continue
                 inner = {}
@@ -32,16 +30,11 @@ def getTalkers(nflow):
                 else:
                         inner[dst_ipAddress] = bits_sent
                         output[src_ipAddress] = inner
-        #print output
-	# To find the src dst pair with max bits exchanged
         maxDataExchanged = -1
         srcDict = {}
         #Calculate for each source amount of data it has sent
         for src, values in output.iteritems():
                 srcDict[src] = sum(v for k,v in values.iteritems())
-        #print "src dict ----------"
-        #print srcDict
-        #Get top 10 IPs with max data sent - 
         top_ten_IP = sorted(srcDict.iteritems(), key=lambda (key, value): (-value, key))[:10]
         print "Top 10 -- "
         print top_ten_IP
