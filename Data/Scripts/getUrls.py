@@ -78,22 +78,54 @@ def extrcatUrl(time):
 	eday = time[1].split("-")[2]
 	ehour = time[1].split("-")[3]
 	emin = time[1].split("-")[4]
-	for i in range(int(smonth),int(emonth)+1):
-		if smonth != emonth:
-			#get all days of smon, and increment smon and continue
-			#TODO: Code incomplete
-			print " different month"
-		else:
-			#url="http://archive.routeviews.org/bgpdata/"+year+"."+month+"/UPDATES/updates."+year+month+day+"."+value+".bz2"
-			for day in range(int(sday),int(eday)+1):
-				if day==int(eday):
-					#get hours from start to end
-					for time_segment in getRange(shour,smin,ehour,emin):
-						url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
-				else:
-					for time_segment in getRange(shour,smin,"24","00"):
-						url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(eday)+"."+time_segment+".bz2")
-						shour ="00"
-						smin = "01"
-           
+	
+
+	lastDay ={1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
+	#for i in range(int(smonth),int(emonth)+1):
+	if smonth != emonth:
+		#get all days of smon, and increment smon and continue
+		#TODO: Code incomplete
+		print " different month"
+		for month in range(int(smonth), int(emonth)+1):
+			if month == int(emonth):
+				for day in range(1,int(eday)+1):
+					if day==int(eday):
+	                                       #get hours from start to end
+        	                                for time_segment in getRange(shour,smin,ehour,emin):
+                       	                        	url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(emonth)+"/UPDATES/updates."+str(syear)+str(emonth)+str(eday)+"."+time_segment+".bz2")
+                            		else:
+                                        	for time_segment in getRange(shour,smin,"24","00"):
+                                               		url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
+                                               		shour ="00"
+                                               		smin = "01"
+			else:
+				for day in range(int(sday),lastDay[int(smonth)]+1):
+					if day==lastDay[int(smonth)]:
+        	                               #get hours from start to end
+	                                       	for time_segment in getRange(shour,smin,"24","00"):
+                  	                           	url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(day)+"."+time_segment+".bz2")
+							shour ="00"
+							smin = "01"
+                               	 	else:
+                                        	for time_segment in getRange(shour,smin,"24","00"):
+                                               		url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
+                                               		shour ="00"
+                                               		smin = "01"
+						
+	else:
+		#url="http://archive.routeviews.org/bgpdata/"+year+"."+month+"/UPDATES/updates."+year+month+day+"."+value+".bz2"
+		for day in range(int(sday),int(eday)+1):
+			if day==int(eday):
+				#get hours from start to end
+				for time_segment in getRange(shour,smin,ehour,emin):
+					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
+			else:
+				for time_segment in getRange(shour,smin,"24","00"):
+					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(eday)+"."+time_segment+".bz2")
+					shour ="00"
+					smin = "01"
+     	#print url_list
+	#for l in url_list:
+		#print l
+	#print len(url_list)
 	return url_list
