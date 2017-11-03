@@ -53,7 +53,7 @@ if __name__ == '__main__':
 		config_obj = literal_eval(config_file.read())
 	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])
 		print "score ",nflow["total"]
-		print nflow
+		#print nflow
 		topTalker_sources = getTalkers(nflow)
 		print "ip files - ",topTalker_sources
 
