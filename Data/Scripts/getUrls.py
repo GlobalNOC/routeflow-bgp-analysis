@@ -118,10 +118,10 @@ def extrcatUrl(time):
 			if day==int(eday):
 				#get hours from start to end
 				for time_segment in getRange(shour,smin,ehour,emin):
-					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
+					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(eday)+"."+time_segment+".bz2")
 			else:
 				for time_segment in getRange(shour,smin,"24","00"):
-					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(eday)+"."+time_segment+".bz2")
+					url_list.append("http://archive.routeviews.org/bgpdata/"+str(syear)+"."+str(smonth)+"/UPDATES/updates."+str(syear)+str(smonth)+str(sday)+"."+time_segment+".bz2")
 					shour ="00"
 					smin = "01"
      	#print url_list

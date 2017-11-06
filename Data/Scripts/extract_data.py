@@ -35,21 +35,21 @@ def getUnixTime(dt):
 # Get flow entries in the range[start,end] using ES API
 def getFlowEntries(start,end,ES_Instance):
 	es = Elasticsearch([ES_Instance])
-	#es = Elasticsearch(['http://140.182.49.116:9200/'])
-	#query = {"size":1,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}}}
-	#size = es.search(body=query)["hits"]["total"]
-	#print "size in extract script is ",size
 	query = {"size":50000,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}}}
 	return es.search(body=query,scroll='1m')["hits"]
-
 
 if __name__ == '__main__':
 	try:
 		#tr = tracker.SummaryTracker()
 		print "Process started at - ",datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
-	        START_TIME = sys.argv[1]
-        	END_TIME = sys.argv[2]
+		START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S')
+                END_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')
+	        #START_TIME = sys.argv[1]
+        	#END_TIME = sys.argv[2]
+		print "start - ",START_TIME
+		print "end - ",END_TIME
 		config_file = open("config.json","r")
+		print "Can't reach here"
 		config_obj = literal_eval(config_file.read())
 	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])
 		print "score ",nflow["total"]

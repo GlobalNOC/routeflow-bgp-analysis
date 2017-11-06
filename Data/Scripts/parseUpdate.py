@@ -42,11 +42,15 @@ def parse(d,topTalker_sources):
    	print "ipset - ",ipset
         st = time.time()
         print "Type of d is - ",type(d)
-        for m in d:
-        	#print "Reading m for thread - ",threadCounter
-                m = m.mrt
-                if (m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
-                	print_bgp4mp(m,ipStability,ipset)
+	try:
+        	for m in d:
+        		#print "Reading m for thread - ",threadCounter
+                	m = m.mrt
+                	if (m.type == MRT_T['BGP4MP'] or m.type == MRT_T['BGP4MP_ET']):
+                		print_bgp4mp(m,ipStability,ipset)
+	except IOError as IOE:
+		print IOE
+		print "skipping the file "
     	print "total time to read - ",time.time()-st
         print "ipStability --- "        
         print ipStability
