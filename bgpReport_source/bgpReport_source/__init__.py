@@ -39,11 +39,9 @@ def write_status(error=0, error_text=""):
                 status_file.write(json.dumps(status_obj))
                 status_file.close()	
 
-def main():
+def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'), END_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')):
 	try:
 		print "Process started at - ",datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
-		START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S')
-                END_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')
 		print "start - ",START_TIME
 		print "end - ",END_TIME
 		config_file = open("config.json","r")
@@ -79,4 +77,3 @@ def main():
 	except Exception as e:
 		print "Exception -",e
 		write_status(1,str(e))
-#main()

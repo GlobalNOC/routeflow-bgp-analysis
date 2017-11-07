@@ -20,10 +20,7 @@ def write_to_csv(flapsDict, topTalker_sources, START_TIME):
                 print "ip is -- ",ip
                 try: #When no records were found for particular IP, ignore them
                         descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                        asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
-                        asn_number = asn[asn.find("AS")+2:]
-                        print asn_number
-                        listToWrite.append(descr+"  |ASN - "+asn_number)
+                        listToWrite.append(descr)
                 except Exception as e:
 			print ("write to cs exception ",e)
                         listToWrite.append("NOT FOUND IN RADb")
@@ -48,9 +45,7 @@ def write_to_json(flapsDict, topTalker_sources, START_TIME):
                 cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
                 try:
                         descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                        asn = commands.getoutput("whois -h whois.radb.net "+ip+" | grep origin:").split("\n")[0].split(":")[1].strip(" ")
-                        asn_number = asn[asn.find("AS")+2:]
-                        listToWrite["Organization"] = descr+"  |ASN - "+asn_number
+                        listToWrite["Organization"] = descr
                 except Exception as e:
 			print "write to json exception ",e
                         listToWrite["Organization"] = "NOT FOUND IN RADb"

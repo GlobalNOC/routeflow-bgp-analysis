@@ -14,7 +14,7 @@ sudo pip install .
 
 navigate to parent directory - /routeflow-bgp-analysis
 
-run the python script 'test_pip.py' as -
+run the python script test_pip.py as -
 
 ```
 sudo python test_pip.py
