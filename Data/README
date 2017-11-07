@@ -1,6 +1,0 @@
-Instructions to run the script
-
->> Download the Data directory
->> Run the shell python script as python extract_data.py startDate endDate"
-   StartDate and EndDate are in the format (year-month-day-hour-min-sec) 2016-01-30-23-30-00
->> The final csv and json file will be availabe under Data/Scripts as Ananlysis.csv & Analysis.json respectively
