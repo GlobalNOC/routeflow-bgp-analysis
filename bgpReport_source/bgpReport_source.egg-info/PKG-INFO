@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
 Name: bgpReport-source
 Version: 0.1
-Summary: The funniest joke in the world
-Home-page: http://github.com/storborg/funniest
-Author: Flying Circus
-Author-email: flyingcircus@example.com
-License: MIT
+Summary: routeflow-bgp-analysis
+Home-page: https://github.com/GlobalNOC/routeflow-bgp-analysis/tree/master/bgpReport_source
+Author: Mihir Thatte
+Author-email: mthatte@indiana.edu
+License: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN
