@@ -6,7 +6,6 @@ import datetime
 import sys
 import bz2
 from elasticsearch import Elasticsearch
-from topTalker import getTalkers
 from getUrls import extrcatUrl
 from parseUpdate import parse
 from write_to_files import write_to_csv,write_to_json
@@ -28,8 +27,10 @@ def getUnixTime(dt):
 # Get flow entries in the range[start,end] using ES API
 def getFlowEntries(start,end,ES_Instance):
 	es = Elasticsearch([ES_Instance])
-	query = {"size":50000,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}}}
-	return es.search(body=query,scroll='1m')["hits"]
+	#Get top 10 IP group by total data bits sent - 
+	query = {"size":0,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}},\
+	"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip","size":11}, "aggs":{"total_bits":{"sum":{"field":"values.num_bits"}}}}} }
+	return es.search(body=query,scroll='1m')
 
 def write_status(error=0, error_text=""):
 		open("status.json",'w').close() # to clear contents of the file
@@ -37,7 +38,14 @@ def write_status(error=0, error_text=""):
                 status_file.seek(0)
                 status_obj = {"timestamp":datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f'),"error_text":error_text,"error":error}
                 status_file.write(json.dumps(status_obj))
-                status_file.close()	
+                status_file.close()
+
+def extract_top_talkers(nflow):
+	topTalkers=[]
+	for each in nflow:
+		if each["key"] != "":
+			topTalkers.append((each["key"],each["total_bits"]["value"]))
+	return topTalkers
 
 def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'), END_TIME =  datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')):
 	try:
@@ -46,9 +54,9 @@ def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - date
 		print "end - ",END_TIME
 		config_file = open("config.json","r")
 		config_obj = literal_eval(config_file.read())
-	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])
-		print "score ",nflow["total"]
-		topTalker_sources = getTalkers(nflow)
+	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])["aggregations"]["group_by_src_ip"]["buckets"]
+		topTalker_sources = extract_top_talkers(nflow)
+		print topTalker_sources
 		url_list= extrcatUrl([START_TIME,END_TIME])
 		print url_list
 		pwd = os.getcwd()
@@ -77,3 +85,4 @@ def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - date
 	except Exception as e:
 		print "Exception -",e
 		write_status(1,str(e))
+
