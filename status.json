@@ -1,1 +1,1 @@
-{"timestamp": "2017-11-07 21:24:25.194174", "error_text": "", "error": 0}
+{"timestamp": "2017-11-10 19:34:39.168360", "error_text": "'int' object has no attribute 'split'", "error": 1}

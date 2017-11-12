@@ -28,9 +28,9 @@ def getUnixTime(dt):
 def getFlowEntries(start,end,ES_Instance):
 	es = Elasticsearch([ES_Instance])
 	#Get top 10 IP group by total data bits sent - 
-	query = {"size":0,"filter":{"bool":{"must":[{"range":{"start":{"gte":start,"lte":end,"format":"epoch_millis"}}}],"must_not":[]}},\
-	"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip","size":11}, "aggs":{"total_bits":{"sum":{"field":"values.num_bits"}}}}} }
-	return es.search(body=query,scroll='1m')
+	query = {"query":{"range": {"start": {"gte": start,"lte":end,"format":"epoch_millis"}}},\
+		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip"}, "aggs":{"total_bits":{"sum":{"field":"values.num_bits"}}}}}}
+	return es.search(body=query,scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 
 def write_status(error=0, error_text=""):
 		open("status.json",'w').close() # to clear contents of the file
@@ -54,7 +54,7 @@ def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - date
 		print "end - ",END_TIME
 		config_file = open("config.json","r")
 		config_obj = literal_eval(config_file.read())
-	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])["aggregations"]["group_by_src_ip"]["buckets"]
+	        nflow = getFlowEntries(getUnixTime(START_TIME),getUnixTime(END_TIME),config_obj["ES_Instance"])
 		topTalker_sources = extract_top_talkers(nflow)
 		print topTalker_sources
 		url_list= extrcatUrl([START_TIME,END_TIME])
@@ -85,4 +85,3 @@ def main(START_TIME =  datetime.datetime.strftime(datetime.datetime.now() - date
 	except Exception as e:
 		print "Exception -",e
 		write_status(1,str(e))
-

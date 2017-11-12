@@ -1,0 +1,209 @@
+Process started at -  2017-11-10 19:50:32.791344
+start -  2017-11-08-19-50-32
+end -  2017-11-09-19-50-32
+[(u'17.253.27.x', 707894119366656.0), (u'200.136.80.x', 996039795507200.0), (u'198.32.44.x', 341151943155712.0), (u'169.228.130.x', 384285102964736.0), (u'128.117.140.x', 212884495515648.0), (u'128.142.209.x', 168274750054400.0), (u'198.189.255.x', 84682980540416.0), (u'192.101.161.x', 92046319406768.0), (u'140.172.138.x', 85660558614528.0), (u'128.117.212.x', 83706841276416.0)]
+['http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.1945.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2000.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2015.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2030.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2045.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2100.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2115.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2130.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2145.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2200.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2215.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2230.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2245.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2300.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2315.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2330.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171108.2345.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0000.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0015.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0030.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0045.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0100.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0115.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0130.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0145.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0200.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0215.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0230.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0245.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0300.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0315.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0330.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0345.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0400.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0415.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0430.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0445.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0500.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0515.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0530.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0545.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0600.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0615.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0630.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0645.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0700.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0715.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0730.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0745.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0800.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0815.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0830.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0845.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0900.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0915.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0930.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.0945.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1000.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1015.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1030.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1045.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1100.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1115.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1130.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1145.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1200.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1215.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1230.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1245.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1300.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1315.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1330.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1345.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1400.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1415.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1430.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1445.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1500.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1515.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1530.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1545.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1600.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1615.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1630.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1645.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1700.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1715.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1730.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1745.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1800.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1815.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1830.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1845.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1900.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1915.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1930.bz2', 'http://archive.routeviews.org/bgpdata/2017.11/UPDATES/updates.20171109.1945.bz2']
+file name ---   updates.20171108.1945.bz2
+total time to read -  49.7269670963
+key not in flapsDict  128.142.209.0/24
+key not in flapsDict  198.32.44.0/24
+key not in flapsDict  198.189.255.0/24
+key not in flapsDict  192.101.161.0/24
+key not in flapsDict  200.136.80.0/24
+key not in flapsDict  169.228.130.0/24
+key not in flapsDict  128.117.212.0/24
+key not in flapsDict  128.117.140.0/24
+key not in flapsDict  17.253.27.0/24
+key not in flapsDict  140.172.138.0/24
+file name ---   updates.20171108.2000.bz2
+total time to read -  89.1889979839
+file name ---   updates.20171108.2015.bz2
+total time to read -  157.91387701
+file name ---   updates.20171108.2030.bz2
+total time to read -  254.619408131
+file name ---   updates.20171108.2045.bz2
+total time to read -  302.36202693
+file name ---   updates.20171108.2100.bz2
+total time to read -  513.137852192
+file name ---   updates.20171108.2115.bz2
+total time to read -  424.091339111
+file name ---   updates.20171108.2130.bz2
+total time to read -  357.983839989
+file name ---   updates.20171108.2145.bz2
+total time to read -  466.316004992
+file name ---   updates.20171108.2200.bz2
+total time to read -  451.505786896
+file name ---   updates.20171108.2215.bz2
+total time to read -  342.724302053
+file name ---   updates.20171108.2230.bz2
+total time to read -  341.438348055
+file name ---   updates.20171108.2245.bz2
+total time to read -  385.565603018
+file name ---   updates.20171108.2300.bz2
+total time to read -  531.450986147
+file name ---   updates.20171108.2315.bz2
+total time to read -  487.373714924
+file name ---   updates.20171108.2330.bz2
+total time to read -  410.767558813
+file name ---   updates.20171108.2345.bz2
+total time to read -  526.281034946
+file name ---   updates.20171109.0000.bz2
+total time to read -  697.051520109
+file name ---   updates.20171109.0015.bz2
+total time to read -  754.817663908
+file name ---   updates.20171109.0030.bz2
+total time to read -  836.720201015
+file name ---   updates.20171109.0045.bz2
+total time to read -  518.14664793
+file name ---   updates.20171109.0100.bz2
+total time to read -  411.744190931
+file name ---   updates.20171109.0115.bz2
+total time to read -  518.049699068
+file name ---   updates.20171109.0130.bz2
+total time to read -  462.206061125
+file name ---   updates.20171109.0145.bz2
+total time to read -  460.850509167
+file name ---   updates.20171109.0200.bz2
+total time to read -  472.937575102
+file name ---   updates.20171109.0215.bz2
+total time to read -  627.636199951
+file name ---   updates.20171109.0230.bz2
+total time to read -  514.948479176
+file name ---   updates.20171109.0245.bz2
+total time to read -  539.091457129
+file name ---   updates.20171109.0300.bz2
+total time to read -  451.446271896
+file name ---   updates.20171109.0315.bz2
+total time to read -  485.456101894
+file name ---   updates.20171109.0330.bz2
+total time to read -  533.507961988
+file name ---   updates.20171109.0345.bz2
+total time to read -  514.694741964
+file name ---   updates.20171109.0400.bz2
+total time to read -  450.899437904
+file name ---   updates.20171109.0415.bz2
+total time to read -  436.222280979
+file name ---   updates.20171109.0430.bz2
+total time to read -  560.719357967
+file name ---   updates.20171109.0445.bz2
+total time to read -  454.897958994
+file name ---   updates.20171109.0500.bz2
+total time to read -  584.559676886
+file name ---   updates.20171109.0515.bz2
+total time to read -  497.756982088
+file name ---   updates.20171109.0530.bz2
+total time to read -  469.32682991
+file name ---   updates.20171109.0545.bz2
+total time to read -  528.027168989
+file name ---   updates.20171109.0600.bz2
+total time to read -  612.043282032
+file name ---   updates.20171109.0615.bz2
+total time to read -  702.520207882
+file name ---   updates.20171109.0630.bz2
+total time to read -  534.36874795
+file name ---   updates.20171109.0645.bz2
+total time to read -  691.398303032
+file name ---   updates.20171109.0700.bz2
+total time to read -  668.294173956
+file name ---   updates.20171109.0715.bz2
+total time to read -  520.760677814
+file name ---   updates.20171109.0730.bz2
+total time to read -  572.498886824
+file name ---   updates.20171109.0745.bz2
+total time to read -  461.762675047
+file name ---   updates.20171109.0800.bz2
+invalid data stream
+skipping the file 
+total time to read -  7.60555267334e-05
+file name ---   updates.20171109.0815.bz2
+total time to read -  3600.492383
+file name ---   updates.20171109.0830.bz2
+total time to read -  5200.49667001
+file name ---   updates.20171109.0845.bz2
+total time to read -  2431.48889804
+file name ---   updates.20171109.0900.bz2
+total time to read -  327.21495986
+file name ---   updates.20171109.0915.bz2
+total time to read -  383.097784042
+file name ---   updates.20171109.0930.bz2
+total time to read -  465.849168062
+file name ---   updates.20171109.0945.bz2
+total time to read -  389.061612844
+file name ---   updates.20171109.1000.bz2
+total time to read -  1.96813797951
+file name ---   updates.20171109.1015.bz2
+total time to read -  8.44014501572
+file name ---   updates.20171109.1030.bz2
+total time to read -  23.0498819351
+file name ---   updates.20171109.1045.bz2
+total time to read -  2308.72370696
+file name ---   updates.20171109.1100.bz2
+total time to read -  2982.32853198
+file name ---   updates.20171109.1115.bz2
+total time to read -  4145.00429106
+file name ---   updates.20171109.1130.bz2
+total time to read -  2014.16848993
+file name ---   updates.20171109.1145.bz2
+total time to read -  245.265725136
+file name ---   updates.20171109.1200.bz2
+invalid data stream
+skipping the file 
+total time to read -  4.88758087158e-05
+file name ---   updates.20171109.1215.bz2
+total time to read -  5.09676480293
+file name ---   updates.20171109.1230.bz2
+total time to read -  68.6351838112
+file name ---   updates.20171109.1245.bz2
+total time to read -  2629.28511906
+file name ---   updates.20171109.1300.bz2
+total time to read -  2935.45251608
+file name ---   updates.20171109.1315.bz2
+total time to read -  2871.05655813
+file name ---   updates.20171109.1330.bz2
+total time to read -  614.352484941
+file name ---   updates.20171109.1345.bz2
+total time to read -  242.215395927
+file name ---   updates.20171109.1400.bz2
+total time to read -  2.96450805664
+file name ---   updates.20171109.1415.bz2
+total time to read -  7.29990506172
+file name ---   updates.20171109.1430.bz2
+total time to read -  49.8338630199
+file name ---   updates.20171109.1445.bz2
+total time to read -  2334.06876802
+file name ---   updates.20171109.1500.bz2
+total time to read -  2301.33037496
+file name ---   updates.20171109.1515.bz2
+total time to read -  2869.59675789
+file name ---   updates.20171109.1530.bz2
+total time to read -  912.19335103
+file name ---   updates.20171109.1545.bz2
+total time to read -  173.016944885
+file name ---   updates.20171109.1600.bz2
+total time to read -  1.50462913513
+file name ---   updates.20171109.1615.bz2
+total time to read -  3.94747114182
+file name ---   updates.20171109.1630.bz2
+total time to read -  8.69044494629
+file name ---   updates.20171109.1645.bz2
+total time to read -  1627.24468589
+file name ---   updates.20171109.1700.bz2
+total time to read -  3022.76050997
+file name ---   updates.20171109.1715.bz2
+total time to read -  2891.25213099
+file name ---   updates.20171109.1730.bz2
+total time to read -  405.502328873
+file name ---   updates.20171109.1745.bz2
+total time to read -  175.987260103
+file name ---   updates.20171109.1800.bz2
+total time to read -  1.01666712761
+file name ---   updates.20171109.1815.bz2
+total time to read -  4.06304907799
+file name ---   updates.20171109.1830.bz2
+total time to read -  34.0833389759
+file name ---   updates.20171109.1845.bz2
+total time to read -  2194.0544548
+file name ---   updates.20171109.1900.bz2
+total time to read -  3167.88937902
+file name ---   updates.20171109.1915.bz2
+total time

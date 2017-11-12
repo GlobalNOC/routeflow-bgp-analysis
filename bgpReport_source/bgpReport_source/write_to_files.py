@@ -5,29 +5,29 @@ import sys
 import json
 
 def write_to_csv(flapsDict, topTalker_sources, START_TIME):
-	csvFile = open("Analysis.csv","a")
-        file_to_write = csv.writer(csvFile, delimiter=',')
+	csvFile = open("Analysis.csv", "a")
+	file_to_write = csv.writer(csvFile, delimiter=',')
 	Date = START_TIME[0:10]
 	for line2 in topTalker_sources:
-                listToWrite = []
-                listToWrite.append(Date)
-                listToWrite.append(line2[0])
-                listToWrite.append(line2[1])
-                ip = listToWrite[1]
-                ip = ip[:ip.find("x")]+"0/24"
-                listToWrite.append(flapsDict[ip])
-                cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
-                print "ip is -- ",ip
-                try: #When no records were found for particular IP, ignore them
-                        descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                        listToWrite.append(descr)
-                except Exception as e:
+		listToWrite = []
+		listToWrite.append(Date)
+		listToWrite.append(line2[0])
+		listToWrite.append(line2[1])
+		ip = listToWrite[1]
+		ip = ip[:ip.find("x")]+"0/24"
+		listToWrite.append(flapsDict[ip])
+		cmd = "whois -h whois.radb.net "+ip+" | grep descr:"
+		print "ip is -- ",ip
+		try: #When no records were found for particular IP, ignore them
+			descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+			listToWrite.append(descr)
+		except Exception as e:
 			print ("write to cs exception ",e)
-                        listToWrite.append("NOT FOUND IN RADb")
-                print listToWrite
-                file_to_write.writerow(listToWrite)
-        file_to_write.writerow([])
-        csvFile.close()
+			listToWrite.append("NOT FOUND IN RADb")
+		print listToWrite
+		file_to_write.writerow(listToWrite)
+	file_to_write.writerow([])
+	csvFile.close()
 
 def write_to_json(flapsDict, topTalker_sources, START_TIME):
 	open("Analysis.json",'w').close() # to clear contents of the file  
