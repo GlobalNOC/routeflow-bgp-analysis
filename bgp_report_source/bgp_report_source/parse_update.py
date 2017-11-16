@@ -1,6 +1,6 @@
 """This module parses the archived file and extracts events information from it."""
 import time
-from bgpReport_source.mrtparse import Reader, BGP4MP_ST, MRT_T
+from mrtparse import Reader, BGP4MP_ST, MRT_T
 
 def print_bgp4mp(message, ip_stability, ipset):
 	if message.subtype == BGP4MP_ST['BGP4MP_MESSAGE']\

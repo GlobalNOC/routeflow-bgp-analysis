@@ -11,9 +11,9 @@ import bz2
 from ast import literal_eval
 import wget
 from elasticsearch import Elasticsearch
-from bgpReport_source.get_urls import extrcat_url
-from bgpReport_source.parse_update import parse
-from bgpReport_source.write_to_files import write_to_csv, write_to_json
+from get_urls import extrcat_url
+from parse_update import parse
+from write_to_files import write_to_csv, write_to_json
 
 # Converts from readable form year-month-day-hour-min-sec to unix time
 def get_unix_time(date):
@@ -94,4 +94,3 @@ def main(START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
 	except Exception as e:
 		print "Exception -", e
 		write_status(1, str(e))
-
