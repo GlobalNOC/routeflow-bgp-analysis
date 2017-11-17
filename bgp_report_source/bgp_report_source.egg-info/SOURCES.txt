@@ -1,11 +1,15 @@
+MANIFEST.in
+README.rst
 setup.py
 bgp_report_source/__init__.py
+bgp_report_source/command_line.py
 bgp_report_source/get_urls.py
 bgp_report_source/parse_update.py
 bgp_report_source/write_to_files.py
 bgp_report_source.egg-info/PKG-INFO
 bgp_report_source.egg-info/SOURCES.txt
 bgp_report_source.egg-info/dependency_links.txt
+bgp_report_source.egg-info/entry_points.txt
 bgp_report_source.egg-info/not-zip-safe
 bgp_report_source.egg-info/requires.txt
 bgp_report_source.egg-info/top_level.txt

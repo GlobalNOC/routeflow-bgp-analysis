@@ -2,7 +2,7 @@ Metadata-Version: 1.0
 Name: bgp-report-source
 Version: 0.1
 Summary: routeflow-bgp-analysis
-Home-page: https://github.com/GlobalNOC/routeflow-bgp-analysis/tree/master/bgpReport_source
+Home-page: https://github.com/GlobalNOC/routeflow-bgp-analysis/
 Author: Mihir Thatte
 Author-email: mthatte@indiana.edu
 License: UNKNOWN

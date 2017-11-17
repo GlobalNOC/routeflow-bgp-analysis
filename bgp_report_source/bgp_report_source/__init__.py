@@ -57,13 +57,17 @@ def extract_top_talkers(nflow):
 def main(START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
 	- datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'),\
 	END_TIME=datetime.datetime.strftime(datetime.datetime.now()\
-	- datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')):
+	- datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S'),\
+	config_file_path=""):
 	try:
 		print "Process started at - ", datetime.datetime.fromtimestamp(time.time())\
 		.strftime('%Y-%m-%d %H:%M:%S.%f')
 		print "start - ", START_TIME
 		print "end - ", END_TIME
-		config_obj = literal_eval(open("config.json", "r").read())
+		if config_file_path == "":
+			config_obj = literal_eval(open("config.json", "r").read())
+		else:
+			config_obj = literal_eval(open(config_file_path+"/config.json", "r").read())
 		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["ES_Instance"])
 		top_talker_sources = extract_top_talkers(nflow)
 		print top_talker_sources
