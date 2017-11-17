@@ -17,7 +17,7 @@ sudo pip install .
 ```
 bgp-report-run 
 ```
-Typing this command will start the script with default datetime parameters as - current_datetime -2
+Typing this command will start the script with optional datetime parameters and config file location
 
 
 ```
