@@ -38,8 +38,8 @@ def get_flow_entries(start, end, es_instance):
 		{"sum":{"field":"values.num_bits"}}}}}}
 	return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 
-def write_status(error=0, error_text=""):
-	open("status.json", 'w').close() # to clear contents of the file
+def write_status(file_path, error=0, error_text=""):
+	open(file_path+"status.json", 'w').close() # to clear contents of the file
 	status_file = open("status.json", "w")
 	status_file.seek(0)
 	status_obj = {"timestamp":datetime.datetime.fromtimestamp(time.time())\
@@ -86,15 +86,15 @@ def main(START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
 					print "key not in flaps_dict ", key
 					flaps_dict[key] = value
 
-		write_to_csv(flaps_dict, top_talker_sources, START_TIME)
-		write_to_json(flaps_dict, top_talker_sources, START_TIME)
+		write_to_csv(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
+		write_to_json(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
 
 		#Removing update files -
 		for fname in os.listdir(pwd):
 			if fname.startswith("updates"):
 				os.remove(os.path.join(pwd, fname))
 
-		write_status()
+		write_status(config_obj["status_file_path"])
 	except Exception as e:
 		print "Exception -", e
-		write_status(1, str(e))
+		write_status(config_obj["status_file_path"], 1, str(e))
