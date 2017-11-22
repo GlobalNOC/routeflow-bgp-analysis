@@ -14,11 +14,6 @@ sudo pip install .
 ## How to run the script - 
 
 ## Running through command line - 
-```
-bgp-report-run 
-```
-Typing this command will start the script with optional datetime parameters and config file location
-
 
 ```
 bgp-report-run [path to config.json file] [START_TIME] [END_TIME]
