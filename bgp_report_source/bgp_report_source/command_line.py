@@ -6,10 +6,13 @@ def main():
 	#No arguments specified, take the default datetime
 	if len(sys.argv) == 1:
 		bgp_report_source.main()
+	#If only one argimet is passed, passed the config file location - 
+	if len(sys.argv) == 2:
+		bgp_report_source.main(sys.argv[1])
 	#Two arguments specified, pass the two datetimes to main
 	elif len(sys.argv) == 3:
-		bgp_report_source.main(sys.argv[1], sys.argv[2])
-	#Three arguments specified, third is the location of config file - 
+		bgp_report_source.main("", sys.argv[1], sys.argv[2])
+	#Three arguments specified, passed config file location and datetime in order
 	elif len(sys.argv) == 4:
 		bgp_report_source.main(sys.argv[1], sys.argv[2], sys.argv[3])
 	else:

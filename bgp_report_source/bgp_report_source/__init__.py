@@ -54,11 +54,11 @@ def extract_top_talkers(nflow):
 			top_talkers.append((each["key"], each["total_bits"]["value"]))
 	return top_talkers
 
-def main(START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
+def main(config_file_path="",\
+	START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
 	- datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'),\
 	END_TIME=datetime.datetime.strftime(datetime.datetime.now()\
-	- datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S'),\
-	config_file_path=""):
+	- datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')):
 	try:
 		print "Process started at - ", datetime.datetime.fromtimestamp(time.time())\
 		.strftime('%Y-%m-%d %H:%M:%S.%f')
