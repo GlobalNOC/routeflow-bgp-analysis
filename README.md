@@ -21,13 +21,29 @@ Typing this command will start the script with optional datetime parameters and 
 
 
 ```
-bgp-report-run [START_TIME] [END_TIME] [path to config.json file]
+bgp-report-run [path to config.json file] [START_TIME] [END_TIME]
 ```
 
-Example command - 
+Example commands - 
 ```
-bgp-report-run 2017-11-15-16-58-39 2017-11-15-17-19-39 /home/mthatte
+bgp-report-run /home/mthatte 2017-11-15-16-58-39 2017-11-15-17-19-39 
 ```
+Above command runs the script with 'config.json' file at location '/home/mthatte' and the passed datetime parameters
+
+```
+bgp-report-run 2017-11-15-16-58-39 2017-11-15-17-19-39
+```
+Above command runs the script with passed datetime parameters
+
+```
+bgp-report-run /home/mthatte
+```
+Above command takes the location of 'config.json' files as an argument and runs the script with default datetime parameters = current_date - 2 and current_date - 1
+
+```
+bgp-report-run
+```
+When no parameters are specified, the script will look for 'config.json' file in the current directory and run the script with default datetime parameters.
 
 ## Running as a python Script - 
 navigate to parent directory - /routeflow-bgp-analysis
