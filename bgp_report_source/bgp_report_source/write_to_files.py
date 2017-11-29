@@ -3,7 +3,7 @@ import commands
 import json
 
 def write_to_csv(flaps_dict, top_talker_sources, file_path, start_time):
-	csv_file = open(file_path+"/Analysis.csv", "a")
+	csv_file = open(file_path+"Analysis.csv", "a")
 	file_to_write = csv.writer(csv_file, delimiter=',')
 	date = start_time[0:10]
 	for line2 in top_talker_sources:
@@ -28,7 +28,7 @@ def write_to_csv(flaps_dict, top_talker_sources, file_path, start_time):
 	csv_file.close()
 
 def write_to_json(flaps_dict, top_talker_sources, file_path, start_time):
-	open(file_path+"/Analysis.json", 'w').close() # to clear contents of the file
+	open(file_path+"Analysis.json", 'w').close() # to clear contents of the file
 	file_to_write = open("Analysis.json", "w")
 	date = start_time[0:10]
 	list_file = []
