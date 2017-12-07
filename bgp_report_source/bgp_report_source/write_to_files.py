@@ -29,7 +29,7 @@ def write_to_csv(flaps_dict, top_talker_sources, file_path, start_time):
 
 def write_to_json(flaps_dict, top_talker_sources, file_path, start_time):
 	open(file_path+"Analysis.json", 'w').close() # to clear contents of the file
-	file_to_write = open("Analysis.json", "w")
+	file_to_write = open(file_path+"Analysis.json", "w")
 	date = start_time[0:10]
 	list_file = []
 	for line2 in top_talker_sources:

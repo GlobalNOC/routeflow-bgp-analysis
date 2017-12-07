@@ -40,7 +40,7 @@ def get_flow_entries(start, end, es_instance):
 
 def write_status(file_path, error=0, error_text=""):
 	open(file_path+"status.json", 'w').close() # to clear contents of the file
-	status_file = open("status.json", "w")
+	status_file = open(file_path+"status.json", "w")
 	status_file.seek(0)
 	status_obj = {"timestamp":datetime.datetime.fromtimestamp(time.time())\
 		     .strftime('%Y-%m-%d %H:%M:%S.%f'), "error_text":error_text, "error":error}

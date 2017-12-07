@@ -1,5 +1,4 @@
 MANIFEST.in
-README.rst
 setup.py
 bgp_report_source/__init__.py
 bgp_report_source/command_line.py
