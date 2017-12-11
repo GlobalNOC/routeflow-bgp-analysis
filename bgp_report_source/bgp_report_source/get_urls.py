@@ -27,7 +27,6 @@ def get_range(start_hour, start_min, end_hour, end_min):
 		if len(minute) != 2:
 			minute = "0"+minute
 		timerange.append([hour, minute])
-	#Timerange has start and end [hhmm] previous 15th minute. Ex 12h7m -> 1200, 23:48 -> 2345''
 	start_hour = timerange[0][0]
 	start_min = timerange[0][1]
 	end_hour = timerange[1][0]

@@ -1,9 +1,9 @@
 MANIFEST.in
-README.rst
 setup.py
 bgp_report_source/__init__.py
 bgp_report_source/command_line.py
 bgp_report_source/get_urls.py
+bgp_report_source/netsage_flow.py
 bgp_report_source/parse_update.py
 bgp_report_source/write_to_files.py
 bgp_report_source.egg-info/PKG-INFO

@@ -13,10 +13,19 @@ import wget
 from elasticsearch import Elasticsearch
 from get_urls import extrcat_url
 from parse_update import parse
-from write_to_files import write_to_csv, write_to_json
+from write_to_files import write_to_csv, write_to_json, write_to_db
+from netsage_flow import get_flow_entries
 
-# Converts from readable form year-month-day-hour-min-sec to unix time
+
 def get_unix_time(date):
+	""" Converts date time from format YYYY-MM-DD-HH-MM-SS to Unix time
+	Args:
+		date (str): datetime format - YYYY-MM-DD-HH-MM-SS
+	Returns:
+		int: Correspnding Unix timestamep
+	Example:
+		get_unix_time("2017-12-09-20-08-34") returns - 1512850114000
+	""" 
 	split_date = date.split('-')
 	mydat = datetime.datetime(int(split_date[0]), int(split_date[1]), int(split_date[2]),\
 		int(split_date[3]), int(split_date[4]), int(split_date[5]))
@@ -29,30 +38,63 @@ def get_unix_time(date):
 			unix_str = unix_str + "0"
 	return int(unix_str)
 
-# Get flow entries in the range[start,end] using ES API
-def get_flow_entries(start, end, es_instance):
-	es_object = Elasticsearch([es_instance])
-	#Get top 10 IP group by total data bits sent -
-	query = {"query":{"range": {"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
-		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip"}, "aggs":{"total_bits":\
-		{"sum":{"field":"values.num_bits"}}}}}}
-	return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
+
+def check_ip_format(ip_string):
+	""" Checks if the string is in correct IPV4 address format
+	Args:
+		ip_string (str): IPv4 address string in the form - "XXX.XXX.XXX.x"
+	Returns:
+		bool : True if the format is correct, False otherwise.
+	Example:
+		check_ip_format("132.25.456.x") returns True
+		check_ip_format("123:9983.22.1.x") return False
+	"""
+	if len(ip_string) <= 1:
+		return False
+	ip = ip_string.split(".")
+	if len(ip)<4:
+		return False
+	try:
+		if int(ip[0]) and int(ip[1]) and int(ip[2]):
+			return True
+	except ValueError:
+		return False
+
 
 def write_status(file_path, error=0, error_text=""):
-	open(file_path+"status.json", 'w').close() # to clear contents of the file
-	status_file = open("status.json", "w")
+	""" Writes error message to status.json at loaction given by filepath 
+	Args:
+		file_path (str) : location on disk to create/write to status.json file 
+		error (int) : Integer number representing error number. default = 0
+		error_text (str) : Error text to be writtent to status.json file. default = ""
+	"""
+	if error > 0:
+		print "Error occurred, kindly check status file at path - ",file_path
+	open(file_path+"status.json", 'w').close() # to clear the contents of file
+	status_file = open(file_path+"status.json", "w")
 	status_file.seek(0)
 	status_obj = {"timestamp":datetime.datetime.fromtimestamp(time.time())\
 		     .strftime('%Y-%m-%d %H:%M:%S.%f'), "error_text":error_text, "error":error}
 	status_file.write(json.dumps(status_obj))
 	status_file.close()
 
+
 def extract_top_talkers(nflow):
+	"""Returns top talkers for each sensor id
+	Args:
+		nflow (list): list of dictionaries, where key represents sensor_id and values are dictionaries of
+			      data sent between source and destination IPs.
+	Return:
+ 		list of tuples, where each tuple reprsents - (sensor_id, source_ip, data_sent_in_bits)
+	"""
 	top_talkers = []
 	for each in nflow:
-		if each["key"] != "":
-			top_talkers.append((each["key"], each["total_bits"]["value"]))
+		sensor_id = each["key"]
+		for each_src in each["group_by_src_ip"]["buckets"]:
+			if check_ip_format(each_src["key"]):
+				top_talkers.append((sensor_id, each_src["key"], each_src["total_bits"]["value"]))
 	return top_talkers
+
 
 def main(config_file_path,\
 	START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
@@ -65,33 +107,28 @@ def main(config_file_path,\
 		print "start - ", START_TIME
 		print "end - ", END_TIME
 		config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["ES_Instance"])
-		top_talker_sources = extract_top_talkers(nflow)
-		print top_talker_sources
+		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
+		top_talkers = extract_top_talkers(nflow)
 		url_list = extrcat_url([START_TIME, END_TIME])
-		print url_list
 		pwd = os.getcwd()
 		flaps_dict = {}
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), top_talker_sources)
+			parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), top_talkers)
 			for key, value in parsed_files.iteritems():
 				if key in flaps_dict:
 					flaps_dict[key] = flaps_dict[key] + value
 				else:
-					print "key not in flaps_dict ", key
 					flaps_dict[key] = value
-
-		write_to_csv(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
-		write_to_json(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
-
+		write_to_csv(flaps_dict, top_talkers, config_obj["data_file_path"], START_TIME)
+		json_dump = write_to_json(flaps_dict, top_talkers, config_obj["data_file_path"], START_TIME)
+		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["es_index"], config_obj["es_document"])
 		#Removing update files -
-		for fname in os.listdir(pwd):
-			if fname.startswith("updates"):
-				os.remove(os.path.join(pwd, fname))
-
+		[os.remove(os.path.join(pwd, fname)) for fname in os.listdir(pwd) if fname.startswith("updates")]
 		write_status(config_obj["status_file_path"])
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
+if __name__ == "__main__":
+	main(os.getcwd()+"/", "2017-12-03-00-02-01", "2017-12-03-00-59-01")
