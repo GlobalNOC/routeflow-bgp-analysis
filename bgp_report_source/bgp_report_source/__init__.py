@@ -34,7 +34,7 @@ def get_flow_entries(start, end, es_instance):
 	es_object = Elasticsearch([es_instance])
 	#Get top 10 IP group by total data bits sent -
 	query = {"query":{"range": {"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
-		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip"}, "aggs":{"total_bits":\
+		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"}, "aggs":{"total_bits":\
 		{"sum":{"field":"values.num_bits"}}}}}}
 	return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 
@@ -67,9 +67,7 @@ def main(config_file_path,\
 		config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
 		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["ES_Instance"])
 		top_talker_sources = extract_top_talkers(nflow)
-		print top_talker_sources
 		url_list = extrcat_url([START_TIME, END_TIME])
-		print url_list
 		pwd = os.getcwd()
 		flaps_dict = {}
 		for each_file in url_list:
@@ -80,7 +78,6 @@ def main(config_file_path,\
 				if key in flaps_dict:
 					flaps_dict[key] = flaps_dict[key] + value
 				else:
-					print "key not in flaps_dict ", key
 					flaps_dict[key] = value
 
 		write_to_csv(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
