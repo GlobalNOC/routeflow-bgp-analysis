@@ -1,6 +1,9 @@
 {
-        "ES_Instance":"http://140.182.49.116:9200",
+        "netsage_instance":"http://140.182.49.116:9200",
         "archive_url":"http://archive.routeviews.org/bgpdata/",
-        "status_file_path":"/home/mthatte/pip_route/routeflow-bgp-analysis/",
-	"data_file_path":"/home/mthatte/pip_route/"
+        "status_file_path":"/home/mthatte/populate_sensor/",
+        "data_file_path":"/home/mthatte/populate_sensor/",
+        "elasticsearch_instance":"localhost/sensor_bgp_events/bgpData",
+        "es_index":"sensor_bgp_events",
+        "es_document":"bgpData"
 }
