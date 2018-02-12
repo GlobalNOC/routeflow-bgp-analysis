@@ -15,13 +15,19 @@ def print_bgp_msg(msg, ip_stability, ipset):
 		if ip_address in ipset:
 			ip_stability[ip_address] = ip_stability[ip_address]+1
 
-def parse(document, top_talkers):
-	""" Parse the document and extract events information for top_talkers_sources"""
+def parse(document, top_talkers, events):
+
+	""" Parse the document and extract events information for top_talkers_sources
+	    events = 0 represnts events_bgp_data and events = 1 represents sensor_bgp_data
+	"""
 	ipset = set()
 	ip_stability = {}
 	document = Reader(document)
 	for line in top_talkers:
-		ip_address = line[1].replace("x", "0/24")
+		if events == 0:
+			ip_address = line[0].replace("x", "0/24")
+		else:
+			ip_address = line[1].replace("x", "0/24")
 		ip_stability[ip_address] = 0
 		ipset.add(ip_address)
 	start_time = time.time()

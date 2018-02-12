@@ -1,9 +1,10 @@
 {
         "netsage_instance":"http://140.182.49.116:9200",
         "archive_url":"http://archive.routeviews.org/bgpdata/",
-        "status_file_path":"/home/mthatte/populate_sensor/",
-        "data_file_path":"/home/mthatte/populate_sensor/",
-        "elasticsearch_instance":"localhost/sensor_bgp_events/bgpData",
-        "es_index":"sensor_bgp_events",
+        "status_file_path":"/home/mthatte/sensor_routeflow/routeflow-bgp-analysis/bgp_report_source/bgp_report_source/",
+        "data_file_path":"/home/mthatte/sensor_routeflow/routeflow-bgp-analysis/bgp_report_source/bgp_report_source/",
+        "elasticsearch_instance":"localhost",
+        "sensor_es_index":"sensor_bgp_events",
+	"events_es_index":"events_bgp_grafana",
         "es_document":"bgpData"
 }

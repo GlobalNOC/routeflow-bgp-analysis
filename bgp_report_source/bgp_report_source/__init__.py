@@ -13,8 +13,8 @@ import wget
 from elasticsearch import Elasticsearch
 from get_urls import extrcat_url
 from parse_update import parse
-from write_to_files import write_to_csv, write_to_json, write_to_db
-from netsage_flow import get_flow_entries
+from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events
+from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
 
 def get_unix_time(date):
@@ -79,7 +79,7 @@ def write_status(file_path, error=0, error_text=""):
 	status_file.close()
 
 
-def extract_top_talkers(nflow):
+def extract_sensor_top_talkers(nflow):
 	"""Returns top talkers for each sensor id
 	Args:
 		nflow (list): list of dictionaries, where key represents sensor_id and values are dictionaries of
@@ -96,6 +96,14 @@ def extract_top_talkers(nflow):
 	return top_talkers
 
 
+def extract_events_top_talkers(nflow):
+	top_talkers = []
+	for each in nflow:
+		if check_ip_format(each["key"]):
+			top_talkers.append((each["key"], each["total_bits"]["value"]))
+	return top_talkers
+
+
 def main(config_file_path,\
 	START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
 	- datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'),\
@@ -107,24 +115,49 @@ def main(config_file_path,\
 		print "start - ", START_TIME
 		print "end - ", END_TIME
 		config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
-		print nflow
-		top_talkers = extract_top_talkers(nflow)
+		
+		#sensor_bgp_events data collection - 
+		sensor_nflow = get_sensor_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
+		sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
+		
+		#events_bgp_grafana data collection - 
+		events_nflow = get_events_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
+                events_top_talkers = extract_events_top_talkers(events_nflow)
+		
+		#Extracting routeflow events - 
 		url_list = extrcat_url([START_TIME, END_TIME])
 		pwd = os.getcwd()
-		flaps_dict = {}
+		sensor_flaps_dict = {}
+		events_flaps_dict = {}
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), top_talkers)
-			for key, value in parsed_files.iteritems():
-				if key in flaps_dict:
-					flaps_dict[key] = flaps_dict[key] + value
+			sensor_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events = 1)
+			events_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), events_top_talkers, events = 0)
+
+			#Sensor route information - 
+			for key, value in sensor_parsed_files.iteritems():
+				if key in sensor_flaps_dict:
+					sensor_flaps_dict[key] += value
 				else:
-					flaps_dict[key] = value
-		write_to_csv(flaps_dict, top_talkers, config_obj["data_file_path"], START_TIME)
-		json_dump = write_to_json(flaps_dict, top_talkers, config_obj["data_file_path"], START_TIME)
-		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["es_index"], config_obj["es_document"])
+					sensor_flaps_dict[key] = value
+
+			#Events route information - 
+			for key, value in events_parsed_files.iteritems():
+                                if key in events_flaps_dict:
+                                        events_flaps_dict[key] += value
+                                else:
+                                        events_flaps_dict[key] = value
+	
+				
+		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
+		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
+		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
+		print "sensor db populated "
+
+		json_dump = write_to_json_events(events_flaps_dict, events_top_talkers, config_obj["data_file_path"], START_TIME)
+                write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
+
 		#Removing update files -
 		[os.remove(os.path.join(pwd, fname)) for fname in os.listdir(pwd) if fname.startswith("updates")]
 		write_status(config_obj["status_file_path"])
@@ -132,4 +165,4 @@ def main(config_file_path,\
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
 #if __name__ == "__main__":
-#	main(os.getcwd()+"/", "2018-01-29-00-01-01", "2018-01-29-01-00-01")
+#	main(os.getcwd()+"/", "2018-02-02-00-01-01", "2018-02-02-00-15-01")

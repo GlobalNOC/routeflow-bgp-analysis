@@ -55,13 +55,40 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, start_time):
 	file_to_write.write(json.dumps(list_file))
 	return list_file
 
+def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
+        open(file_path+"events_Analysis.json", 'w').close() # to clear contents of the file
+        file_to_write = open(file_path+"Analysis.json", "w")
+        date = start_time[0:10]
+        list_file = []
+        for line2 in top_talker_sources:
+		list_to_write = {"Date":"", "Prefix":"", "DataSentInbits":"", "Events":"", "Organization":""}
+                list_to_write["Date"] = date
+                list_to_write["Prefix"] = line2[0]
+                list_to_write["DataSentInbits"] = int(line2[1])
+                ip_address = line2[0]
+                ip_address = ip_address[:ip_address.find("x")]+"0/24"
+                list_to_write["Events"] = flaps_dict[ip_address]
+                cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
+                try:
+                        descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+                        list_to_write["Organization"] = descr
+                except IndexError as e:
+                        print "write to json exception ", e
+                        list_to_write["Organization"] = "NOT FOUND IN RADb"
+                print list_to_write
+                list_file.append(list_to_write)
+        file_to_write.seek(0)
+        file_to_write.write(json.dumps(list_file))
+        return list_file
 
-def write_to_db(START_TIME, json_dump, es_instance, index, document):
+
+
+def write_to_db(START_TIME, json_dump, es_instance, bgp_index, document):
 	es_object = Elasticsearch([es_instance])
 	query = { "query": { "term": {"Date":START_TIME[0:10]}}}
-	hits = es_object.search(body=query,scroll='1m')["hits"]["total"]
+	hits = es_object.search(index = bgp_index, body = query,scroll='1m')["hits"]["total"]
 	if hits == 0:
-		prep_data = [{"_index":index,"_type":document,"_source":each} for each in json_dump]
+		prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]
 		print prep_data
 		helpers.bulk(es_object,prep_data) 
 	else:
