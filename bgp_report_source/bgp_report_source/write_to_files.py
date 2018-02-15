@@ -49,7 +49,6 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, start_time):
 		except IndexError as e:
 			print "write to json exception ", e
 			list_to_write["Organization"] = "NOT FOUND IN RADb"
-		print list_to_write
 		list_file.append(list_to_write)
 	file_to_write.seek(0)
 	file_to_write.write(json.dumps(list_file))
@@ -75,7 +74,6 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
                 except IndexError as e:
                         print "write to json exception ", e
                         list_to_write["Organization"] = "NOT FOUND IN RADb"
-                print list_to_write
                 list_file.append(list_to_write)
         file_to_write.seek(0)
         file_to_write.write(json.dumps(list_file))

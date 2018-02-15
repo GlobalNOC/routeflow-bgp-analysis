@@ -132,8 +132,7 @@ def main(config_file_path,\
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			sensor_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events = 1)
-			events_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), events_top_talkers, events = 0)
+			sensor_parsed_files, events_parsed_files  = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
 
 			#Sensor route information - 
 			for key, value in sensor_parsed_files.iteritems():
@@ -165,4 +164,4 @@ def main(config_file_path,\
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
 #if __name__ == "__main__":
-#	main(os.getcwd()+"/", "2018-02-02-00-01-01", "2018-02-02-00-15-01")
+#	main(os.getcwd()+"/", "2018-02-12-00-01-01", "2018-02-12-01-15-01")

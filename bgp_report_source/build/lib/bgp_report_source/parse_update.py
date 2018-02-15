@@ -15,7 +15,7 @@ def print_bgp_msg(msg, ip_stability, ipset):
 		if ip_address in ipset:
 			ip_stability[ip_address] = ip_stability[ip_address]+1
 
-def parse(document, top_talkers, events):
+def parse(document, sensor_top_talkers, events_top_talkers):
 
 	""" Parse the document and extract events information for top_talkers_sources
 	    events = 0 represnts events_bgp_data and events = 1 represents sensor_bgp_data
@@ -23,13 +23,16 @@ def parse(document, top_talkers, events):
 	ipset = set()
 	ip_stability = {}
 	document = Reader(document)
-	for line in top_talkers:
-		if events == 0:
-			ip_address = line[0].replace("x", "0/24")
-		else:
-			ip_address = line[1].replace("x", "0/24")
+	for line in sensor_top_talkers:
+		ip_address = line[1].replace("x", "0/24")
 		ip_stability[ip_address] = 0
-		ipset.add(ip_address)
+                ipset.add(ip_address)
+
+	for line in events_top_talkers:
+                ip_address = line[0].replace("x", "0/24")
+                ip_stability[ip_address] = 0
+                ipset.add(ip_address)
+
 	start_time = time.time()
 	try:
 		for message in document:
@@ -41,4 +44,15 @@ def parse(document, top_talkers, events):
 		print file_read_exception
 		print "skipping the file "
 	print "total time to read - ", time.time()-start_time
-	return ip_stability
+	#Separate events and sensor data - 
+	sensor_parsed_file = {}
+	events_parsed_file = {}
+	for line in sensor_top_talkers:
+		ip_address = line[1].replace("x", "0/24")
+		sensor_parsed_file[ip_address] = ip_stability[ip_address]
+
+	for line in events_top_talkers:
+		ip_address = line[0].replace("x", "0/24")
+		events_parsed_file[ip_address] = ip_stability[ip_address]
+
+	return (sensor_parsed_file, events_parsed_file)
