@@ -13,7 +13,7 @@ import wget
 from elasticsearch import Elasticsearch
 from get_urls import extrcat_url
 from parse_update import parse
-from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events
+from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events,write_to_db_drill_down
 from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
 
@@ -115,10 +115,12 @@ def main(config_file_path,\
 		print "start - ", START_TIME
 		print "end - ", END_TIME
 		config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-		
-		#sensor_bgp_events data collection - 
+
 		sensor_nflow = get_sensor_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
 		sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
+		print "Top sensor talkers - "
+		print sensor_top_talkers
+		print sensor_nflow	
 		
 		#events_bgp_grafana data collection - 
 		events_nflow = get_events_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
@@ -128,40 +130,73 @@ def main(config_file_path,\
 		url_list = extrcat_url([START_TIME, END_TIME])
 		pwd = os.getcwd()
 		sensor_flaps_dict = {}
+		sensor_flaps_dict_time = {}
 		events_flaps_dict = {}
+		events_flaps_dict_time = {}
+		#######################################################################################
+		#each_file = 'http://archive.routeviews.org/bgpdata/2018.02/UPDATES/updates.20180214.0930.bz2'
+		#file_name = wget.download(each_file)
+		#sensor_parsed_files, events_parsed_files  = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
+
+		#######################################################################################
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			sensor_parsed_files, events_parsed_files  = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
-
+			sensor_parsed_files, events_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
 			#Sensor route information - 
 			for key, value in sensor_parsed_files.iteritems():
 				if key in sensor_flaps_dict:
-					sensor_flaps_dict[key] += value
+					sensor_flaps_dict[key]+= value
 				else:
 					sensor_flaps_dict[key] = value
-
+			#Sensor Time stamp
+			'''
+			for key, value in sensor_time.iteritems():
+				if key in sensor_flaps_dict_time:
+					for each in value:
+						sensor_flaps_dict_time[key].append(each)
+				else:
+					sensor_flaps_dict_time[key] = value	
+			'''
 			#Events route information - 
 			for key, value in events_parsed_files.iteritems():
                                 if key in events_flaps_dict:
-                                        events_flaps_dict[key] += value
+                                        events_flaps_dict[key]+= value
                                 else:
                                         events_flaps_dict[key] = value
-	
-				
-		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
-		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
+			'''
+			#Events time stamp - 
+			for key, value in events_time.iteritems():
+                                if key in events_flaps_dict_time:
+                                        for each in value:
+                                                events_flaps_dict_time[key].append(each)
+                                else:
+                                        events_flaps_dict_time[key] = value
+			'''
+		print "#########"*20	
+		print "sensor flaps dict - "
+		print sensor_flaps_dict
+		print "events flaps dict - "
+		print events_flaps_dict
+		print "#########"*20
+		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
 		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
+		write_to_db_drill_down(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"]+"_drill_down", config_obj["es_document"])
+		#Time stamp - 
+		
 		print "sensor db populated "
 
 		json_dump = write_to_json_events(events_flaps_dict, events_top_talkers, config_obj["data_file_path"], START_TIME)
+		print " events json dump --- "
+                print json_dump
                 write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
-
+		#write_to_db_drill_down(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])	
 		#Removing update files -
 		[os.remove(os.path.join(pwd, fname)) for fname in os.listdir(pwd) if fname.startswith("updates")]
 		write_status(config_obj["status_file_path"])
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
-#if __name__ == "__main__":
-#	main(os.getcwd()+"/", "2018-02-12-00-01-01", "2018-02-12-01-15-01")
+if __name__ == "__main__":
+	main(os.getcwd()+"/", "2018-02-24-00-01-01", "2018-02-24-00-30-01")
