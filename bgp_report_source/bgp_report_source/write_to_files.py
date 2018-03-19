@@ -126,13 +126,7 @@ def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, docume
 						'Sensor':each['Sensor'],\
 						'Peer_id':each_event[0], 'timestamp':each_event[1]}
 					prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
-			else:
-				data = {'Prefix':each['Prefix'], 'Organization':each['Organization'],\
-                                                'Date':each['Date'],\
-                                                'Sensor':each['Sensor'],\
-                                                'Peer_id':None,'timestamp':None}
-				prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
-				
+							
 		#prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]
 		print prep_data
 		helpers.bulk(es_object,prep_data) 
