@@ -1,10 +1,18 @@
 {
-        "netsage_instance":"http://140.182.49.116:9200",
+        "netsage_instance":"http://netsage-elk1.grnoc.iu.edu:9200",
         "archive_url":"http://archive.routeviews.org/bgpdata/",
-        "status_file_path":"/home/mthatte/sensor_routeflow/routeflow-bgp-analysis/bgp_report_source/bgp_report_source/",
-        "data_file_path":"/home/mthatte/sensor_routeflow/routeflow-bgp-analysis/bgp_report_source/bgp_report_source/",
+        "status_file_path":"/home/mthatte/populate_sensor/",
+        "data_file_path":"/home/mthatte/populate_sensor/",
         "elasticsearch_instance":"localhost",
         "sensor_es_index":"sensor_bgp_events",
 	"events_es_index":"events_bgp_grafana",
-        "es_document":"bgpData"
+        "es_document":"bgpData",
+	"sensor-name-map":{
+		"netsage-probe1.grnoc.iu.edu": "GRNOC netsage",
+		"netsage-probe.newy32aoa.neaar.net": "NEAAR New York",
+		"rtr.seat.transpac.org": "RTR transpac",
+		"netsage-probe.seat.transpac.org":"NETSAGE transpac",
+		"cern-272-diskpt1.es.net":"CERN ES",
+		"newy-dtn.es.net":"Newy dtn"
+	}
 }

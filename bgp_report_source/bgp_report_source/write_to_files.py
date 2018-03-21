@@ -48,6 +48,7 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 		ip_address = line2[1]
 		ip_address = ip_address[:ip_address.find("x")]+"0/24"
 		list_to_write["Events"] = flaps_dict[ip_address]
+		list_to_write["Events_Time"] = flaps_dict[ip_address]
 		cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
 		try:
 			descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
@@ -55,16 +56,19 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 		except IndexError as e:
 			print "write to json exception ", e
 			list_to_write["Organization"] = "NOT FOUND IN RADb"
+		
 		list_file.append(list_to_write)
-	print " Senor Json - ",list_file
 	file_to_write.seek(0)
 	file_to_write.write(json.dumps(list_file))
-	file_to_write.close()
+	print "_____________________*********************"
+	print "sensor json - "
+	print list_file
+	print "*****************************************"
 	return list_file
 
 def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
         open(file_path+"events_Analysis.json", 'w').close() # to clear contents of the file
-        file_to_write = open(file_path+"Analysis.json", "w")
+        file_to_write = open(file_path+"events_Analysis.json", "w")
         date = start_time[0:10]
         list_file = []
         for line2 in top_talker_sources:
@@ -74,7 +78,8 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
                 list_to_write["DataSentInbits"] = int(line2[1])
                 ip_address = line2[0]
                 ip_address = ip_address[:ip_address.find("x")]+"0/24"
-                list_to_write["Events"] = flaps_dict[ip_address]
+		list_to_write["Events"] = flaps_dict[ip_address]
+		list_to_write["Events_Time"] = flaps_dict[ip_address]
                 cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
                 try:
                         descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
@@ -83,12 +88,11 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
                         print "write to json exception ", e
                         list_to_write["Organization"] = "NOT FOUND IN RADb"
                 list_file.append(list_to_write)
-	print "Events json - ",list_file
         file_to_write.seek(0)
         file_to_write.write(json.dumps(list_file))
-	file_to_write.close()
+	print "events json - "
+	print list_file
         return list_file
-
 
 
 def write_to_db(START_TIME, json_dump, es_instance, bgp_index, document):
@@ -101,3 +105,5 @@ def write_to_db(START_TIME, json_dump, es_instance, bgp_index, document):
 		helpers.bulk(es_object,prep_data) 
 	else:
 		print "Data already exists in ES for date ",START_TIME
+
+
