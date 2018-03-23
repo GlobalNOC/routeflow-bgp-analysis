@@ -15,7 +15,6 @@ def get_sensor_flow_entries(start, end, es_instance):
 	#Count of distinct sensor ids - 
 	query = {"query":{"range":{"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
 		"size":0, "aggs":{"count_sensor_id":{"cardinality":{"field":"meta.sensor_id.keyword"}}}}
-	print query
 	number_of_sensors = es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["count_sensor_id"]["value"]
 	print "no of sensor -----------------------",number_of_sensors
 	#final query group by sensor ids - 
@@ -23,7 +22,6 @@ def get_sensor_flow_entries(start, end, es_instance):
 		"size":0, "aggs":{"group_by_sensor_id":{"terms":{"size":number_of_sensors, "field":"meta.sensor_id.keyword"},\
 		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"},\
 		"aggs":{"total_bits":{"sum":{"field":"values.num_bits"}}}}}}}}
-	print query
         return es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["group_by_sensor_id"]["buckets"]
 
 def get_events_flow_entries(start, end, es_instance):
@@ -41,5 +39,5 @@ def get_events_flow_entries(start, end, es_instance):
                 "aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"}, "aggs":{"total_bits":\
                 {"sum":{"field":"values.num_bits"}}}}}}
 
-        return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
+        return es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 
