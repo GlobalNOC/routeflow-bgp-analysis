@@ -147,11 +147,8 @@ def main(config_file_path,\
                                         events_flaps_dict[key] += value
                                 else:
                                         events_flaps_dict[key] = value
-		print "Sensor_flaps dict",
-		print sensor_flaps_dict
 		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)				
 		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
-		print "Returned sensor json ",json_dump
 		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
 		print "sensor db populated "
 
