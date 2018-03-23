@@ -147,10 +147,11 @@ def main(config_file_path,\
                                         events_flaps_dict[key] += value
                                 else:
                                         events_flaps_dict[key] = value
-	
-				
-		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
-		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], START_TIME)
+		print "Sensor_flaps dict",
+		print sensor_flaps_dict
+		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)				
+		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+		print "Returned sensor json ",json_dump
 		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
 		print "sensor db populated "
 
@@ -163,5 +164,5 @@ def main(config_file_path,\
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
-#if __name__ == "__main__":
-#	main(os.getcwd()+"/", "2018-02-12-00-01-01", "2018-02-12-01-15-01")
+if __name__ == "__main__":
+	main(os.getcwd()+"/", "2018-02-12-00-01-01", "2018-02-12-00-30-01")

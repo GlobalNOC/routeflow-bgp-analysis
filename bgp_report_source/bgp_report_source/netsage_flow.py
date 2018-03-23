@@ -40,5 +40,5 @@ def get_events_flow_entries(start, end, es_instance):
                 "aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"}, "aggs":{"total_bits":\
                 {"sum":{"field":"values.num_bits"}}}}}}
 
-        return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
+        return es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 

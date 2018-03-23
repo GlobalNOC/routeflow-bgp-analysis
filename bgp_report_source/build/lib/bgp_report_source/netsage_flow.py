@@ -15,7 +15,7 @@ def get_sensor_flow_entries(start, end, es_instance):
 	#Count of distinct sensor ids - 
 	query = {"query":{"range":{"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
 		"size":0, "aggs":{"count_sensor_id":{"cardinality":{"field":"meta.sensor_id.keyword"}}}}
-	number_of_sensors = es_object.search(body=query, scroll='1m')["aggregations"]["count_sensor_id"]["value"]
+	number_of_sensors = es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["count_sensor_id"]["value"]
 
 	#final query group by sensor ids - 
 	query = {"query":{"range":{"start":{"gte":start, "lte":end, "format":"epoch_millis"}}},\
@@ -23,7 +23,7 @@ def get_sensor_flow_entries(start, end, es_instance):
 		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"},\
 		"aggs":{"total_bits":{"sum":{"field":"values.num_bits"}}}}}}}}
 
-        return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_sensor_id"]["buckets"]
+        return es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["group_by_sensor_id"]["buckets"]
 
 def get_events_flow_entries(start, end, es_instance):
         """Returns nflow data - Top 10 IP group by total data bits sent -
@@ -40,5 +40,5 @@ def get_events_flow_entries(start, end, es_instance):
                 "aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"}, "aggs":{"total_bits":\
                 {"sum":{"field":"values.num_bits"}}}}}}
 
-        return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
+        return es_object.search(body=query, request_timeout=30, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
 

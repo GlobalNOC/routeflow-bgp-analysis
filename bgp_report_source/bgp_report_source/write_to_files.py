@@ -48,7 +48,6 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 		ip_address = line2[1]
 		ip_address = ip_address[:ip_address.find("x")]+"0/24"
 		list_to_write["Events"] = flaps_dict[ip_address]
-		list_to_write["Events_Time"] = flaps_dict[ip_address]
 		cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
 		try:
 			descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
@@ -60,10 +59,7 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 		list_file.append(list_to_write)
 	file_to_write.seek(0)
 	file_to_write.write(json.dumps(list_file))
-	print "_____________________*********************"
-	print "sensor json - "
-	print list_file
-	print "*****************************************"
+	file_to_write.close()
 	return list_file
 
 def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
@@ -79,7 +75,6 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
                 ip_address = line2[0]
                 ip_address = ip_address[:ip_address.find("x")]+"0/24"
 		list_to_write["Events"] = flaps_dict[ip_address]
-		list_to_write["Events_Time"] = flaps_dict[ip_address]
                 cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
                 try:
                         descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
@@ -90,8 +85,7 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
                 list_file.append(list_to_write)
         file_to_write.seek(0)
         file_to_write.write(json.dumps(list_file))
-	print "events json - "
-	print list_file
+	file_to_write.close()
         return list_file
 
 
