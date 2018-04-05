@@ -67,7 +67,7 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 
 def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time):
         open(file_path+"events_Analysis.json", 'w').close() # to clear contents of the file
-        file_to_write = open(file_path+"Analysis.json", "w")
+        file_to_write = open(file_path+"events_Analysis.json", "w")
         date = start_time[0:10]
         list_file = []
         for line2 in top_talker_sources:
@@ -133,7 +133,8 @@ def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, docume
 						'Date':each['Date'],\
 						'Sensor':each['Sensor'],\
 						'Peer_id':each_event[0], 'Peer_name':peer_name,\
-						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[1]))}
+						'Prefix_length':each_event[1],\
+						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[2]))}
 					prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
 							
 		#prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]

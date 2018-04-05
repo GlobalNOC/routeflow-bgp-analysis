@@ -22,7 +22,8 @@ def print_bgp_msg(message, ip_stability, ts):
 		if ip_address in ip_stability:
 			#ip_stability[ip_address]+= 1
 			print "Peer ip - ",message.bgp.peer_ip
-			ip_stability[ip_address].append([message.bgp.peer_ip,ts])
+			print "Prefix length - ",withdrawn.plen
+			ip_stability[ip_address].append([message.bgp.peer_ip, withdrawn.plen, ts])
 
 def parse(document, sensor_top_talkers, events_top_talkers):
 
