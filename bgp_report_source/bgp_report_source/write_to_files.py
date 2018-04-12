@@ -140,7 +140,7 @@ def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, docume
 						'Peer_id':each_event[1], 'Peer_name':peer_name,\
 						'Prefix_length':each_event[2],\
 						'Event_Type':each['Event_Type'],\
-						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[2]))}
+						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[3]))}
 					prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
 							
 		#prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]
