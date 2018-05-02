@@ -63,9 +63,6 @@ def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, st
 			list_file.append(list_to_write)
 	file_to_write.seek(0)
 	file_to_write.write(json.dumps(list_file))
-	print "sensor json  for ",event_type
-	print "-----------------------------"
-	print list_file
 	return list_file
 
 def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time, event_type):
@@ -94,8 +91,6 @@ def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time, 
                 	list_file.append(list_to_write)
         file_to_write.seek(0)
         file_to_write.write(json.dumps(list_file))
-	print "events json - "
-	print list_file
         return list_file
 
 
@@ -108,21 +103,18 @@ def write_to_db(START_TIME, json_dump, es_instance, bgp_index, document):
 		for each in prep_data:
 			if "Events_Time" in each["_source"]:
 				del each["_source"]["Events_Time"]
-		print "prep data - "
 		print prep_data
 		helpers.bulk(es_object,prep_data) 
 	else:
 		print "Data already exists in ES for date ",START_TIME[0:10]
 
-def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, document):
-	
+
+def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, document):	
 	es_object = Elasticsearch([es_instance])
 	query = { "query": { "term": {"Date":START_TIME[0:10]}}}
 	hits = es_object.search(index = bgp_index, body = query,scroll='1m')["hits"]["total"]
 	if hits == 0:
 		prep_data = []
-		print "json dump at db-srill down" 
-		print json_dump
 		for each in json_dump:
 			if len(each["Events_Time"]) > 0:
 				for each_event in each["Events_Time"]:
@@ -143,7 +135,6 @@ def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, docume
 						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[3]))}
 					prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
 							
-		#prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]
 		helpers.bulk(es_object,prep_data) 
 	else:
 		print "Data already exists in ES for date ",START_TIME

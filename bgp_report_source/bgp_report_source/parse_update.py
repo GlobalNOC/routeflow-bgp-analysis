@@ -1,8 +1,6 @@
 """This module parses the archived file and extracts events information from it."""
 import time
 import sys
-#sys.stdout = open('a.out', 'w')
-#f = open('a.out', 'a')
 from mrtparse import Reader, BGP4MP_ST, MRT_T
 
 def print_bgp4mp(message, ip_stability_a, ip_stability_w):
@@ -10,23 +8,17 @@ def print_bgp4mp(message, ip_stability_a, ip_stability_w):
 	or message.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4']\
 	or message.subtype == BGP4MP_ST['BGP4MP_MESSAGE_LOCAL']\
 	or message.subtype == BGP4MP_ST['BGP4MP_MESSAGE_AS4_LOCAL']:
-		#print message.__dict__.keys()
 		print_bgp_msg(message, ip_stability_a, ip_stability_w, message.ts)
 
-#def print_bgp_msg(msg, ip_stability, ipset, ts):
 def print_bgp_msg(message, ip_stability_a, ip_stability_w, ts):
-	#print dir(message.peer)
 	msg = message.bgp.msg
-	#print "msg attributes - "
 	for announcement in msg.nlri:
 		ip_address = str(announcement.prefix)+"/"+str(announcement.plen)
 		if ip_address in ip_stability_a:
-			print "Advertisement event "
 			ip_stability_a[ip_address].append(["A", message.bgp.peer_ip, announcement.plen, ts])
 	for withdrawn in msg.withdrawn:
 		ip_address = str(withdrawn.prefix)+"/"+str(withdrawn.plen)
 		if ip_address in ip_stability_w:
-			print "Withdrawl event"
 			ip_stability_w[ip_address].append(["W", message.bgp.peer_ip, withdrawn.plen, ts])
 
 def parse(document, sensor_top_talkers, events_top_talkers):

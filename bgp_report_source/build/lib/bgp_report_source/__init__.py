@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 This module extracts bgp data from netsage, calculates number of events from archived files
 and writes the computed data to Analysis.csv and Analysis.json files
@@ -119,9 +120,6 @@ def main(config_file_path,\
 
 		sensor_nflow = get_sensor_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
 		sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
-		print "Top sensor talkers - "
-		print sensor_top_talkers
-		print sensor_nflow	
 		
 		#events_bgp_grafana data collection - 
 		events_nflow = get_events_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
@@ -130,51 +128,65 @@ def main(config_file_path,\
 		#Extracting routeflow events - 
 		url_list = extrcat_url([START_TIME, END_TIME])
 		pwd = os.getcwd()
-		sensor_flaps_dict = {}
-		sensor_flaps_dict_time = {}
-		events_flaps_dict = {}
-		events_flaps_dict_time = {}
+		sensor_flaps_dict_a = {}
+		sensor_flaps_dict_w = {}
+		events_flaps_dict_a = {}
+		events_flaps_dict_w = {}
+	
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			sensor_parsed_files, events_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
+			sensor_parsed_files_a, sensor_parsed_files_w, events_parsed_files_a, events_parsed_files_w =\
+							 	parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
 			#Sensor route information - 
-			for key, value in sensor_parsed_files.iteritems():
-				if key in sensor_flaps_dict:
-					sensor_flaps_dict[key]+= value
+			for key, value in sensor_parsed_files_a.iteritems():
+				if key in sensor_flaps_dict_a:
+					sensor_flaps_dict_a[key]+= value
 				else:
-					sensor_flaps_dict[key] = value
-			#Events route information - 
-			for key, value in events_parsed_files.iteritems():
-                                if key in events_flaps_dict:
-                                        events_flaps_dict[key]+= value
+					sensor_flaps_dict_a[key] = value
+			
+			for key, value in sensor_parsed_files_w.iteritems():
+                                if key in sensor_flaps_dict_w:
+                                        sensor_flaps_dict_w[key]+= value
                                 else:
-                                        events_flaps_dict[key] = value
-		print "#########"*20	
-		print "sensor flaps dict - "
-		print sensor_flaps_dict
-		print "events flaps dict - "
-		print events_flaps_dict
-		print "#########"*20
-		write_to_csv(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
-		json_dump = write_to_json(sensor_flaps_dict, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
-		#making a deep copy of json_dump object - 
-		json_dump1 = copy.deepcopy(json_dump)	
-		write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
-		write_to_db_drill_down(START_TIME, json_dump1, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"]+"_drill_down", config_obj["es_document"])
-		#Time stamp - 
-		print "sensor db populated "
+                                        sensor_flaps_dict_w[key] = value
+			#Events route information - 
+			for key, value in events_parsed_files_a.iteritems():
+                                if key in events_flaps_dict_a:
+                                        events_flaps_dict_a[key]+= value
+                                else:
+                                        events_flaps_dict_a[key] = value
 
-		json_dump = write_to_json_events(events_flaps_dict, events_top_talkers, config_obj["data_file_path"], START_TIME)
-		print " events json dump --- "
-                print json_dump
-                write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
-		#write_to_db_drill_down(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])	
+			for key, value in events_parsed_files_w.iteritems():
+                                if key in events_flaps_dict_w:
+                                        events_flaps_dict_w[key]+= value
+                                else:
+                                        events_flaps_dict_w[key] = value
+
+		write_to_csv(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+		json_dump = write_to_json(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "A")
+		write_to_csv(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+                json_dump+= write_to_json(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "W")
+		if len(json_dump) > 0:
+			json_dump1 = copy.deepcopy(json_dump)
+        	        write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
+                	write_to_db_drill_down(START_TIME, json_dump1, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"]+"_drill_down", config_obj["es_document"])
+			print "sensor db populated "
+		else:
+			print "Nothing to populate for today"
+		
+		#Populating events data - 	
+		json_dump = write_to_json_events(events_flaps_dict_a, events_top_talkers, config_obj["data_file_path"], START_TIME, "A")
+		json_dump+= write_to_json_events(events_flaps_dict_w, events_top_talkers, config_obj["data_file_path"], START_TIME, "W")
+		if len(json_dump) > 0:
+	                write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
+		else:
+			print "Nothing to populate for today"
 		#Removing update files -
 		[os.remove(os.path.join(pwd, fname)) for fname in os.listdir(pwd) if fname.startswith("updates")]
 		write_status(config_obj["status_file_path"])
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
-if __name__ == "__main__":
-	main(os.getcwd()+"/", "2018-02-23-00-01-01", "2018-02-23-00-30-01")
+#if __name__ == "__main__":
+#	 main(os.getcwd()+"/", "2018-03-31-00-01-01", "2018-03-31-01-00-01")

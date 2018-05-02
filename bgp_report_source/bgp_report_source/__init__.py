@@ -120,9 +120,6 @@ def main(config_file_path,\
 
 		sensor_nflow = get_sensor_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
 		sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
-		#print "Top sensor talkers - "
-		#print sensor_top_talkers
-		#print sensor_nflow	
 		
 		#events_bgp_grafana data collection - 
 		events_nflow = get_events_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
@@ -135,8 +132,6 @@ def main(config_file_path,\
 		sensor_flaps_dict_w = {}
 		events_flaps_dict_a = {}
 		events_flaps_dict_w = {}
-		#file_name = wget.download("http://archive.routeviews.org/bgpdata/2018.03/UPDATES/updates.20180331.0045.bz2")
-		#sensor_parsed_files, events_parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
 	
 		for each_file in url_list:
 			file_name = wget.download(each_file)
@@ -167,16 +162,7 @@ def main(config_file_path,\
                                         events_flaps_dict_w[key]+= value
                                 else:
                                         events_flaps_dict_w[key] = value
-		print "#########"*20	
-		print "sensor flaps dict - "
-		print sensor_flaps_dict_a
-		print "----------------"
-		print sensor_flaps_dict_w
-		print "events flaps dict - "
-		print events_flaps_dict_a
-		print "----------------"
-		print events_flaps_dict_w
-		print "#########"*20
+
 		write_to_csv(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
 		json_dump = write_to_json(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "A")
 		write_to_csv(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
@@ -202,5 +188,5 @@ def main(config_file_path,\
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
-if __name__ == "__main__":
-	 main(os.getcwd()+"/", "2018-03-31-00-01-01", "2018-03-31-01-00-01")
+#if __name__ == "__main__":
+#	 main(os.getcwd()+"/", "2018-03-31-00-01-01", "2018-03-31-01-00-01")
