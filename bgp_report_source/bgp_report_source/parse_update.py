@@ -55,7 +55,6 @@ def parse(document, sensor_top_talkers, events_top_talkers):
 	sensor_parsed_file_w = {}
 	events_parsed_file_a = {}
 	events_parsed_file_w = {}
-	#events_parsed_file_time = {}
 	for line in sensor_top_talkers:
 		ip_address = line[1].replace("x", "0/24")
 		sensor_parsed_file_a[ip_address] = ip_stability_a[ip_address]
