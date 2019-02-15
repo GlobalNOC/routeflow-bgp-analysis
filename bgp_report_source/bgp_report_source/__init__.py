@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 This module extracts bgp data from netsage, calculates number of events from archived files
 and writes the computed data to Analysis.csv and Analysis.json files
@@ -8,15 +9,25 @@ import time
 import datetime
 import sys
 import bz2
+import copy
 from ast import literal_eval
 import wget
 from elasticsearch import Elasticsearch
 from get_urls import extrcat_url
 from parse_update import parse
-from write_to_files import write_to_csv, write_to_json
+from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events,write_to_db_drill_down
+from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
-# Converts from readable form year-month-day-hour-min-sec to unix time
+
 def get_unix_time(date):
+	""" Converts date time from format YYYY-MM-DD-HH-MM-SS to Unix time
+	Args:
+		date (str): datetime format - YYYY-MM-DD-HH-MM-SS
+	Returns:
+		int: Correspnding Unix timestamep
+	Example:
+		get_unix_time("2017-12-09-20-08-34") returns - 1512850114000
+	""" 
 	split_date = date.split('-')
 	mydat = datetime.datetime(int(split_date[0]), int(split_date[1]), int(split_date[2]),\
 		int(split_date[3]), int(split_date[4]), int(split_date[5]))
@@ -29,17 +40,39 @@ def get_unix_time(date):
 			unix_str = unix_str + "0"
 	return int(unix_str)
 
-# Get flow entries in the range[start,end] using ES API
-def get_flow_entries(start, end, es_instance):
-	es_object = Elasticsearch([es_instance])
-	#Get top 10 IP group by total data bits sent -
-	query = {"query":{"range": {"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
-		"aggs":{"group_by_src_ip":{"terms":{"field":"meta.src_ip.keyword"}, "aggs":{"total_bits":\
-		{"sum":{"field":"values.num_bits"}}}}}}
-	return es_object.search(body=query, scroll='1m')["aggregations"]["group_by_src_ip"]["buckets"]
+
+def check_ip_format(ip_string):
+	""" Checks if the string is in correct IPV4 address format
+	Args:
+		ip_string (str): IPv4 address string in the form - "XXX.XXX.XXX.x"
+	Returns:
+		bool : True if the format is correct, False otherwise.
+	Example:
+		check_ip_format("132.25.456.x") returns True
+		check_ip_format("123:9983.22.1.x") return False
+	"""
+	if len(ip_string) <= 1:
+		return False
+	ip = ip_string.split(".")
+	if len(ip)<4:
+		return False
+	try:
+		if int(ip[0]) and int(ip[1]) and int(ip[2]):
+			return True
+	except ValueError:
+		return False
+
 
 def write_status(file_path, error=0, error_text=""):
-	open(file_path+"status.json", 'w').close() # to clear contents of the file
+	""" Writes error message to status.json at loaction given by filepath 
+	Args:
+		file_path (str) : location on disk to create/write to status.json file 
+		error (int) : Integer number representing error number. default = 0
+		error_text (str) : Error text to be writtent to status.json file. default = ""
+	"""
+	if error > 0:
+		print "Error occurred, kindly check status file at path - ",file_path
+	open(file_path+"status.json", 'w').close() # to clear the contents of file
 	status_file = open(file_path+"status.json", "w")
 	status_file.seek(0)
 	status_obj = {"timestamp":datetime.datetime.fromtimestamp(time.time())\
@@ -47,12 +80,31 @@ def write_status(file_path, error=0, error_text=""):
 	status_file.write(json.dumps(status_obj))
 	status_file.close()
 
-def extract_top_talkers(nflow):
+
+def extract_sensor_top_talkers(nflow):
+	"""Returns top talkers for each sensor id
+	Args:
+		nflow (list): list of dictionaries, where key represents sensor_id and values are dictionaries of
+			      data sent between source and destination IPs.
+	Return:
+ 		list of tuples, where each tuple reprsents - (sensor_id, source_ip, data_sent_in_bits)
+	"""
 	top_talkers = []
 	for each in nflow:
-		if each["key"] != "":
+		sensor_id = each["key"]
+		for each_src in each["group_by_src_ip"]["buckets"]:
+			if check_ip_format(each_src["key"]):
+				top_talkers.append((sensor_id, each_src["key"], each_src["total_bits"]["value"]))
+	return top_talkers
+
+
+def extract_events_top_talkers(nflow):
+	top_talkers = []
+	for each in nflow:
+		if check_ip_format(each["key"]):
 			top_talkers.append((each["key"], each["total_bits"]["value"]))
 	return top_talkers
+
 
 def main(config_file_path,\
 	START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
@@ -65,30 +117,75 @@ def main(config_file_path,\
 		print "start - ", START_TIME
 		print "end - ", END_TIME
 		config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-		nflow = get_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["ES_Instance"])
-		top_talker_sources = extract_top_talkers(nflow)
+		sensor_nflow = get_sensor_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
+		sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
+		
+		#events_bgp_grafana data collection - 
+		events_nflow = get_events_flow_entries(get_unix_time(START_TIME), get_unix_time(END_TIME), config_obj["netsage_instance"])
+                events_top_talkers = extract_events_top_talkers(events_nflow)
+		
+		#Extracting routeflow events - 
 		url_list = extrcat_url([START_TIME, END_TIME])
 		pwd = os.getcwd()
-		flaps_dict = {}
+		sensor_flaps_dict_a = {}
+		sensor_flaps_dict_w = {}
+		events_flaps_dict_a = {}
+		events_flaps_dict_w = {}
+	
 		for each_file in url_list:
 			file_name = wget.download(each_file)
 			print "file name ---  ", file_name
-			parsed_files = parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), top_talker_sources)
-			for key, value in parsed_files.iteritems():
-				if key in flaps_dict:
-					flaps_dict[key] = flaps_dict[key] + value
+			sensor_parsed_files_a, sensor_parsed_files_w, events_parsed_files_a, events_parsed_files_w =\
+							 	parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
+			#Sensor route information - 
+			for key, value in sensor_parsed_files_a.iteritems():
+				if key in sensor_flaps_dict_a:
+					sensor_flaps_dict_a[key]+= value
 				else:
-					flaps_dict[key] = value
+					sensor_flaps_dict_a[key] = value
+			
+			for key, value in sensor_parsed_files_w.iteritems():
+                                if key in sensor_flaps_dict_w:
+                                        sensor_flaps_dict_w[key]+= value
+                                else:
+                                        sensor_flaps_dict_w[key] = value
+			#Events route information - 
+			for key, value in events_parsed_files_a.iteritems():
+                                if key in events_flaps_dict_a:
+                                        events_flaps_dict_a[key]+= value
+                                else:
+                                        events_flaps_dict_a[key] = value
 
-		write_to_csv(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
-		write_to_json(flaps_dict, top_talker_sources, config_obj["data_file_path"], START_TIME)
+			for key, value in events_parsed_files_w.iteritems():
+                                if key in events_flaps_dict_w:
+                                        events_flaps_dict_w[key]+= value
+                                else:
+                                        events_flaps_dict_w[key] = value
 
+		write_to_csv(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+		json_dump = write_to_json(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "A")
+		write_to_csv(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
+                json_dump+= write_to_json(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "W")
+		if len(json_dump) > 0:
+			json_dump1 = copy.deepcopy(json_dump)
+        	        write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
+                	write_to_db_drill_down(START_TIME, json_dump1, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"]+"_drill_down", config_obj["es_document"])
+			print "sensor db populated "
+		else:
+			print "Nothing to populate for today"
+		
+		#Populating events data - 	
+		json_dump = write_to_json_events(events_flaps_dict_a, events_top_talkers, config_obj["data_file_path"], START_TIME, "A")
+		json_dump+= write_to_json_events(events_flaps_dict_w, events_top_talkers, config_obj["data_file_path"], START_TIME, "W")
+		if len(json_dump) > 0:
+	                write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
+		else:
+			print "Nothing to populate for today"
 		#Removing update files -
-		for fname in os.listdir(pwd):
-			if fname.startswith("updates"):
-				os.remove(os.path.join(pwd, fname))
-
+		[os.remove(os.path.join(pwd, fname)) for fname in os.listdir(pwd) if fname.startswith("updates")]
 		write_status(config_obj["status_file_path"])
 	except Exception as e:
 		print "Exception -", e
 		write_status(config_obj["status_file_path"], 1, str(e))
+#if __name__ == "__main__":
+#	 main(os.getcwd()+"/", "2018-03-31-00-01-01", "2018-03-31-01-00-01")
