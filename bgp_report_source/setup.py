@@ -5,11 +5,11 @@ def readme():
         return f.read()
 
 setup(name='bgp_report_source',
-      version='0.1',
+      version='0.1.1',
       description='routeflow-bgp-analysis',
       url='https://github.com/GlobalNOC/routeflow-bgp-analysis/',
-      author='Mihir Thatte',
-      author_email='mthatte@indiana.edu',
+      author='GlobalNOC',
+      author_email='ndca@globalnoc.iu.edu',
       license='',
       packages=['bgp_report_source'],
       package_data={'bgp_report_source': ['config.json']},

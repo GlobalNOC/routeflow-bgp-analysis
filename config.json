@@ -1,6 +1,6 @@
 {
-        "ES_Instance":"http://140.182.49.116:9200",
-        "archive_url":"http://archive.routeviews.org/bgpdata/",
-        "status_file_path":"/home/mthatte/pip_route/routeflow-bgp-analysis/",
-	"data_file_path":"/home/mthatte/pip_route/"
+    "ES_Instance":"http://140.182.49.116:9200",
+    "archive_url":"http://archive.routeviews.org/bgpdata/",
+    "status_file_path":"/home/veorlows/routeflow-bgp-analysis/testing/routeflow-bgp-analysis",
+    "data_file_path":"/home/veorlows/routeflow-bgp-analysis/testing"
 }
