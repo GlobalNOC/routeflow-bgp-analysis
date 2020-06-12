@@ -19,6 +19,9 @@ from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_js
 from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
 
+def process_error(func, e, errors):
+    return True
+
 def get_unix_time(date_str):
     """ Converts date time from format YYYY-MM-DD-HH-MM-SS to Unix time
     Args: date (str): datetime format - YYYY-MM-DD-HH-MM-SS
@@ -95,7 +98,7 @@ def extract_sensor_top_talkers(nflow):
     Return: list of tuples, where each tuple reprsents - (sensor_id, source_ip, data_sent_in_bits)
     """
     try:
-        return [(e['key'], f['key'], f['total_bits']['value']) for e in nflow for f in e['group_by_source_ip']['buckets'] if check_ip(f['key'])]
+        return [(e['key'], f['key'], f['total_bits']['value']) for e in nflow for f in e['group_by_src_ip']['buckets'] if check_ip(f['key'])]
     except Exception, e:
         print "extract_sensor_top_talkers() ERROR:", e
         return []
@@ -134,7 +137,7 @@ def main(config_file_path,\
     # Get the configuration
     try:
         config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-    except Exception, e:
+    except IOError, e:
         err = "main() ERROR: Could not open config JSON file\n"
         errors += err
         print err, e
@@ -158,55 +161,81 @@ def main(config_file_path,\
         print err, e
 
     # Get the routflow events data
-    try:	
-        url_list = extrcat_url([START_TIME, END_TIME])
-        pwd = os.getcwd()
-        sensor_flaps_dict_a = {}
-        sensor_flaps_dict_w = {}
-        events_flaps_dict_a = {}
-        events_flaps_dict_w = {}
+    url_list = extrcat_url([START_TIME, END_TIME])
+    
+    pwd = os.getcwd()
 
-        for each_file in url_list:
+    sensor_flaps_dict_a = {}
+    sensor_flaps_dict_w = {}
+    events_flaps_dict_a = {}
+    events_flaps_dict_w = {}
 
-            file_name = wget.download(each_file)
+    start = time.time()
+    
+    for url in url_list:
+        
+        # Set the start time for handling the file
+        file_start = time.time()
 
-            print "file name ---  ", file_name
+        # Download the bz2 file
+        try:
+            print "\nGetting file at this url: {}".format(url)
+            filename = wget.download(url)
+            bzfilename = "{}/{}".format(pwd,filename)
+            print '\nFile saved as "{}"'.format(bzfilename)
 
-            sensor_parsed_files_a, sensor_parsed_files_w, events_parsed_files_a, events_parsed_files_w =\
-                parse(bz2.BZ2File(pwd+"/"+file_name, "rb"), sensor_top_talkers, events_top_talkers)
+        except Exception, e:
+            err = "main() ERROR: Could not download file at this URL {}".format(url)
+            errors += err
+            print err, e
+        
+        # Parse the bz2 file
+        print 'Parsing data from "{}"...'.format(filename),
+        bzfile = bz2.BZ2File(bzfilename, 'rb')
 
-            # TODO: NONE OF THE "parsed_files" VARS ARE DECLARED ANYWHERE
+        parsed = parse(bzfile, sensor_top_talkers, events_top_talkers)
+        sensor_parsed_files_a = parsed[0]
+        sensor_parsed_files_w = parsed[1]
+        events_parsed_files_a = parsed[2]
+        events_parsed_files_w = parsed[3]
 
-            # Sensor route information
-            for key, value in sensor_parsed_files_a.iteritems():
-                if key in sensor_flaps_dict_a:
-                    sensor_flaps_dict_a[key] += value
-                else:
-                    sensor_flaps_dict_a[key] = value
+        parse_err = parsed[4]
+        if not parse_err:
+            print "\t[COMPLETE]"
+        else:
+            print "\t[FAILED] (Reason: {})".format(parse_err)
 
-            for key, value in sensor_parsed_files_w.iteritems():
-                if key in sensor_flaps_dict_w:
-                    sensor_flaps_dict_w[key] += value
-                else:
-                    sensor_flaps_dict_w[key] = value
+        # Sensor route information
+        print "Setting route information from parsed data...",
+        for key, value in sensor_parsed_files_a.iteritems():
+            if key in sensor_flaps_dict_a:
+                sensor_flaps_dict_a[key] += value
+            else:
+                sensor_flaps_dict_a[key] = value
 
-            # Events route information
-            for key, value in events_parsed_files_a.iteritems():
-                if key in events_flaps_dict_a:
-                    events_flaps_dict_a[key] += value
-                else:
-                    events_flaps_dict_a[key] = value
+        for key, value in sensor_parsed_files_w.iteritems():
+            if key in sensor_flaps_dict_w:
+                sensor_flaps_dict_w[key] += value
+            else:
+                sensor_flaps_dict_w[key] = value
+        print "\t\t[COMPLETE]"
 
-            for key, value in events_parsed_files_w.iteritems():
-                if key in events_flaps_dict_w:
-                    events_flaps_dict_w[key] += value
-                else:
-                    events_flaps_dict_w[key] = value
+        # Events route information
+        print "Setting events route information from parsed data...",
+        for key, value in events_parsed_files_a.iteritems():
+           if key in events_flaps_dict_a:
+                events_flaps_dict_a[key] += value
+           else:
+                events_flaps_dict_a[key] = value
 
-    except Exception, e:
-        err = "main() ERROR: Could not get routflow data\n"
-        errors += err
-        print err, e
+        for key, value in events_parsed_files_w.iteritems():
+            if key in events_flaps_dict_w:
+                events_flaps_dict_w[key] += value
+            else:
+                events_flaps_dict_w[key] = value
+        print "\t[COMPLETE]"
+
+        print 'Finished processing "{}" in {} seconds'.format(filename, round(time.time()-file_start, 3))
 
     # Handle sensor_flaps data
     try:
