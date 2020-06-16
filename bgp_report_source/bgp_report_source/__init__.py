@@ -18,15 +18,15 @@ from parse_update import parse
 from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events,write_to_db_drill_down
 from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
-# Global Constants
-ERRORS        = ''
+# Global Variables
+all_errors    = ''
 DEFAULT_START = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S')
 DEFAULT_END   = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')
 
 # Handles error logging and tracking for status output
-def log_error(func, e):
+def log_error(func, e, errors=all_errors):
     err_str = "{}() ERROR: {}\n".format(func, e)
-    ERRORS += err_str
+    errors += err_str
     print err_str
 
 def get_unix_time(date_str):
@@ -194,17 +194,17 @@ def main(config_file_path, START_TIME=DEFAULT_START, END_TIME=DEFAULT_END):
 
         # Parse the data in the bz2 file
         print 'Parsing data from "{}"...'.format(name),
-        parsed = parse(bzfile, sensor_top_talkers, events_top_talkers)
+        parsed, err = parse(bzfile, sensor_top_talkers, events_top_talkers)
+        if err:
+            print '\t[FAILED] (Reason: {})'.format(err)
+            log_error('parse', err)
+        else:
+            print '\t[COMPLETE]'
+
         sensor_parsed_a = parsed[0]
         sensor_parsed_w = parsed[1]
         events_parsed_a = parsed[2]
         events_parsed_w = parsed[3]
-
-        # Check for parsing errors
-        if not parsed[4]:
-            print "\t[COMPLETE]"
-        else:
-            print "\t[FAILED] (Reason: {})".format(parsed[4])
 
         # Sensor route information
         print "Setting sensor routing information from parsed data...",
@@ -323,8 +323,8 @@ def main(config_file_path, START_TIME=DEFAULT_START, END_TIME=DEFAULT_END):
         log_error('main', e)
 
     # Write the status file with or without any errors
-    if ERRORS:
-        write_status(config["status_file_path"], 1, ERRORS)
+    if all_errors:
+        write_status(config["status_file_path"], 1, all_errors)
     else:
         write_status(config["status_file_path"])
 
