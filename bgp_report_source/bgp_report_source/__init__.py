@@ -18,9 +18,16 @@ from parse_update import parse
 from write_to_files import write_to_csv, write_to_json, write_to_db, write_to_json_events,write_to_db_drill_down
 from netsage_flow import get_sensor_flow_entries, get_events_flow_entries
 
+# Global Constants
+ERRORS        = ''
+DEFAULT_START = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S')
+DEFAULT_END   = datetime.datetime.strftime(datetime.datetime.now() - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')
 
-def process_error(func, e, errors):
-    return True
+# Handles error logging and tracking for status output
+def log_error(func, e):
+    err_str = "{}() ERROR: {}\n".format(func, e)
+    ERRORS += err_str
+    print err_str
 
 def get_unix_time(date_str):
     """ Converts date time from format YYYY-MM-DD-HH-MM-SS to Unix time
@@ -46,8 +53,14 @@ def get_unix_time(date_str):
         return int(unix_str)
 
     except Exception, e:
-        print 'get_unix_time() ERROR:', e
+        log_error('get_unix_time', e)
 
+
+def read_config(config_path):
+    try:
+        return literal_eval(open(config_path+"config.json", "r").read())
+    except IOError, e:
+        log_error('main', e)
 
 def check_ip(ip_string):
     """ Checks if the string is in correct IPV4 address format
@@ -64,7 +77,7 @@ def check_ip(ip_string):
             return True
 		
     except Exception, e:
-        print "check_ip() ERROR: ", e
+        log_error('check_ip', e)
 	
     return False
 
@@ -77,8 +90,8 @@ def write_status(file_path, error=0, error_text=""):
         error_text (str) : Error text to be writtent to status.json file. default = ""
     """
     
-    if error > 0:
-        print "Error occurred, kindly check status file at path - ",file_path
+    if error:
+        print "Error(s) occurred, check the status file here: {}".format(file_path)
 
     try:
     	open(file_path+"status.json", 'w').close() # to clear the contents of file
@@ -89,7 +102,7 @@ def write_status(file_path, error=0, error_text=""):
         status_file.close()
 
     except Exception, e:
-        print "write_status() ERROR:", e
+        log_error('write_status', e)
 
 
 def extract_sensor_top_talkers(nflow):
@@ -100,7 +113,7 @@ def extract_sensor_top_talkers(nflow):
     try:
         return [(e['key'], f['key'], f['total_bits']['value']) for e in nflow for f in e['group_by_src_ip']['buckets'] if check_ip(f['key'])]
     except Exception, e:
-        print "extract_sensor_top_talkers() ERROR:", e
+        log_error('extract_sensor_top_talkers', e)
         return []
 
 
@@ -108,193 +121,210 @@ def extract_events_top_talkers(nflow):
     try:
         return [(n["key"], n["total_bits"]["value"]) for n in nflow if check_ip(n["key"])]
     except Exception, e:
-        print "extract_events_top_talkers() ERROR:", e
+        log_error('extract_events_top_talkers', e)
         return []
 
 
-def main(config_file_path,\
-    START_TIME=datetime.datetime.strftime(datetime.datetime.now()\
-    - datetime.timedelta(2), '%Y-%m-%d-%H-%M-%S'),\
-    END_TIME=datetime.datetime.strftime(datetime.datetime.now()\
-    - datetime.timedelta(1), '%Y-%m-%d-%H-%M-%S')):
+def get_file(url, cwd):
 
-    errors = ''
-
-    # Get the time data needed for processing
+    # Download the bz2 file
     try:
-    	print "Process started at - ", datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
-        print "start - ", START_TIME
-        print "end - ", END_TIME
+        print "\nGetting file at this url: {}".format(url)
+        name = wget.download(url)
+        bzfilename = "{}/{}".format(cwd, name)
+        print '\nFile saved as "{}"'.format(bzfilename)
 
-        unix_start = get_unix_time(START_TIME)
-        unix_end = get_unix_time(END_TIME)
     except Exception, e:
-        err = 'main() ERROR: Could not get Unix times\n'
-        errors += err
-        print err, e
+        log_error('get_file', e)
 
+    # Parse the bz2 file
+    try:
+        bzfile = bz2.BZ2File(bzfilename, 'rb')
+    except Exception, e:
+        log_error('get_file', e)
+
+    return (bzfile, name)
+
+
+def main(config_file_path, START_TIME=DEFAULT_START, END_TIME=DEFAULT_END):
+
+    # Set the start time to track the run time duration
+    start = time.time()
+
+    # Output the time the report started and the time range of data wanted
+    print "BGP Report started at {}\n".format(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f'))
+    print "START:\t\t{}".format(START_TIME)
+    print "END:\t\t{}".format(END_TIME)
+
+    # Get the CWD to use for files
+    cwd = os.getcwd()
+
+    # Get the start and end times as Unix epochs
+    unix_start = get_unix_time(START_TIME)
+    unix_end   = get_unix_time(END_TIME)
 
     # Get the configuration
-    try:
-        config_obj = literal_eval(open(config_file_path+"config.json", "r").read())
-    except IOError, e:
-        err = "main() ERROR: Could not open config JSON file\n"
-        errors += err
-        print err, e
+    config = read_config(config_file_path)
 
     # Get the sensor top talkers data
-    try:
-        sensor_nflow = get_sensor_flow_entries(unix_start, unix_end, config_obj["netsage_instance"])
-        sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
-    except Exception, e:
-        err = "main() ERROR: Could not get sensor top talkers data\n"
-        errors += err
-        print err, e		
+    sensor_nflow       = get_sensor_flow_entries(unix_start, unix_end, config["netsage_instance"])
+    sensor_top_talkers = extract_sensor_top_talkers(sensor_nflow)
 
     # Get the events top talkers data
-    try:
-        events_nflow = get_events_flow_entries(unix_start, unix_end, config_obj["netsage_instance"])
-        events_top_talkers = extract_events_top_talkers(events_nflow)
-    except Exception, e:
-        err = "main() ERROR: Could not get events top talkers data\n"
-        errors += err
-        print err, e
+    events_nflow       = get_events_flow_entries(unix_start, unix_end, config["netsage_instance"])
+    events_top_talkers = extract_events_top_talkers(events_nflow)
 
-    # Get the routflow events data
-    url_list = extrcat_url([START_TIME, END_TIME])
+    # Get the array of URLs to download bz2 files from
+    urls = extrcat_url([START_TIME, END_TIME])
     
-    pwd = os.getcwd()
+    # Initialize sensor/event flap dictionaries
+    sensor_a = {}
+    sensor_w = {}
+    events_a = {}
+    events_w = {}
 
-    sensor_flaps_dict_a = {}
-    sensor_flaps_dict_w = {}
-    events_flaps_dict_a = {}
-    events_flaps_dict_w = {}
-
-    start = time.time()
-    
-    for url in url_list:
+    # Iterate over every data file URL
+    for url in urls:
         
         # Set the start time for handling the file
         file_start = time.time()
 
-        # Download the bz2 file
-        try:
-            print "\nGetting file at this url: {}".format(url)
-            filename = wget.download(url)
-            bzfilename = "{}/{}".format(pwd,filename)
-            print '\nFile saved as "{}"'.format(bzfilename)
+        # Get and read the bz2 file at "url" and its name
+        bzfile, name = get_file(url, cwd)
 
-        except Exception, e:
-            err = "main() ERROR: Could not download file at this URL {}".format(url)
-            errors += err
-            print err, e
-        
-        # Parse the bz2 file
-        print 'Parsing data from "{}"...'.format(filename),
-        bzfile = bz2.BZ2File(bzfilename, 'rb')
-
+        # Parse the data in the bz2 file
+        print 'Parsing data from "{}"...'.format(name),
         parsed = parse(bzfile, sensor_top_talkers, events_top_talkers)
-        sensor_parsed_files_a = parsed[0]
-        sensor_parsed_files_w = parsed[1]
-        events_parsed_files_a = parsed[2]
-        events_parsed_files_w = parsed[3]
+        sensor_parsed_a = parsed[0]
+        sensor_parsed_w = parsed[1]
+        events_parsed_a = parsed[2]
+        events_parsed_w = parsed[3]
 
-        parse_err = parsed[4]
-        if not parse_err:
+        # Check for parsing errors
+        if not parsed[4]:
             print "\t[COMPLETE]"
         else:
-            print "\t[FAILED] (Reason: {})".format(parse_err)
+            print "\t[FAILED] (Reason: {})".format(parsed[4])
 
         # Sensor route information
-        print "Setting route information from parsed data...",
-        for key, value in sensor_parsed_files_a.iteritems():
-            if key in sensor_flaps_dict_a:
-                sensor_flaps_dict_a[key] += value
+        print "Setting sensor routing information from parsed data...",
+        for key, value in sensor_parsed_a.iteritems():
+            if key in sensor_a:
+                sensor_a[key] += value
             else:
-                sensor_flaps_dict_a[key] = value
+                sensor_a[key] = value
 
-        for key, value in sensor_parsed_files_w.iteritems():
-            if key in sensor_flaps_dict_w:
-                sensor_flaps_dict_w[key] += value
+        for key, value in sensor_parsed_w.iteritems():
+            if key in sensor_w:
+                sensor_w[key] += value
             else:
-                sensor_flaps_dict_w[key] = value
-        print "\t\t[COMPLETE]"
-
-        # Events route information
-        print "Setting events route information from parsed data...",
-        for key, value in events_parsed_files_a.iteritems():
-           if key in events_flaps_dict_a:
-                events_flaps_dict_a[key] += value
-           else:
-                events_flaps_dict_a[key] = value
-
-        for key, value in events_parsed_files_w.iteritems():
-            if key in events_flaps_dict_w:
-                events_flaps_dict_w[key] += value
-            else:
-                events_flaps_dict_w[key] = value
+                sensor_w[key] = value
         print "\t[COMPLETE]"
 
-        print 'Finished processing "{}" in {} seconds'.format(filename, round(time.time()-file_start, 3))
+        # Events route information
+        print "Setting event routing information from parsed data...",
+        for key, value in events_parsed_a.iteritems():
+           if key in events_a:
+                events_a[key] += value
+           else:
+                events_a[key] = value
 
-    # Handle sensor_flaps data
-    try:
-        write_to_csv(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
-        json_dump = write_to_json(sensor_flaps_dict_a, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "A")
+        for key, value in events_parsed_w.iteritems():
+            if key in events_w:
+                events_w[key] += value
+            else:
+                events_w[key] = value
+        print "\t[COMPLETE]"
 
-        write_to_csv(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME)
-        json_dump += write_to_json(sensor_flaps_dict_w, sensor_top_talkers, config_obj["data_file_path"], config_obj["sensor-name-map"], START_TIME, "W")
-    except Exception, e:
-        err = 'main() ERROR: Could not handle sensor_flaps_dict data\n'
-        errors += err
-        print err, e
+        print 'Finished processing "{}" in {} seconds'.format(name, round(time.time()-file_start, 3))
 
-    # Handle event_flaps data
-    try:
-        if json_dump:
-            json_dump1 = copy.deepcopy(json_dump)
-            write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"], config_obj["es_document"])
-            write_to_db_drill_down(START_TIME, json_dump1, config_obj["elasticsearch_instance"], config_obj["sensor_es_index"]+"_drill_down", config_obj["es_document"])
-            print "sensor db populated "
-        else:
-            print "Nothing to populate for today"
+    # Create a JSON dump array of all the data written
+    json_dump = []
 
-        # Populate events data
-        json_dump = write_to_json_events(events_flaps_dict_a, events_top_talkers, config_obj["data_file_path"], START_TIME, "A")
-        json_dump += write_to_json_events(events_flaps_dict_w, events_top_talkers, config_obj["data_file_path"], START_TIME, "W")
+    print '\nFinalizing Sensor-A Data:\n{}'.format('-'*48)
+    # Write sensor_a data to CSV
+    result, err = write_to_csv(sensor_a, sensor_top_talkers, config["data_file_path"], config["sensor-name-map"], START_TIME)
+    if err:
+        log_error(result, err)
 
-    except Exception, e:
-        err = 'main() ERROR: Could not handle event_flaps_dict data\n'
-        errors += err
-        print err, e
+    # Write sensor_a data to JSON
+    result, err = write_to_json(sensor_a, sensor_top_talkers, config["data_file_path"], config["sensor-name-map"], START_TIME, "A")
+    if err:
+        log_error(result, err)
+    else:
+        # Add the result to the JSON dump
+        json_dump += result
 
-    # Write the processed json_dump to the database
-    try:
-        if json_dump:
-            write_to_db(START_TIME, json_dump, config_obj["elasticsearch_instance"], config_obj["events_es_index"], config_obj["es_document"])
-        else:
-            print "Nothing to populate for today"
-    except Exception, e:
-        err = 'main() ERROR: Could not write to the DB'
-        errors += err
-        print err, e
+    print '\nFinalizing Sensor-W Data:\n{}'.format('-'*48)
+    # Write sensor_w data to CSV
+    result, err = write_to_csv(sensor_w, sensor_top_talkers, config["data_file_path"], config["sensor-name-map"], START_TIME)
+    if err:
+        log_error(result, err)
+
+    # Write sensor_w data to JSON
+    result, err = write_to_json(sensor_w, sensor_top_talkers, config["data_file_path"], config["sensor-name-map"], START_TIME, "W")
+    if err:
+        log_error(result, err)
+    else:
+        # Add the result to the JSON dump
+        json_dump += result
+
+    # Write the sensor data to Elastic
+    print '\nAdding sensor data to Elastic:\n{}'.format('-'*48)
+    if json_dump:
+
+        # Copy the JSON dump
+        json_dump1 = copy.deepcopy(json_dump)
+
+        # Write the JSON dump to Elastic
+        result, err = write_to_db(START_TIME, json_dump, config["elasticsearch_instance"], config["sensor_es_index"], config["es_document"])
+        if err:
+            log_error(result, err)
+
+        # Write the drilldown of the JSON dump to Elastic
+        result, err = write_to_db_drill_down(START_TIME, json_dump1, config["elasticsearch_instance"], config["sensor_es_index"]+"_drill_down", config["es_document"])
+        if err:
+            log_error(result, err)
+
+    else:
+        print "Nothing to populate for the time period!"
+
+    # Reset the JSON dump array
+    json_dump = []
+
+    # Populate events data
+    result, err = write_to_json_events(events_a, events_top_talkers, config["data_file_path"], START_TIME, "A")
+    if err:
+        log_error(result, err)
+    else:
+        json_dump += result
+
+    result, err = write_to_json_events(events_w, events_top_talkers, config["data_file_path"], START_TIME, "W")
+    if err:
+        log_error(result, err)
+    else:
+        json_dump += result
+
+    # Write the event data to Elastic
+    print '\nAdding event data to Elastic:\n{}'.format('-'*48)
+    if json_dump:
+        result, err = write_to_db(START_TIME, json_dump, config["elasticsearch_instance"], config["events_es_index"], config["es_document"])
+        if err:
+            log_error(result, err)
+    else:
+        print "Nothing to populate for the time period!"
 
     # Remove update files
     try:
-        for fname in os.listdir(pwd):
+        for fname in os.listdir(cwd):
             if fname.startswith('updates'):
-                os.remove(os.path.join(pwd, fname))
-    except Exception,e:
-        err = 'main() ERROR: Could not remove update files\n'
-        errors += err
-        print err, e
+                os.remove(os.path.join(cwd, fname))
+    except IOError, e:
+        log_error('main', e)
 
-    if errors:
-        write_status(config_obj["status_file_path"], 1, errors)
+    # Write the status file with or without any errors
+    if ERRORS:
+        write_status(config["status_file_path"], 1, ERRORS)
     else:
-        write_status(config_obj["status_file_path"])
+        write_status(config["status_file_path"])
 
-
-
-#if __name__ == "__main__":
-#	 main(os.getcwd()+"/", "2018-03-31-00-01-01", "2018-03-31-01-00-01")
