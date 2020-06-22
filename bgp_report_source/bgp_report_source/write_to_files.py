@@ -5,137 +5,303 @@ import time
 import copy
 from elasticsearch import Elasticsearch, helpers
 
+# Writes data to a CSV file or returns an error
 def write_to_csv(flaps_dict, top_talker_sources, file_path, sensor_name_map, start_time):
-	csv_file = open(file_path+"Analysis.csv", "a")
-	file_to_write = csv.writer(csv_file, delimiter=',')
+    
+	print 'Writing data to CSV...',
+	err_msg = '\t[FAILED] (Reason: {})'
+
+	# Set the date for the rows of data being written
 	date = start_time[0:10]
-	for line2 in top_talker_sources:
-		list_to_write = []
-		list_to_write.append(date)
-		sensor_name = line2[0]
-		if sensor_name in sensor_name_map:
-			sensor_name = sensor_name_map[sensor_name]
-		list_to_write.append(sensor_name)
-		list_to_write.append(line2[1])
-		list_to_write.append(line2[2])
-		ip_address = list_to_write[2]
-		ip_address = ip_address[:ip_address.find("x")]+"0/24"
-		list_to_write.append(len(flaps_dict[ip_address]))
-		cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
-		try: #When no records were found for particular IP, ignore them
-			descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-			list_to_write.append(descr)
+
+	# Open the CSV file for writing or return error
+	try:
+		csv_file = open(file_path+"Analysis.csv", "a")
+		writer = csv.writer(csv_file, delimiter=',')
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_csv', e)
+
+    
+	# Create a row of data for each source
+	for source in top_talker_sources:
+
+		# Get the sensor name, IP address, and CIDR /24 netblock for the source
+		sensor   = source[0]
+		ip       = source[1]
+		netblock = ip[:ip.find('x')] + '0/24'
+		bits     = source[2]
+		flaps    = len(flaps_dict[netblock])
+
+		# Correct the sensor name if it's in the map
+		if sensor in sensor_name_map:
+			sensor = sensor_name_map[sensor]
+		
+		# Get the WHOIS description for the netblock
+		try:
+			cmd = 'whois -h whois.radb.net {} | grep descr:'.format(netblock)
+			description = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
 		except IndexError as e:
-			print ("write to cs exception ", e)
-			list_to_write.append("NOT FOUND IN RADb")
-		file_to_write.writerow(list_to_write)
-	file_to_write.writerow([])
-	csv_file.close()
+			# Set default description when no description could be indexed
+			description = 'NOT FOUND IN RADb'
+
+		# Set the row array to write for the source
+		row = [date, sensor, ip, bits, flaps, description]
+
+		# Write the row to the CSV file or return error
+		try:
+			writer.writerow(row)
+		except IOError, e:
+			print err_msg.format(e)
+			return ('write_to_csv', e)
+
+	# Write an empty row to the end for formatting and close the CSV file
+	try:
+		writer.writerow([])
+		csv_file.close()
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_csv', e)
+
+	print '\t\t[COMPLETE]'
+	return(1, 0)
 
 
+# Writes data to a JSON file or returns an error
 def write_to_json(flaps_dict, top_talker_sources, file_path, sensor_name_map, start_time, event_type):
-	open(file_path+"Analysis.json", 'w').close() # to clear contents of the file
-	file_to_write = open(file_path+"Analysis.json", "w")
+	
+	print 'Writing data to JSON...',
+	err_msg = '\t[FAILED] (Reason: {})'
+
+	# Set the date for the rows of data being written
 	date = start_time[0:10]
-	list_file = []
-	for line2 in top_talker_sources:
-		ip_address = line2[1]
-                ip_address = ip_address[:ip_address.find("x")]+"0/24"
-		if len(flaps_dict[ip_address]) > 0:
-			list_to_write = {}
-			list_to_write["Event_Type"] = event_type 
-			list_to_write["Date"] = date
-			sensor_name = line2[0]
-        	        if sensor_name in sensor_name_map:
-                	        sensor_name = sensor_name_map[sensor_name]
-			list_to_write["Sensor"] = sensor_name
-			list_to_write["Prefix"] = line2[1]
-			list_to_write["DataSentInbits"] = int(line2[2])
-                	list_to_write["Events"] = len(flaps_dict[ip_address])
-	                list_to_write["Events_Time"] = flaps_dict[ip_address]
-			cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
+
+	# Open the JSON file for writing
+	try:
+		# Clear the file contents
+		open(file_path+"Analysis.json", 'w').close()
+		json_file = open(file_path+"Analysis.json", "w")
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_json', e)
+
+	# An array to store all output to be written
+	output = []
+
+	for source in top_talker_sources:
+
+		# Get the sensor name, IP address, CIDR /24 netblock, flap count, and bits for the source
+		sensor   = source[0]
+		ip       = source[1]
+		netblock = ip[:ip.find('x')] + '0/24'
+		bits	 = int(source[2])
+		flaps    = len(flaps_dict[netblock])
+
+		# Correct the sensor name if it's in the map
+		if sensor in sensor_name_map:
+			sensor = sensor_name_map[sensor]
+
+		# We only add data for sensors that have flaps
+		if flaps > 0:
+
+			# Get the WHOIS description for the netblock
 			try:
-				descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-				list_to_write["Organization"] = descr
+				cmd = "whois -h whois.radb.net {} | grep descr:".format(netblock)
+				description = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
 			except IndexError as e:
-				print "write to json exception ", e
-				list_to_write["Organization"] = "NOT FOUND IN RADb"
-			list_file.append(list_to_write)
-	file_to_write.seek(0)
-	file_to_write.write(json.dumps(list_file))
-	return list_file
+				description = 'NOT FOUND IN RADb'
+
+			# Create an object for the sensor data
+			sensor_data = {\
+				'Date':           date,\
+				'Event_Type':     event_type,\
+				'Sensor':         sensor,\
+				'Prefix':         ip,\
+				'DataSentInbits': bits,\
+				'Events':         flaps,\
+				'Events_Time':    flaps_dict[netblock],\
+				'Organization':   description\
+			}
+
+			# Add the sensor data to the output
+			output.append(sensor_data)
+	
+	# Write the output to the JSON file
+	try:
+		json_file.seek(0)
+		json_file.write(json.dumps(output))
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_json', e)
+
+	# Return the output array
+	print '\t[COMPLETE]'
+	return (output, 0)
+
 
 def write_to_json_events(flaps_dict, top_talker_sources, file_path, start_time, event_type):
-        open(file_path+"events_Analysis.json", 'w').close() # to clear contents of the file
-        file_to_write = open(file_path+"events_Analysis.json", "w")
-        date = start_time[0:10]
-        list_file = []
-        for line2 in top_talker_sources:
-		ip_address = line2[0]
-                ip_address = ip_address[:ip_address.find("x")]+"0/24"
-		if len(flaps_dict[ip_address]) > 0:
-			list_to_write = {}
-			list_to_write["Event_Type"] = event_type
-                	list_to_write["Date"] = date
-	                list_to_write["Prefix"] = line2[0]
-        	        list_to_write["DataSentInbits"] = int(line2[1])
-               		list_to_write["Events"] = len(flaps_dict[ip_address])
-			list_to_write["Events_Time"] = flaps_dict[ip_address]
-                	cmd = "whois -h whois.radb.net "+ip_address+" | grep descr:"
-	                try:
-        	                descr = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                	        list_to_write["Organization"] = descr
-	                except IndexError as e:
-        	                print "write to json exception ", e
-                	        list_to_write["Organization"] = "NOT FOUND IN RADb"
-                	list_file.append(list_to_write)
-        file_to_write.seek(0)
-        file_to_write.write(json.dumps(list_file))
-        return list_file
+
+	print 'Writing data to JSON...',
+	err_msg = '\t[FAILED] (Reason: {})'
+
+	# Set the date for the rows of data being written
+	date = start_time[0:10]
+
+	# Open the JSON file for writing
+	try:
+		# Clear the file contents
+		open(file_path+"events_Analysis.json", 'w').close() # to clear contents of the file
+		json_file = open(file_path+"events_Analysis.json", "w")
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_json_events', e)
+
+	# An array to store all output to be written
+	output = []
+	
+	for source in top_talker_sources:
+
+		# Get the IP address, CIDR /24 netblock, flap count, and bits for the source
+		ip = source[0]
+		netblock = ip[:ip.find("x")]+"0/24"
+		flaps = len(flaps_dict[netblock])
+		bits = int(source[1])
+
+		# We only add data for events that have flaps
+		if flaps > 0:
+
+			# Get the WHOIS description for the netblock
+			try:
+				cmd = "whois -h whois.radb.net {} | grep descr:".format(netblock)
+				description = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+			except IndexError as e:
+				description = "NOT FOUND IN RADb"
+
+			# Create an object for the sensor data
+			event_data = {
+				"Event_Type":     event_type,
+				"Date":           date,
+				"Prefix":         ip,
+				"DataSentInbits": bits,
+				"Events":         flaps,
+				"Events_Time":    flaps_dict[netblock],
+				"Organization":   description
+			}
+
+			# Add the sensor data to the output
+			output.append(event_data)
+
+	# Write the output to the JSON file
+	try:
+		json_file.seek(0)
+		json_file.write(json.dumps(output))
+	except IOError, e:
+		print err_msg.format(e)
+		return ('write_to_json_events', e)
+
+	# Return the output array
+	print '\t[COMPLETE]'
+	return (output, 0)
 
 
+# Writes data to ES database and returns (status, error)
 def write_to_db(START_TIME, json_dump, es_instance, bgp_index, document):
-	es_object = Elasticsearch([es_instance])
-	query = { "query": { "term": {"Date":START_TIME[0:10]}}}
-	hits = es_object.search(index = bgp_index, body = query,scroll='1m')["hits"]["total"]
+
+	print 'Writing data to ES...',
+	err_msg = '\t\t[FAILED] (Reason: {})'
+
+	# Query for ES to get data for the time range
+	query = {'query': {'term': {'Date':START_TIME[0:10]}}}
+
+	# Get the ES object and number of data entries in ES for the time period
+	try:
+		es_object = Elasticsearch([es_instance])
+		hits = es_object.search(index=bgp_index, body=query, scroll='1m')["hits"]["total"]
+	except Exception, e:
+		print err_msg.format(e)
+		return ('write_to_db', e)
+
+	# Check if the time period has any data entries
 	if hits == 0:
-		prep_data = [{"_index":bgp_index,"_type":document,"_source":each} for each in json_dump]
-		for each in prep_data:
-			if "Events_Time" in each["_source"]:
-				del each["_source"]["Events_Time"]
-		print prep_data
-		helpers.bulk(es_object,prep_data) 
+
+		data = [{"_index":bgp_index, "_type":document, "_source":entry} for entry in json_dump]
+		
+		# Remove "Events_Time" from data entries
+		for d in data:
+			if "Events_Time" in d["_source"]:
+				del d["_source"]["Events_Time"]
+
+		helpers.bulk(es_object, data)
+
+		# Output the result and return
+		print '\t\t[COMPLETE]'
+		return (1, 0)
+
 	else:
-		print "Data already exists in ES for date ",START_TIME[0:10]
+		# Output the result and return
+		print '\t\t[COMPLETE] (Data already exists)'
+		return (1, 0)
 
 
-def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, document):	
-	es_object = Elasticsearch([es_instance])
+def write_to_db_drill_down(START_TIME, json_dump, es_instance, bgp_index, document):
+
+	print 'Writing drill-down to ES...',
+	err_msg = '[FAILED] (Reason: {})'
+
+	# Query for ES to get data for the time range
 	query = { "query": { "term": {"Date":START_TIME[0:10]}}}
-	hits = es_object.search(index = bgp_index, body = query,scroll='1m')["hits"]["total"]
+	
+	# Get the ES object and number of data entries in ES for the time period
+	try:
+		es_object = Elasticsearch([es_instance])
+		hits = es_object.search(index=bgp_index, body=query, scroll='1m')["hits"]["total"]
+	except Exception, e:
+		print err_msg.format(e)
+		return ('write_to_db_drilldown', e)
+
+	# Check if the time period has any data entries
 	if hits == 0:
-		prep_data = []
-		for each in json_dump:
-			if len(each["Events_Time"]) > 0:
-				for each_event in each["Events_Time"]:
-					# Get name of peer from its perr_id - 
-					cmd = "whois -h whois.radb.net "+each_event[1]+" | grep descr:"
-					try: #When no records were found for particular IP, ignore them
-						peer_name = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
-                                	except IndexError as e:
-                                        	peer_name = "NOT FOUND IN RADb"
+
+		output = []
+
+		for entry in json_dump:
+
+			for event in entry["Events_Time"]:
 					
-					#Prepare Data - 
-					data = {'Prefix':each['Prefix'], 'Organization':each['Organization'],\
-						'Date':each['Date'],\
-						'Sensor':each['Sensor'],\
-						'Peer_id':each_event[1], 'Peer_name':peer_name,\
-						'Prefix_length':each_event[2],\
-						'Event_Type':each['Event_Type'],\
-						'timestamp':time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(each_event[3]))}
-					prep_data.append({"_index":bgp_index,"_type":document,"_source":data})
-							
-		helpers.bulk(es_object,prep_data) 
+				# Get the peer name from WHOIS description
+				try:
+					cmd = 'whois -h whois.radb.net {} | grep descr:'.format(event[1])
+					peer_name = commands.getoutput(cmd).split("\n")[0].split(":")[1].strip(" ")
+				except IndexError as e:
+					peer_name = "NOT FOUND IN RADb"
+					
+				# Set the data for the event
+				event_data = {\
+					'Prefix':        entry['Prefix'],\
+					'Organization':  entry['Organization'],\
+					'Date':          entry['Date'],\
+					'Sensor':        entry['Sensor'],\
+					'Peer_id':       event[1],\
+					'Peer_name':     peer_name,\
+					'Prefix_length': event[2],\
+					'Event_Type':    entry['Event_Type'],\
+					'timestamp':     time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(event[3]))\
+				}
+
+				# Add the event data to the output
+				output.append({"_index":bgp_index, "_type":document, "_source":event_data})
+		
+		# Add output to ES
+		try:
+			helpers.bulk(es_object, output)
+		except Exception, e:
+			print err_msg.format(e)
+			return ('write_to_db_drill_down', e)
+
+	# Output the result and return
+		print '\t[COMPLETE]'
 	else:
-		print "Data already exists in ES for date ",START_TIME
+		print "\t[COMPLETE] (Data already exists)"
+
+	return (1, 0)
 

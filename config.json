@@ -1,6 +1,13 @@
 {
-        "ES_Instance":"http://140.182.49.116:9200",
-        "archive_url":"http://archive.routeviews.org/bgpdata/",
-        "status_file_path":"/home/mthatte/pip_route/routeflow-bgp-analysis/",
-	"data_file_path":"/home/mthatte/pip_route/"
+    "netsage_instance":"https://USER:PASSWORD@URL",
+    "elasticsearch_instance":"http://URL:PORT",
+    "archive_url":"http://archive.routeviews.org/bgpdata/",
+    "status_file_path":"/usr/share/bgp-report/sensor_bgp_report/",
+    "data_file_path":"/usr/share/bgp-report/sensor_bgp_report/",
+    "sensor_es_index":"bgp_events",
+    "events_es_index":"bgp_events_old",
+    "es_document":"bgpData",
+    "sensor-name-map":{
+        "this.hostname.occurrence": "Replaced by this Sensor Name"
+    }
 }

@@ -16,7 +16,7 @@ def get_sensor_flow_entries(start, end, es_instance):
 	query = {"query":{"range":{"start": {"gte":start, "lte":end, "format":"epoch_millis"}}},\
 		"size":0, "aggs":{"count_sensor_id":{"cardinality":{"field":"meta.sensor_id.keyword"}}}}
 	number_of_sensors = es_object.search(index="om-ns-netsage*", body=query, request_timeout=30)["aggregations"]["count_sensor_id"]["value"]
-	print "no of sensor -----------------------",number_of_sensors
+	print "SENSORS:\t{}".format(number_of_sensors)
 
 	#final query group by sensor ids - 
 	query = {"query":{"range":{"start":{"gte":start, "lte":end, "format":"epoch_millis"}}},\

@@ -18,7 +18,9 @@ def main():
 	elif len(sys.argv) == 4:
 		bgp_report_source.main(sys.argv[1], sys.argv[2], sys.argv[3])
 	else:
-		print "Incorrect number of arguments"
-	print "Total time compute ",time.time()-s
+		print "ERROR: Incorrect number of arguments"
+
+	print "\nBGP Report finished in {} seconds\n".format(round(time.time()-s, 2))
+
 if __name__ == "__main__":
 	main()
